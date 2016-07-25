@@ -63,7 +63,7 @@ extension UIColor {
     }
     
     public struct ColorCodes {
-        public static let app = "DB3C50"
+        public static let app = "0198D7"
     }
 }
 

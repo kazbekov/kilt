@@ -19,6 +19,7 @@ final class MainTabBarController: UITabBarController {
             UINavigationController(rootViewController: ProfileViewController())
         ]
         
+        tabBar.tintColor = .appColor()
         setUpTabBarItem(tabBar.items?[0], title: "Карточки", image: Icon.cardsIcon)
         setUpTabBarItem(tabBar.items?[1], title: "Сообщения", image: Icon.messagesIcon)
         setUpTabBarItem(tabBar.items?[2], title: "Акции", image: Icon.discountsIcon)
