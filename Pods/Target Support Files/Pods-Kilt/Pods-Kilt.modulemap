@@ -1,0 +1,6 @@
+framework module Pods_Kilt {
+  umbrella header "Pods-Kilt-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -9,13 +9,13 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        coordinateAppFlow()
         return true
     }
 
@@ -44,3 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate {
+    private func coordinateAppFlow() {
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window?.rootViewController = MainTabBarController()
+        window?.makeKeyAndVisible()
+    }
+}
