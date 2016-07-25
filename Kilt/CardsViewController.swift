@@ -15,10 +15,10 @@ final class CardsViewController: UIViewController {
     private let cardsCellIdentifier = "cardsCellIdentifier"
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        return tableView
+        return UITableView().then {
+            $0.delegate = self
+            $0.dataSource = self
+        }
     }()
     
     override func viewDidLoad() {

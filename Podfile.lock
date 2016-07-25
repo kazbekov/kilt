@@ -1,18 +1,15 @@
 PODS:
   - Cartography (0.6.0)
-  - ReactiveCocoa (4.2.1):
-    - Result (~> 2.0)
-  - Result (2.1.2)
+  - Sugar (1.2.0)
 
 DEPENDENCIES:
   - Cartography (~> 0.6)
-  - ReactiveCocoa (~> 4.2)
+  - Sugar (~> 1.2)
 
 SPEC CHECKSUMS:
   Cartography: 70af183a248547694a8cfaa6b989cb7e04589985
-  ReactiveCocoa: 5a42745f11ea236f405bb9ce5e97c5e3b23562dd
-  Result: 6e722d4a66b1408680dbfcdf51c0b1c4b706316a
+  Sugar: 556b623f0f8846cf08de7302701892f11d567419
 
-PODFILE CHECKSUM: 37d4347d55ea66a70a85a87d25a0c385d5ba32b0
+PODFILE CHECKSUM: 6e27a88aeff4ad28e9a0adedc608fba023259633
 
 COCOAPODS: 1.0.0

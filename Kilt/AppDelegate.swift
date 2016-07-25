@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Sugar
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         coordinateAppFlow()
         setUpTabBarAppearance()
+        setUpNavigationBarAppearance()
         return true
     }
 
@@ -42,21 +44,32 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
 
 extension AppDelegate {
     
     private func coordinateAppFlow() {
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.backgroundColor = .whiteColor()
-        window?.rootViewController = MainTabBarController()
-        window?.makeKeyAndVisible()
+        window = UIWindow(frame: UIScreen.mainScreen().bounds).then {
+            $0.backgroundColor = .whiteColor()
+            $0.rootViewController = MainTabBarController()
+            $0.makeKeyAndVisible()
+        }
     }
     
     private func setUpTabBarAppearance() {
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.tundoraColor()], forState: .Normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.appColor()], forState: .Selected)
+        UITabBarItem.appearance().then {
+            $0.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.tundoraColor()], forState: .Normal)
+            $0.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.appColor()], forState: .Selected)
+        }
+    }
+    
+    private func setUpNavigationBarAppearance() {
+        UINavigationBar.appearance().then {
+            $0.tintColor = .whiteColor()
+            $0.translucent = false
+            $0.barStyle = .Black
+            $0.barTintColor = .appColor()
+        }
     }
     
 }

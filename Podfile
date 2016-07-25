@@ -7,6 +7,7 @@ target 'Kilt' do
 
   # Pods for Kilt
   pod 'Cartography', '~> 0.6'
+  pod 'Sugar', '~> 1.2'
 
   target 'KiltTests' do
     inherit! :search_paths
