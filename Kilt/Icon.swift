@@ -8,9 +8,13 @@
 
 import UIKit
 
-final class Icon {
+struct Icon {
     static let cardsIcon = UIImage(named: "cards-icon")
     static let messagesIcon = UIImage(named: "messages-icon")
     static let discountsIcon = UIImage(named: "discounts-icon")
     static let profileIcon = UIImage(named: "profile-icon")
+    static let cardsSelectedIcon = UIImage(named: "cards-selected-icon")
+    static let messagesSelectedIcon = UIImage(named: "messages-selected-icon")
+    static let discountsSelectedIcon = UIImage(named: "discounts-selected-icon")
+    static let profileSelectedIcon = UIImage(named: "profile-selected-icon")
 }

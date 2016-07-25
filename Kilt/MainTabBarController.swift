@@ -20,16 +20,21 @@ final class MainTabBarController: UITabBarController {
         ]
         
         tabBar.tintColor = .appColor()
-        setUpTabBarItem(tabBar.items?[0], title: "Карточки", image: Icon.cardsIcon)
-        setUpTabBarItem(tabBar.items?[1], title: "Сообщения", image: Icon.messagesIcon)
-        setUpTabBarItem(tabBar.items?[2], title: "Акции", image: Icon.discountsIcon)
-        setUpTabBarItem(tabBar.items?[3], title: "Профиль", image: Icon.profileIcon)
+        setUpTabBarItem(tabBar.items?[0], title: "Карточки",
+                        image: Icon.cardsIcon, selectedImage: Icon.cardsSelectedIcon)
+        setUpTabBarItem(tabBar.items?[1], title: "Сообщения",
+                        image: Icon.messagesIcon, selectedImage: Icon.messagesSelectedIcon)
+        setUpTabBarItem(tabBar.items?[2], title: "Акции",
+                        image: Icon.discountsIcon, selectedImage: Icon.discountsSelectedIcon)
+        setUpTabBarItem(tabBar.items?[3], title: "Профиль",
+                        image: Icon.profileIcon, selectedImage: Icon.profileSelectedIcon)
     }
     
     // MARK: Set Up
     
-    private func setUpTabBarItem(tabBarItem: UITabBarItem?, title: String?, image: UIImage?) {
+    private func setUpTabBarItem(tabBarItem: UITabBarItem?, title: String?, image: UIImage?, selectedImage: UIImage?) {
         tabBarItem?.title = title
         tabBarItem?.image = image
+        tabBarItem?.selectedImage = selectedImage
     }
 }

@@ -62,8 +62,13 @@ extension UIColor {
         return self.colorFromHexCode(ColorCodes.app + alphaHEX(alpha))
     }
     
+    public static func tundoraColor(alpha: CGFloat = 1.0) -> UIColor {
+        return self.colorFromHexCode(ColorCodes.tundora + alphaHEX(alpha))
+    }
+    
     public struct ColorCodes {
         public static let app = "0198D7"
+        public static let tundora = "4A4A4A"
     }
 }
 

@@ -16,6 +16,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         coordinateAppFlow()
+        setUpTabBarAppearance()
         return true
     }
 
@@ -45,9 +46,17 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
+    
     private func coordinateAppFlow() {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window?.backgroundColor = .whiteColor()
         window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
     }
+    
+    private func setUpTabBarAppearance() {
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.tundoraColor()], forState: .Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.appColor()], forState: .Selected)
+    }
+    
 }

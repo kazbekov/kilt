@@ -21,6 +21,10 @@ final class CardsViewController: UIViewController {
         return tableView
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
 }
 
 extension CardsViewController: UITableViewDelegate {
