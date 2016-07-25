@@ -1,6 +1,0 @@
-framework module Pods_KiltTests {
-  umbrella header "Pods-KiltTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
