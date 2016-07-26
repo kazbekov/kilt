@@ -32,7 +32,9 @@ final class ContactInfoView: UIView {
     private lazy var callButton: UIButton = {
         return UIButton().then {
             $0.backgroundColor = .fruitSaladColor()
+            $0.titleLabel?.font = .systemFontOfSize(15, weight: UIFontWeightMedium)
             $0.setImage(Icon.phoneIcon, forState: .Normal)
+            $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: -7, bottom: 0, right: 0)
         }
     }()
     
@@ -49,6 +51,7 @@ final class ContactInfoView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         avatarImageView.layer.cornerRadius = avatarImageView.height
+        callButton.layer.cornerRadius = 4
     }
     
     private func setUpViews() {
