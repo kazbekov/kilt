@@ -9,4 +9,5 @@
 import UIKit
 
 final class CardsViewModel {
+    internal var cards = [Card]()
 }

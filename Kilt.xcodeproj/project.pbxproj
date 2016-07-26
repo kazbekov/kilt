@@ -25,6 +25,7 @@
 		933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D621D4609C100E01464 /* UIColor+Tints.swift */; };
 		933D5D651D47295300E01464 /* AddCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D641D47295300E01464 /* AddCardViewController.swift */; };
 		933D5D671D47324B00E01464 /* ContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D661D47324B00E01464 /* ContactInfoView.swift */; };
+		933D5D691D473C5C00E01464 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D681D473C5C00E01464 /* Card.swift */; };
 		E836D4DC1C650F1928D2CF25 /* Pods_KiltUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8270DB7D8700DE59DFB7E8 /* Pods_KiltUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		933D5D621D4609C100E01464 /* UIColor+Tints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Tints.swift"; sourceTree = "<group>"; };
 		933D5D641D47295300E01464 /* AddCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCardViewController.swift; sourceTree = "<group>"; };
 		933D5D661D47324B00E01464 /* ContactInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfoView.swift; sourceTree = "<group>"; };
+		933D5D681D473C5C00E01464 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CA09CF8F04CB8CE0EEA18DB6 /* Pods-KiltUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiltUITests/Pods-KiltUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E5A8AED0823E860CC7D3477C /* Pods_KiltTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiltTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -187,6 +189,7 @@
 		933D5D471D45CD1200E01464 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				933D5D681D473C5C00E01464 /* Card.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				933D5D4F1D45D45B00E01464 /* CardsViewController.swift in Sources */,
 				933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */,
 				933D5D551D45DB8B00E01464 /* MainTabBarController.swift in Sources */,
+				933D5D691D473C5C00E01464 /* Card.swift in Sources */,
 				933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */,
 				933D5D511D45D78800E01464 /* CardsViewModel.swift in Sources */,
 				933D5D651D47295300E01464 /* AddCardViewController.swift in Sources */,
