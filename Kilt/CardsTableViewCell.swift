@@ -61,6 +61,7 @@ final class CardsTableViewCell: UITableViewCell {
 
 extension CardsTableViewCell {
     func setUpWithCard(card: Card) {
-        
+        cardLogoView.setUpWithTitle(card.title)
+        cardTitleLabel.text = card.title
     }
 }
