@@ -13,7 +13,9 @@ import Cartography
 final class ContactInfoView: UIView {
     
     private lazy var avatarImageView = UIImageView().then {
+        $0.backgroundColor = .tundoraColor()
         $0.contentMode = .ScaleAspectFill
+        $0.clipsToBounds = true
     }
     
     private lazy var titleLabel = UILabel().then {
@@ -50,7 +52,7 @@ final class ContactInfoView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        avatarImageView.layer.cornerRadius = avatarImageView.height
+        avatarImageView.layer.cornerRadius = avatarImageView.height / 2
         callButton.layer.cornerRadius = 4
     }
     
