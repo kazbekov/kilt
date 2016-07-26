@@ -20,4 +20,5 @@ struct Icon {
     static let rightArrowIcon = UIImage(named: "right-arrow-icon")
     static let addCardIcon = UIImage(named: "add-card-icon")
     static let backIcon = UIImage(named: "back-icon")
+    static let phoneIcon = UIImage(named: "phone-icon")
 }
