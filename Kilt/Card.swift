@@ -9,6 +9,7 @@
 import UIKit
 
 struct Card {
-    let title: String?
-    let image: UIImage?
+    var title: String?
+    var ownerName: String?
+    var phoneNumber: String?
 }

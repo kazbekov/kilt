@@ -62,7 +62,6 @@ final class CardsViewController: UIViewController {
     // MARK: User Interaction
     
     @objc private func pushAddCardViewController() {
-        navigationController?.pushViewController(AddCardViewController(), animated: true)
     }
     
 }
@@ -71,6 +70,11 @@ final class CardsViewController: UIViewController {
 
 extension CardsViewController: UITableViewDelegate {
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        navigationController?.pushViewController(CardDetailViewController(card: viewModel.cards[indexPath.row]),
+                                                 animated: true)
+    }
+    
 }
 
 // MARK: UITableViewDataSource
@@ -78,11 +82,13 @@ extension CardsViewController: UITableViewDelegate {
 extension CardsViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.cards.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCellWithIdentifier(cardsCellIdentifier, forIndexPath: indexPath) as! CardsTableViewCell
+        return (tableView.dequeueReusableCellWithIdentifier(cardsCellIdentifier, forIndexPath: indexPath) as! CardsTableViewCell).then {
+            $0.setUpWithCard(viewModel.cards[indexPath.row])
+        }
     }
     
 }

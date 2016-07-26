@@ -23,7 +23,7 @@
 		933D5D5B1D45DC5800E01464 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D5A1D45DC5800E01464 /* ProfileViewController.swift */; };
 		933D5D611D45E75C00E01464 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D601D45E75C00E01464 /* Icon.swift */; };
 		933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D621D4609C100E01464 /* UIColor+Tints.swift */; };
-		933D5D651D47295300E01464 /* AddCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D641D47295300E01464 /* AddCardViewController.swift */; };
+		933D5D651D47295300E01464 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D641D47295300E01464 /* CardDetailViewController.swift */; };
 		933D5D671D47324B00E01464 /* ContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D661D47324B00E01464 /* ContactInfoView.swift */; };
 		933D5D691D473C5C00E01464 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D681D473C5C00E01464 /* Card.swift */; };
 		933D5D6B1D47423800E01464 /* CardLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D6A1D47423800E01464 /* CardLogoView.swift */; };
@@ -75,7 +75,7 @@
 		933D5D5A1D45DC5800E01464 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		933D5D601D45E75C00E01464 /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		933D5D621D4609C100E01464 /* UIColor+Tints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Tints.swift"; sourceTree = "<group>"; };
-		933D5D641D47295300E01464 /* AddCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCardViewController.swift; sourceTree = "<group>"; };
+		933D5D641D47295300E01464 /* CardDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		933D5D661D47324B00E01464 /* ContactInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfoView.swift; sourceTree = "<group>"; };
 		933D5D681D473C5C00E01464 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		933D5D6A1D47423800E01464 /* CardLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLogoView.swift; sourceTree = "<group>"; };
@@ -245,8 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				933D5D541D45DB8B00E01464 /* MainTabBarController.swift */,
-				933D5D4E1D45D45B00E01464 /* CardsViewController.swift */,
-				933D5D641D47295300E01464 /* AddCardViewController.swift */,
+				933D5D6C1D475A1000E01464 /* Cards */,
 				933D5D561D45DC2500E01464 /* MessagesViewController.swift */,
 				933D5D581D45DC4600E01464 /* DiscountsViewController.swift */,
 				933D5D5A1D45DC5800E01464 /* ProfileViewController.swift */,
@@ -260,6 +259,15 @@
 				933D5D601D45E75C00E01464 /* Icon.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		933D5D6C1D475A1000E01464 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				933D5D4E1D45D45B00E01464 /* CardsViewController.swift */,
+				933D5D641D47295300E01464 /* CardDetailViewController.swift */,
+			);
+			name = Cards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -531,7 +539,7 @@
 				933D5D691D473C5C00E01464 /* Card.swift in Sources */,
 				933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */,
 				933D5D511D45D78800E01464 /* CardsViewModel.swift in Sources */,
-				933D5D651D47295300E01464 /* AddCardViewController.swift in Sources */,
+				933D5D651D47295300E01464 /* CardDetailViewController.swift in Sources */,
 				933D5D591D45DC4600E01464 /* DiscountsViewController.swift in Sources */,
 				933D5D5B1D45DC5800E01464 /* ProfileViewController.swift in Sources */,
 				933D5D611D45E75C00E01464 /* Icon.swift in Sources */,

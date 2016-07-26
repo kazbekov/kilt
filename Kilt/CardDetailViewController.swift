@@ -10,7 +10,9 @@ import UIKit
 import Sugar
 import Cartography
 
-final class AddCardViewController: UIViewController {
+final class CardDetailViewController: UIViewController {
+    
+    var card: Card!
     
     private lazy var leftBarButtomItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
@@ -31,6 +33,13 @@ final class AddCardViewController: UIViewController {
         $0.textAlignment = .Center
         $0.textColor = .tundoraColor()
         $0.font = .systemFontOfSize(18)
+    }
+    
+    // MARK: Lifecycle
+    
+    convenience init(card: Card) {
+        self.init()
+        self.card = card
     }
     
     // MARK: View Lifecycle
