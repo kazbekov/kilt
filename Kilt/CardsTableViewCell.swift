@@ -35,6 +35,7 @@ final class CardsTableViewCell: UITableViewCell {
     }
     
     private func setUpViews() {
+        selectionStyle = .None
         [cardLogoView, cardTitleLabel, arrowImageView].forEach { contentView.addSubview($0) }
     }
     
