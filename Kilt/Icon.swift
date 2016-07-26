@@ -17,4 +17,5 @@ struct Icon {
     static let messagesSelectedIcon = UIImage(named: "messages-selected-icon")
     static let discountsSelectedIcon = UIImage(named: "discounts-selected-icon")
     static let profileSelectedIcon = UIImage(named: "profile-selected-icon")
+    static let rightArrowIcon = UIImage(named: "right-arrow-icon")
 }
