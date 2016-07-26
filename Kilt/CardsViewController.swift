@@ -71,8 +71,10 @@ final class CardsViewController: UIViewController {
 extension CardsViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        navigationController?.pushViewController(CardDetailViewController(card: viewModel.cards[indexPath.row]),
-                                                 animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        navigationController?.pushViewController(CardDetailViewController().then {
+            $0.setUpWithCard(viewModel.cards[indexPath.row])
+            }, animated: true)
     }
     
 }
@@ -87,7 +89,7 @@ extension CardsViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return (tableView.dequeueReusableCellWithIdentifier(cardsCellIdentifier, forIndexPath: indexPath) as! CardsTableViewCell).then {
-            $0.setUpWithCard(viewModel.cards[indexPath.row])
+            $0.setUpWithCard(viewModel.cards[indexPath.row].title)
         }
     }
     

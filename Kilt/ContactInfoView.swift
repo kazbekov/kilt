@@ -84,3 +84,10 @@ final class ContactInfoView: UIView {
     }
     
 }
+
+extension ContactInfoView {
+    func setUpWithContact(ownerName: String?, phoneNumber: String?) {
+        nameLabel.text = ownerName
+        callButton.setTitle(phoneNumber, forState: .Normal)
+    }
+}

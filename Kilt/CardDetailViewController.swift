@@ -11,9 +11,7 @@ import Sugar
 import Cartography
 
 final class CardDetailViewController: UIViewController {
-    
-    var card: Card!
-    
+
     private lazy var leftBarButtomItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
                                target: self, action: #selector(popViewController))
@@ -29,17 +27,10 @@ final class CardDetailViewController: UIViewController {
     
     private lazy var cardLogoWrapper = UIView()
     
-    private lazy var cardLogoLabel = UILabel().then {
+    private lazy var cardTitleLabel = UILabel().then {
         $0.textAlignment = .Center
         $0.textColor = .tundoraColor()
         $0.font = .systemFontOfSize(18)
-    }
-    
-    // MARK: Lifecycle
-    
-    convenience init(card: Card) {
-        self.init()
-        self.card = card
     }
     
     // MARK: View Lifecycle
@@ -57,7 +48,7 @@ final class CardDetailViewController: UIViewController {
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtomItem]
-        [cardLogoView, cardLogoLabel].forEach { cardLogoWrapper.addSubview($0) }
+        [cardLogoView, cardTitleLabel].forEach { cardLogoWrapper.addSubview($0) }
         [contactInfoView, cardLogoWrapper].forEach {
             view.addSubview($0)
         }
@@ -77,7 +68,7 @@ final class CardDetailViewController: UIViewController {
             cardLogoWrapper.height == 90
         }
         
-        constrain(cardLogoView, cardLogoLabel, cardLogoWrapper) {
+        constrain(cardLogoView, cardTitleLabel, cardLogoWrapper) {
             cardLogoView, cardLogoLabel, cardLogoWrapper in
             cardLogoView.top == cardLogoWrapper.top
             cardLogoView.centerX == cardLogoWrapper.centerX
@@ -95,4 +86,12 @@ final class CardDetailViewController: UIViewController {
         navigationController?.popViewControllerAnimated(true)
     }
     
+}
+
+extension CardDetailViewController {
+    func setUpWithCard(card: Card) {
+        cardLogoView.setUpWithTitle(card.title)
+        cardTitleLabel.text = card.title
+        contactInfoView.setUpWithContact(card.ownerName, phoneNumber: card.phoneNumber)
+    }
 }
