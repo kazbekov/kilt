@@ -33,12 +33,29 @@ final class CardDetailViewController: UIViewController {
         $0.font = .systemFontOfSize(18)
     }
     
+    private lazy var frontImageView = UIImageView().then {
+        $0.backgroundColor = .tundoraColor()
+        $0.contentMode = .ScaleAspectFill
+    }
+    
+    private lazy var backImageView = UIImageView().then {
+        $0.backgroundColor = .tundoraColor()
+        $0.contentMode = .ScaleAspectFill
+    }
+    
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
         setUpConstraints()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        [frontImageView, backImageView].forEach {
+            $0.layer.cornerRadius = 6
+        }
     }
     
     // MARK: Set Up
@@ -49,7 +66,7 @@ final class CardDetailViewController: UIViewController {
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtomItem]
         [cardLogoView, cardTitleLabel].forEach { cardLogoWrapper.addSubview($0) }
-        [contactInfoView, cardLogoWrapper].forEach {
+        [contactInfoView, cardLogoWrapper, frontImageView, backImageView].forEach {
             view.addSubview($0)
         }
     }
@@ -77,6 +94,19 @@ final class CardDetailViewController: UIViewController {
             
             cardLogoLabel.top == cardLogoView.bottom + 9
             cardLogoLabel.centerX == cardLogoView.centerX
+        }
+        
+        constrain(frontImageView, backImageView, cardLogoWrapper, view) {
+            frontImageView, backImageView, cardLogoWrapper, view in
+            frontImageView.top == cardLogoWrapper.bottom + 50
+            frontImageView.leading == view.leading + 20
+            frontImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
+            frontImageView.height == frontImageView.width * (100 / 158)
+            
+            backImageView.top == cardLogoWrapper.bottom + 50
+            backImageView.trailing == view.trailing - 20
+            backImageView.width == frontImageView.width
+            backImageView.height == frontImageView.height
         }
     }
     
