@@ -92,6 +92,6 @@ extension CardDetailViewController {
     func setUpWithCard(card: Card) {
         cardLogoView.setUpWithTitle(card.title)
         cardTitleLabel.text = card.title
-        contactInfoView.setUpWithContact(card.ownerName, phoneNumber: card.phoneNumber)
+        contactInfoView.setUpWithContact(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
     }
 }

@@ -12,4 +12,5 @@ struct Card {
     var title: String?
     var ownerName: String?
     var phoneNumber: String?
+    var avatarImage: UIImage?
 }

@@ -9,7 +9,11 @@
 import UIKit
 
 final class CardsViewModel {
-    var cards = [Card(title: "MEXX", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955"),
-                 Card(title: "MEXX", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955"),
-                 Card(title: "MEXX", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955")]
+    var cards = [
+        Card(title: "MEXX", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
+            avatarImage: Icon.profileIcon),
+        Card(title: "MEXX", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
+            avatarImage: Icon.profileIcon),
+        Card(title: "MEXX", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
+            avatarImage: Icon.profileIcon)]
 }
