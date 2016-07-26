@@ -14,6 +14,15 @@ final class CardsViewController: UIViewController {
     
     private let viewModel = CardsViewModel()
     
+    private lazy var rightBarButtomItem: UIBarButtonItem = {
+        return UIBarButtonItem(image: Icon.addCardIcon, style: UIBarButtonItemStyle.Plain,
+                        target: self, action: #selector(showAddCardViewController(_:)))
+    }()
+    
+    private lazy var negativeSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil).then {
+        $0.width = -7
+    }
+    
     private let cardsCellIdentifier = "cardsCellIdentifier"
     
     private lazy var tableView: UITableView = {
@@ -21,6 +30,7 @@ final class CardsViewController: UIViewController {
             $0.delegate = self
             $0.dataSource = self
             $0.rowHeight = 75
+            $0.tableFooterView = UIView()
             $0.registerClass(CardsTableViewCell.self, forCellReuseIdentifier: self.cardsCellIdentifier)
         }
     }()
@@ -36,6 +46,9 @@ final class CardsViewController: UIViewController {
     // MARK: Set Up
     
     private func setUpViews() {
+        edgesForExtendedLayout = .None
+        navigationItem.title = "Карточки"
+        navigationItem.rightBarButtonItems = [negativeSpace, rightBarButtomItem]
         view.addSubview(tableView)
     }
     
@@ -43,6 +56,11 @@ final class CardsViewController: UIViewController {
         constrain(tableView, view) {
             $0.edges == $1.edges
         }
+    }
+    
+    // MARK: User Interaction
+    
+    @objc private func showAddCardViewController(sender: UIBarButtonItem) {
     }
     
 }
