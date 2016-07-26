@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Sugar
+import Cartography
 
 final class AddCardViewController: UIViewController {
     
@@ -18,6 +20,10 @@ final class AddCardViewController: UIViewController {
     private lazy var negativeSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil).then {
         $0.width = -7
     }
+    
+    private lazy var contactInfoView: ContactInfoView = {
+        return ContactInfoView()
+    }()
     
     // MARK: View Lifecycle
     
@@ -34,10 +40,19 @@ final class AddCardViewController: UIViewController {
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtomItem]
+        [contactInfoView].forEach {
+            view.addSubview($0)
+        }
     }
     
     private func setUpConstraints() {
-        
+        constrain(contactInfoView, view) {
+            contactInfoView, view in
+            contactInfoView.top == view.top + 30
+            contactInfoView.trailing == view.trailing - 10
+            contactInfoView.width == 220
+            contactInfoView.height == 75
+        }
     }
     
     // MARK: User Interaction
