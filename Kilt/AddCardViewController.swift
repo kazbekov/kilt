@@ -21,9 +21,17 @@ final class AddCardViewController: UIViewController {
         $0.width = -7
     }
     
-    private lazy var contactInfoView: ContactInfoView = {
-        return ContactInfoView()
-    }()
+    private lazy var contactInfoView: ContactInfoView = ContactInfoView()
+    
+    private lazy var cardLogoView: CardLogoView = CardLogoView()
+    
+    private lazy var cardLogoWrapper = UIView()
+    
+    private lazy var cardLogoLabel = UILabel().then {
+        $0.textAlignment = .Center
+        $0.textColor = .tundoraColor()
+        $0.font = .systemFontOfSize(18)
+    }
     
     // MARK: View Lifecycle
     
@@ -40,18 +48,35 @@ final class AddCardViewController: UIViewController {
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtomItem]
-        [contactInfoView].forEach {
+        [cardLogoView, cardLogoLabel].forEach { cardLogoWrapper.addSubview($0) }
+        [contactInfoView, cardLogoWrapper].forEach {
             view.addSubview($0)
         }
     }
     
     private func setUpConstraints() {
-        constrain(contactInfoView, view) {
-            contactInfoView, view in
+        constrain(contactInfoView, cardLogoWrapper, view) {
+            contactInfoView, cardLogoWrapper, view in
             contactInfoView.top == view.top + 30
             contactInfoView.trailing == view.trailing - 10
             contactInfoView.width == 220
             contactInfoView.height == 75
+            
+            cardLogoWrapper.top == view.top + 30
+            cardLogoWrapper.leading == view.leading
+            cardLogoWrapper.trailing == contactInfoView.leading
+            cardLogoWrapper.height == 90
+        }
+        
+        constrain(cardLogoView, cardLogoLabel, cardLogoWrapper) {
+            cardLogoView, cardLogoLabel, cardLogoWrapper in
+            cardLogoView.top == cardLogoWrapper.top
+            cardLogoView.centerX == cardLogoWrapper.centerX
+            cardLogoView.height == 55
+            cardLogoView.width == 55
+            
+            cardLogoLabel.top == cardLogoView.bottom + 9
+            cardLogoLabel.centerX == cardLogoView.centerX
         }
     }
     
