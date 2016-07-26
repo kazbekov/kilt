@@ -16,7 +16,7 @@ final class CardsViewController: UIViewController {
     
     private lazy var rightBarButtomItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.addCardIcon, style: UIBarButtonItemStyle.Plain,
-                        target: self, action: #selector(showAddCardViewController(_:)))
+                        target: self, action: #selector(pushAddCardViewController))
     }()
     
     private lazy var negativeSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil).then {
@@ -47,6 +47,7 @@ final class CardsViewController: UIViewController {
     
     private func setUpViews() {
         edgesForExtendedLayout = .None
+        view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
         navigationItem.rightBarButtonItems = [negativeSpace, rightBarButtomItem]
         view.addSubview(tableView)
@@ -60,7 +61,8 @@ final class CardsViewController: UIViewController {
     
     // MARK: User Interaction
     
-    @objc private func showAddCardViewController(sender: UIBarButtonItem) {
+    @objc private func pushAddCardViewController() {
+        navigationController?.pushViewController(AddCardViewController(), animated: true)
     }
     
 }
