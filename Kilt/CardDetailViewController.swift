@@ -100,12 +100,12 @@ final class CardDetailViewController: UIViewController {
         
         constrain(frontImageView, backImageView, cardLogoWrapper, view) {
             frontImageView, backImageView, cardLogoWrapper, view in
-            frontImageView.top == cardLogoWrapper.bottom + 50
+            frontImageView.top == cardLogoWrapper.bottom + 40
             frontImageView.leading == view.leading + 20
             frontImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
             frontImageView.height == frontImageView.width * (100 / 158)
             
-            backImageView.top == cardLogoWrapper.bottom + 50
+            backImageView.top == frontImageView.top
             backImageView.trailing == view.trailing - 20
             backImageView.width == frontImageView.width
             backImageView.height == frontImageView.height
