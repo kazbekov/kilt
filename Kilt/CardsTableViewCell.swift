@@ -12,9 +12,7 @@ import Cartography
 
 final class CardsTableViewCell: UITableViewCell {
     
-    private lazy var cardImageView = UIImageView().then {
-        $0.contentMode = .ScaleAspectFill
-    }
+    private lazy var cardLogoView: CardLogoView = CardLogoView()
     
     private lazy var cardTitleLabel = UILabel().then {
         $0.textColor = .tundoraColor()
@@ -37,31 +35,32 @@ final class CardsTableViewCell: UITableViewCell {
     }
     
     private func setUpViews() {
-        [cardImageView, cardTitleLabel, arrowImageView].forEach { contentView.addSubview($0) }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        cardImageView.layer.cornerRadius = 6
+        [cardLogoView, cardTitleLabel, arrowImageView].forEach { contentView.addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(cardImageView, cardTitleLabel, arrowImageView, contentView) {
-            cardImageView, cardTitleLabel, arrowImageView, contentView in
-            cardImageView.leading == contentView.leading + 10
-            cardImageView.centerY == contentView.centerY
-            cardImageView.width == 55
-            cardImageView.height == 55
+        constrain(cardLogoView, cardTitleLabel, arrowImageView, contentView) {
+            cardLogoView, cardTitleLabel, arrowImageView, contentView in
+            cardLogoView.leading == contentView.leading + 10
+            cardLogoView.centerY == contentView.centerY
+            cardLogoView.width == 55
+            cardLogoView.height == 55
             
             arrowImageView.trailing == contentView.trailing - 18
             arrowImageView.centerY == contentView.centerY
             arrowImageView.width == 6
             arrowImageView.height == 12
             
-            cardTitleLabel.leading == cardImageView.trailing + 15
+            cardTitleLabel.leading == cardLogoView.trailing + 15
             cardTitleLabel.trailing == arrowImageView.leading - 15
             cardTitleLabel.centerY == contentView.centerY
         }
     }
     
+}
+
+extension CardsTableViewCell {
+    func setUpWithCard(card: Card) {
+        
+    }
 }
