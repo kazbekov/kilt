@@ -36,11 +36,13 @@ final class CardDetailViewController: UIViewController {
     private lazy var frontImageView = UIImageView().then {
         $0.backgroundColor = .tundoraColor()
         $0.contentMode = .ScaleAspectFill
+        $0.clipsToBounds = true
     }
     
     private lazy var backImageView = UIImageView().then {
         $0.backgroundColor = .tundoraColor()
         $0.contentMode = .ScaleAspectFill
+        $0.clipsToBounds = true
     }
     
     // MARK: View Lifecycle

@@ -13,6 +13,7 @@ import Cartography
 final class CardLogoView: UIView {
     
     private lazy var imageView = UIImageView().then {
+        $0.clipsToBounds = true
         $0.backgroundColor = .tundoraColor()
         $0.contentMode = .ScaleAspectFill
     }
