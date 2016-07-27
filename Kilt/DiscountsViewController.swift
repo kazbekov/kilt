@@ -15,7 +15,7 @@ final class DiscountsViewController: UIViewController {
     private let viewModel = DiscountsViewModel()
     
     private lazy var rightBarButtomItem: UIBarButtonItem = {
-        return UIBarButtonItem(image: Icon.addCardIcon, style: UIBarButtonItemStyle.Plain,
+        return UIBarButtonItem(image: Icon.locationIcon, style: UIBarButtonItemStyle.Plain,
                                target: self, action: #selector(pushScanViewController))
     }()
     

@@ -26,4 +26,5 @@ struct Icon {
     static let facebookIcon = UIImage(named: "facebook-icon")
     static let googleIcon = UIImage(named: "google-icon")
     static let exitIcon = UIImage(named: "exit-icon")
+    static let locationIcon = UIImage(named: "location-icon")
 }
