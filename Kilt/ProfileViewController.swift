@@ -16,10 +16,13 @@ final class ProfileViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         return UITableView().then {
+            $0.backgroundColor = .athensGrayColor()
             $0.separatorColor = .athensGrayColor()
             $0.delegate = self
             $0.dataSource = self
             $0.rowHeight = 44
+            $0.tableHeaderView = ProfileTableHeaderView(frame:
+                CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 156))
             $0.tableFooterView = UIView()
             $0.registerClass(ProfileTableViewCell.self, forCellReuseIdentifier: self.profileCellIdentifier)
         }
