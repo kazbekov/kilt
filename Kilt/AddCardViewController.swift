@@ -16,10 +16,13 @@ final class AddCardViewController: UIViewController {
         $0.backgroundColor = .whiteColor()
     }
     
-    private lazy var cardLogoView = CardLogoImageView(frame: .zero)
+    private lazy var cardLogoImageView = CardLogoImageView(frame: .zero)
     
     private lazy var cardTitleTextField: UITextField = {
         return UITextField().then {
+            $0.addTarget(self, action: #selector(updateCardLogoImageView(_:)),
+                forControlEvents: .EditingChanged)
+            $0.tag = 1
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.mountainMistColor(),
                 NSFontAttributeName: UIFont.systemFontOfSize(17)
@@ -67,7 +70,7 @@ final class AddCardViewController: UIViewController {
     private func setUpViews() {
         edgesForExtendedLayout = .None
         view.backgroundColor = .athensGrayColor()
-        [cardLogoView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
+        [cardLogoImageView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
         [cardLogoWrapper, cardNumberTextField, frontSelectImageView, backSelectImageView].forEach { view.addSubview($0) }
     }
     
@@ -85,16 +88,16 @@ final class AddCardViewController: UIViewController {
             cardNumberTextField.height == 50
         }
         
-        constrain(cardLogoView, cardTitleTextField, cardLogoWrapper) {
-            cardLogoView, cardTitleTextField, cardLogoWrapper in
+        constrain(cardLogoImageView, cardTitleTextField, cardLogoWrapper) {
+            cardLogoImageView, cardTitleTextField, cardLogoWrapper in
             cardTitleTextField.trailing == cardLogoWrapper.trailing - 16
             cardTitleTextField.centerY == cardLogoWrapper.centerY
             cardTitleTextField.width == 225
             
-            cardLogoView.leading == cardLogoWrapper.leading + 16
-            cardLogoView.trailing == cardTitleTextField.leading - 16
-            cardLogoView.centerY == cardLogoWrapper.centerY
-            cardLogoView.height == cardLogoView.width
+            cardLogoImageView.leading == cardLogoWrapper.leading + 16
+            cardLogoImageView.trailing == cardTitleTextField.leading - 16
+            cardLogoImageView.centerY == cardLogoWrapper.centerY
+            cardLogoImageView.height == cardLogoImageView.width
         }
         
         constrain(frontSelectImageView, backSelectImageView, cardNumberTextField, view) {
@@ -109,6 +112,12 @@ final class AddCardViewController: UIViewController {
             backSelectImageView.width == frontSelectImageView.width
             backSelectImageView.height == frontSelectImageView.height
         }
+    }
+    
+    // MARK: User Interaction
+    
+    @objc private func updateCardLogoImageView(sender: UITextField) {
+        cardLogoImageView.setUpWithTitle(sender.text)
     }
     
 }
