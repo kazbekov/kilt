@@ -1,5 +1,5 @@
 //
-//  AddCardViewController.swift
+//  CardDetailViewController.swift
 //  Kilt
 //
 //  Created by Nurdaulet Bolatov on 7/26/16.

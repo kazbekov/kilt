@@ -62,7 +62,8 @@ final class CardsViewController: UIViewController {
     // MARK: User Interaction
     
     @objc private func pushScanViewController() {
-        navigationController?.pushViewController(ScanViewController(), animated: true)
+        navigationController?.pushViewController(AddCardViewController(), animated: true)
+//        navigationController?.pushViewController(ScanViewController(), animated: true)
     }
     
 }

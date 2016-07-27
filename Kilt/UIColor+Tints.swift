@@ -70,10 +70,20 @@ extension UIColor {
         return self.colorFromHexCode(ColorCodes.fruitSalad + alphaHEX(alpha))
     }
     
+    public static func athensGrayColor(alpha: CGFloat = 1.0) -> UIColor {
+        return self.colorFromHexCode(ColorCodes.athensGray + alphaHEX(alpha))
+    }
+    
+    public static func mountainMistColor(alpha: CGFloat = 1.0) -> UIColor {
+        return self.colorFromHexCode(ColorCodes.mountainMist + alphaHEX(alpha))
+    }
+    
     public struct ColorCodes {
         public static let app = "0198D7"
         public static let tundora = "4A4A4A"
         public static let fruitSalad = "4FA85D"
+        public static let athensGray = "EFEFF4"
+        public static let mountainMist = "8F8E94"
     }
 }
 
