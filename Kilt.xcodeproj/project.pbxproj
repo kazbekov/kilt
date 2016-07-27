@@ -33,6 +33,9 @@
 		933D5D741D48827F00E01464 /* SelectCardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D731D48827F00E01464 /* SelectCardImageView.swift */; };
 		933D5D781D48A1B600E01464 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D771D48A1B600E01464 /* ProfileTableViewCell.swift */; };
 		933D5D7C1D48BCE100E01464 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D7B1D48BCE100E01464 /* ProfileTableHeaderView.swift */; };
+		933D5D801D48CEDF00E01464 /* DiscountsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D7F1D48CEDF00E01464 /* DiscountsTableViewCell.swift */; };
+		933D5D821D48D17E00E01464 /* DiscountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D811D48D17E00E01464 /* DiscountsViewModel.swift */; };
+		933D5D841D48D28A00E01464 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D831D48D28A00E01464 /* Discount.swift */; };
 		E836D4DC1C650F1928D2CF25 /* Pods_KiltUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8270DB7D8700DE59DFB7E8 /* Pods_KiltUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +94,9 @@
 		933D5D731D48827F00E01464 /* SelectCardImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCardImageView.swift; sourceTree = "<group>"; };
 		933D5D771D48A1B600E01464 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		933D5D7B1D48BCE100E01464 /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
+		933D5D7F1D48CEDF00E01464 /* DiscountsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsTableViewCell.swift; sourceTree = "<group>"; };
+		933D5D811D48D17E00E01464 /* DiscountsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsViewModel.swift; sourceTree = "<group>"; };
+		933D5D831D48D28A00E01464 /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
 		CA09CF8F04CB8CE0EEA18DB6 /* Pods-KiltUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiltUITests/Pods-KiltUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E5A8AED0823E860CC7D3477C /* Pods_KiltTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiltTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -204,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				933D5D681D473C5C00E01464 /* Card.swift */,
+				933D5D831D48D28A00E01464 /* Discount.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -211,6 +218,7 @@
 		933D5D481D45CD1800E01464 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				933D5D7E1D48CEB400E01464 /* Discounts */,
 				933D5D761D48A1A500E01464 /* Profile */,
 				933D5D751D48A19800E01464 /* Cards */,
 			);
@@ -230,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				933D5D501D45D78800E01464 /* CardsViewModel.swift */,
+				933D5D811D48D17E00E01464 /* DiscountsViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -256,9 +265,9 @@
 			isa = PBXGroup;
 			children = (
 				933D5D541D45DB8B00E01464 /* MainTabBarController.swift */,
+				933D5D7D1D48CAAF00E01464 /* Discounts */,
 				933D5D6C1D475A1000E01464 /* Cards */,
 				933D5D561D45DC2500E01464 /* MessagesViewController.swift */,
-				933D5D581D45DC4600E01464 /* DiscountsViewController.swift */,
 				933D5D5A1D45DC5800E01464 /* ProfileViewController.swift */,
 			);
 			name = MainPages;
@@ -302,6 +311,22 @@
 				933D5D7B1D48BCE100E01464 /* ProfileTableHeaderView.swift */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		933D5D7D1D48CAAF00E01464 /* Discounts */ = {
+			isa = PBXGroup;
+			children = (
+				933D5D581D45DC4600E01464 /* DiscountsViewController.swift */,
+			);
+			name = Discounts;
+			sourceTree = "<group>";
+		};
+		933D5D7E1D48CEB400E01464 /* Discounts */ = {
+			isa = PBXGroup;
+			children = (
+				933D5D7F1D48CEDF00E01464 /* DiscountsTableViewCell.swift */,
+			);
+			name = Discounts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -568,8 +593,11 @@
 				933D5D571D45DC2500E01464 /* MessagesViewController.swift in Sources */,
 				933D5D4F1D45D45B00E01464 /* CardsViewController.swift in Sources */,
 				933D5D6E1D47799300E01464 /* ScanViewController.swift in Sources */,
+				933D5D821D48D17E00E01464 /* DiscountsViewModel.swift in Sources */,
+				933D5D841D48D28A00E01464 /* Discount.swift in Sources */,
 				933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */,
 				933D5D7C1D48BCE100E01464 /* ProfileTableHeaderView.swift in Sources */,
+				933D5D801D48CEDF00E01464 /* DiscountsTableViewCell.swift in Sources */,
 				933D5D6B1D47423800E01464 /* CardLogoImageView.swift in Sources */,
 				933D5D551D45DB8B00E01464 /* MainTabBarController.swift in Sources */,
 				933D5D691D473C5C00E01464 /* Card.swift in Sources */,

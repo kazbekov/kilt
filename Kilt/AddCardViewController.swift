@@ -43,11 +43,11 @@ final class AddCardViewController: UIViewController {
     }()
     
     private lazy var frontSelectImageView = SelectCardImageView(frame: .zero).then {
-        $0.setUpWithPlaceholder(Icon.frontPlaceholderIcon, placeholderText: "Лицевая часть карты")
+        $0.setUpWithPlaceholderImage(Icon.frontPlaceholderIcon, placeholderText: "Лицевая часть карты")
     }
     
     private lazy var backSelectImageView = SelectCardImageView(frame: .zero).then {
-        $0.setUpWithPlaceholder(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
+        $0.setUpWithPlaceholderImage(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
     }
     
     // MARK: View Lifecycle

@@ -7,7 +7,87 @@
 //
 
 import UIKit
+import Sugar
+import Cartography
 
 final class DiscountsViewController: UIViewController {
+    
+    private let viewModel = DiscountsViewModel()
+    
+    private lazy var rightBarButtomItem: UIBarButtonItem = {
+        return UIBarButtonItem(image: Icon.addCardIcon, style: UIBarButtonItemStyle.Plain,
+                               target: self, action: #selector(pushScanViewController))
+    }()
+    
+    private lazy var negativeSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil).then {
+        $0.width = -7
+    }
+    
+    private let discountsCellIdentifier = "discountsCellIdentifier"
+    
+    private lazy var tableView: UITableView = {
+        return UITableView().then {
+            $0.separatorColor = .athensGrayColor()
+            $0.delegate = self
+            $0.dataSource = self
+            $0.rowHeight = 75
+            $0.tableFooterView = UIView()
+            $0.registerClass(DiscountsTableViewCell.self, forCellReuseIdentifier: self.discountsCellIdentifier)
+        }
+    }()
+    
+    // MARK: View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpViews()
+        setUpConstraints()
+    }
+    
+    // MARK: Set Up
+    
+    private func setUpViews() {
+        edgesForExtendedLayout = .None
+        view.backgroundColor = .whiteColor()
+        navigationItem.title = "Бонусы"
+        navigationItem.rightBarButtonItems = [negativeSpace, rightBarButtomItem]
+        view.addSubview(tableView)
+    }
+    
+    private func setUpConstraints() {
+        constrain(tableView, view) {
+            $0.edges == $1.edges
+        }
+    }
+    
+    // MARK: User Interaction
+    
+    @objc private func pushScanViewController() {
+    }
+    
+}
 
+// MARK: UITableViewDelegate
+
+extension DiscountsViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
+}
+
+// MARK: UITableViewDataSource
+
+extension DiscountsViewController: UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.cards.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        return (tableView.dequeueReusableCellWithIdentifier(discountsCellIdentifier, forIndexPath: indexPath) as! DiscountsTableViewCell).then {
+            $0.setUpWithTitle(viewModel.cards[indexPath.row].title)
+        }
+    }
+    
 }

@@ -24,7 +24,7 @@ final class MainTabBarController: UITabBarController {
                         image: Icon.cardsIcon, selectedImage: Icon.cardsSelectedIcon)
         setUpTabBarItem(tabBar.items?[1], title: "Сообщения",
                         image: Icon.messagesIcon, selectedImage: Icon.messagesSelectedIcon)
-        setUpTabBarItem(tabBar.items?[2], title: "Акции",
+        setUpTabBarItem(tabBar.items?[2], title: "Бонусы",
                         image: Icon.discountsIcon, selectedImage: Icon.discountsSelectedIcon)
         setUpTabBarItem(tabBar.items?[3], title: "Профиль",
                         image: Icon.profileIcon, selectedImage: Icon.profileSelectedIcon)
