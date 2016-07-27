@@ -26,7 +26,7 @@
 		933D5D651D47295300E01464 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D641D47295300E01464 /* CardDetailViewController.swift */; };
 		933D5D671D47324B00E01464 /* ContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D661D47324B00E01464 /* ContactInfoView.swift */; };
 		933D5D691D473C5C00E01464 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D681D473C5C00E01464 /* Card.swift */; };
-		933D5D6B1D47423800E01464 /* CardLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D6A1D47423800E01464 /* CardLogoView.swift */; };
+		933D5D6B1D47423800E01464 /* CardLogoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D6A1D47423800E01464 /* CardLogoImageView.swift */; };
 		933D5D6E1D47799300E01464 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D6D1D47799300E01464 /* ScanViewController.swift */; };
 		933D5D701D486FA600E01464 /* AddCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D6F1D486FA600E01464 /* AddCardViewController.swift */; };
 		933D5D721D487DEF00E01464 /* CardNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D711D487DEF00E01464 /* CardNumberTextField.swift */; };
@@ -82,7 +82,7 @@
 		933D5D641D47295300E01464 /* CardDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		933D5D661D47324B00E01464 /* ContactInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfoView.swift; sourceTree = "<group>"; };
 		933D5D681D473C5C00E01464 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		933D5D6A1D47423800E01464 /* CardLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLogoView.swift; sourceTree = "<group>"; };
+		933D5D6A1D47423800E01464 /* CardLogoImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLogoImageView.swift; sourceTree = "<group>"; };
 		933D5D6D1D47799300E01464 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		933D5D6F1D486FA600E01464 /* AddCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCardViewController.swift; sourceTree = "<group>"; };
 		933D5D711D487DEF00E01464 /* CardNumberTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardNumberTextField.swift; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 			children = (
 				933D5D521D45D8A800E01464 /* CardsTableViewCell.swift */,
 				933D5D661D47324B00E01464 /* ContactInfoView.swift */,
-				933D5D6A1D47423800E01464 /* CardLogoView.swift */,
+				933D5D6A1D47423800E01464 /* CardLogoImageView.swift */,
 				933D5D711D487DEF00E01464 /* CardNumberTextField.swift */,
 				933D5D731D48827F00E01464 /* SelectCardImageView.swift */,
 			);
@@ -547,7 +547,7 @@
 				933D5D4F1D45D45B00E01464 /* CardsViewController.swift in Sources */,
 				933D5D6E1D47799300E01464 /* ScanViewController.swift in Sources */,
 				933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */,
-				933D5D6B1D47423800E01464 /* CardLogoView.swift in Sources */,
+				933D5D6B1D47423800E01464 /* CardLogoImageView.swift in Sources */,
 				933D5D551D45DB8B00E01464 /* MainTabBarController.swift in Sources */,
 				933D5D691D473C5C00E01464 /* Card.swift in Sources */,
 				933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */,

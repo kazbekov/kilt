@@ -1,5 +1,5 @@
 //
-//  CardLogoView.swift
+//  CardLogoImageView.swift
 //  Kilt
 //
 //  Created by Nurdaulet Bolatov on 7/26/16.

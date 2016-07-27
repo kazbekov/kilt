@@ -12,7 +12,7 @@ import Cartography
 
 final class CardsTableViewCell: UITableViewCell {
     
-    private lazy var cardLogoView = CardLogoImageView(frame: .zero)
+    private lazy var cardLogoImageView = CardLogoImageView(frame: .zero)
     
     private lazy var cardTitleLabel = UILabel().then {
         $0.textColor = .tundoraColor()
@@ -36,23 +36,23 @@ final class CardsTableViewCell: UITableViewCell {
     
     private func setUpViews() {
         selectionStyle = .None
-        [cardLogoView, cardTitleLabel, arrowImageView].forEach { contentView.addSubview($0) }
+        [cardLogoImageView, cardTitleLabel, arrowImageView].forEach { contentView.addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(cardLogoView, cardTitleLabel, arrowImageView, contentView) {
-            cardLogoView, cardTitleLabel, arrowImageView, contentView in
-            cardLogoView.leading == contentView.leading + 10
-            cardLogoView.centerY == contentView.centerY
-            cardLogoView.width == 55
-            cardLogoView.height == 55
+        constrain(cardLogoImageView, cardTitleLabel, arrowImageView, contentView) {
+            cardLogoImageView, cardTitleLabel, arrowImageView, contentView in
+            cardLogoImageView.leading == contentView.leading + 10
+            cardLogoImageView.centerY == contentView.centerY
+            cardLogoImageView.width == 55
+            cardLogoImageView.height == 55
             
             arrowImageView.trailing == contentView.trailing - 18
             arrowImageView.centerY == contentView.centerY
             arrowImageView.width == 6
             arrowImageView.height == 12
             
-            cardTitleLabel.leading == cardLogoView.trailing + 15
+            cardTitleLabel.leading == cardLogoImageView.trailing + 15
             cardTitleLabel.trailing == arrowImageView.leading - 15
             cardTitleLabel.centerY == contentView.centerY
         }
@@ -62,7 +62,7 @@ final class CardsTableViewCell: UITableViewCell {
 
 extension CardsTableViewCell {
     func setUpWithCard(title: String?) {
-        cardLogoView.setUpWithTitle(title)
+        cardLogoImageView.setUpWithTitle(title)
         cardTitleLabel.text = title
     }
 }

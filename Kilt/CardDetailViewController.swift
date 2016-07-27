@@ -23,7 +23,7 @@ final class CardDetailViewController: UIViewController {
     
     private lazy var contactInfoView: ContactInfoView = ContactInfoView()
     
-    private lazy var cardLogoView = CardLogoImageView(frame: .zero)
+    private lazy var cardLogoImageView = CardLogoImageView(frame: .zero)
     
     private lazy var cardLogoWrapper = UIView()
     
@@ -67,7 +67,7 @@ final class CardDetailViewController: UIViewController {
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtomItem]
-        [cardLogoView, cardTitleLabel].forEach { cardLogoWrapper.addSubview($0) }
+        [cardLogoImageView, cardTitleLabel].forEach { cardLogoWrapper.addSubview($0) }
         [contactInfoView, cardLogoWrapper, frontImageView, backImageView].forEach {
             view.addSubview($0)
         }
@@ -87,15 +87,15 @@ final class CardDetailViewController: UIViewController {
             cardLogoWrapper.height == 90
         }
         
-        constrain(cardLogoView, cardTitleLabel, cardLogoWrapper) {
-            cardLogoView, cardLogoLabel, cardLogoWrapper in
-            cardLogoView.top == cardLogoWrapper.top
-            cardLogoView.centerX == cardLogoWrapper.centerX
-            cardLogoView.height == 55
-            cardLogoView.width == 55
+        constrain(cardLogoImageView, cardTitleLabel, cardLogoWrapper) {
+            cardLogoImageView, cardLogoLabel, cardLogoWrapper in
+            cardLogoImageView.top == cardLogoWrapper.top
+            cardLogoImageView.centerX == cardLogoWrapper.centerX
+            cardLogoImageView.height == 55
+            cardLogoImageView.width == 55
             
-            cardLogoLabel.top == cardLogoView.bottom + 9
-            cardLogoLabel.centerX == cardLogoView.centerX
+            cardLogoLabel.top == cardLogoImageView.bottom + 9
+            cardLogoLabel.centerX == cardLogoImageView.centerX
         }
         
         constrain(frontImageView, backImageView, cardLogoWrapper, view) {
@@ -122,7 +122,7 @@ final class CardDetailViewController: UIViewController {
 
 extension CardDetailViewController {
     func setUpWithCard(card: Card) {
-        cardLogoView.setUpWithTitle(card.title)
+        cardLogoImageView.setUpWithTitle(card.title)
         cardTitleLabel.text = card.title
         contactInfoView.setUpWithContact(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
     }
