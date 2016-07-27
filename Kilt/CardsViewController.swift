@@ -27,6 +27,7 @@ final class CardsViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         return UITableView().then {
+            $0.separatorColor = .athensGrayColor()
             $0.delegate = self
             $0.dataSource = self
             $0.rowHeight = 75
