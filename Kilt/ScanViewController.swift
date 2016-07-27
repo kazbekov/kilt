@@ -13,13 +13,8 @@ final class ScanViewController: RSCodeReaderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         edgesForExtendedLayout = .None
-        self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
-        
-        self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
-        
-        self.tapHandler = { point in
-            print(point)
-        }
+        self.focusMarkLayer.strokeColor = UIColor.whiteColor().CGColor
+        self.cornersLayer.strokeColor = UIColor.whiteColor().CGColor
         
         self.barcodesHandler = { barcodes in
             for barcode in barcodes {
