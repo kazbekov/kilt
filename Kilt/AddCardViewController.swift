@@ -65,6 +65,7 @@ final class AddCardViewController: UIViewController {
     // MARK: Set Up
     
     private func setUpViews() {
+        edgesForExtendedLayout = .None
         view.backgroundColor = .athensGrayColor()
         [cardLogoView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
         [cardLogoWrapper, cardNumberTextField, frontSelectImageView, backSelectImageView].forEach { view.addSubview($0) }

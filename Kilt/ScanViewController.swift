@@ -12,6 +12,7 @@ import RSBarcodes_Swift
 final class ScanViewController: RSCodeReaderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        edgesForExtendedLayout = .None
         self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
         
         self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
