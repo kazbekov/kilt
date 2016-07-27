@@ -77,4 +77,18 @@ extension ProfileViewController: UITableViewDataSource {
         }
     }
     
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView().then {
+            $0.backgroundColor = .athensGrayColor()
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0: return 20
+        case 1: return 84
+        default: return 0
+        }
+    }
+    
 }
