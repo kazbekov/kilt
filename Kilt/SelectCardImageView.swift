@@ -60,7 +60,8 @@ final class SelectCardImageView: UIImageView {
 }
 
 extension SelectCardImageView {
-    func setUpWithPlaceholder(placeholderImage: UIImage?, placeholderText: String?) {
+    
+    func setUpWithPlaceholderImage(placeholderImage: UIImage?, placeholderText: String?) {
         placeholderImageView.image = placeholderImage
         placeholderLabel.text = placeholderText
     }
@@ -72,4 +73,5 @@ extension SelectCardImageView {
         layer.borderWidth = 0
         self.image = image
     }
+    
 }

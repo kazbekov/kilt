@@ -121,9 +121,11 @@ final class CardDetailViewController: UIViewController {
 }
 
 extension CardDetailViewController {
+    
     func setUpWithCard(card: Card) {
         cardLogoImageView.setUpWithTitle(card.title)
         cardTitleLabel.text = card.title
-        contactInfoView.setUpWithContact(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
+        contactInfoView.setUpWithAvatar(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
     }
+    
 }

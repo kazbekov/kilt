@@ -52,8 +52,10 @@ final class CardLogoImageView: UIImageView {
 }
 
 extension CardLogoImageView {
+    
     func setUpWithTitle(title: String?) {
         guard let title = title else { return }
         titleLabel.text = String(title.characters.prefix(1)).capitalizedString
     }
+    
 }

@@ -63,8 +63,10 @@ final class CardsTableViewCell: UITableViewCell {
 }
 
 extension CardsTableViewCell {
-    func setUpWithCard(title: String?) {
+    
+    func setUpWithTitle(title: String?) {
         cardLogoImageView.setUpWithTitle(title)
         cardTitleLabel.text = title
     }
+    
 }

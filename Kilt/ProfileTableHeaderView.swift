@@ -63,9 +63,11 @@ final class ProfileTableHeaderView: UIView {
 }
 
 extension ProfileTableHeaderView {
+    
     func setUpWithAvatar(avatar: UIImage?, name: String?, location: String?) {
         avatarImageView.image = avatar
         nameLabel.text = name
         locationLabel.text = location
     }
+    
 }

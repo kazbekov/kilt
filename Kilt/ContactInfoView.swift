@@ -88,9 +88,11 @@ final class ContactInfoView: UIView {
 }
 
 extension ContactInfoView {
-    func setUpWithContact(avatarImage: UIImage?, ownerName: String?, phoneNumber: String?) {
-        avatarImageView.image = avatarImage
+    
+    func setUpWithAvatar(avatar: UIImage?, ownerName: String?, phoneNumber: String?) {
+        avatarImageView.image = avatar
         nameLabel.text = ownerName
         callButton.setTitle(phoneNumber, forState: .Normal)
     }
+    
 }
