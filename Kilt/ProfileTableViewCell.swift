@@ -27,6 +27,7 @@ final class ProfileTableViewCell: UITableViewCell {
     
     private lazy var iconImageView = UIImageView().then {
         $0.contentMode = .ScaleAspectFill
+        $0.clipsToBounds = true
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
