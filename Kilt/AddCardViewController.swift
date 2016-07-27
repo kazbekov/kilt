@@ -39,16 +39,12 @@ final class AddCardViewController: UIViewController {
         }
     }()
     
-    private lazy var frontImageView = UIImageView().then {
-        $0.backgroundColor = .tundoraColor()
-        $0.contentMode = .ScaleAspectFill
-        $0.clipsToBounds = true
+    private lazy var frontSelectImageView = SelectCardImageView(frame: .zero).then {
+        $0.setUpWithPlaceholder(Icon.frontPlaceholderIcon, placeholderText: "Лицевая часть карты")
     }
     
-    private lazy var backImageView = UIImageView().then {
-        $0.backgroundColor = .tundoraColor()
-        $0.contentMode = .ScaleAspectFill
-        $0.clipsToBounds = true
+    private lazy var backSelectImageView = SelectCardImageView(frame: .zero).then {
+        $0.setUpWithPlaceholder(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
     }
     
     // MARK: View Lifecycle
@@ -61,7 +57,7 @@ final class AddCardViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        [frontImageView, backImageView, cardNumberTextField].forEach {
+        [cardNumberTextField].forEach {
             $0.layer.cornerRadius = 6
         }
     }
@@ -71,7 +67,7 @@ final class AddCardViewController: UIViewController {
     private func setUpViews() {
         view.backgroundColor = .athensGrayColor()
         [cardLogoView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
-        [cardLogoWrapper, cardNumberTextField, frontImageView, backImageView].forEach { view.addSubview($0) }
+        [cardLogoWrapper, cardNumberTextField, frontSelectImageView, backSelectImageView].forEach { view.addSubview($0) }
     }
     
     private func setUpConstraints() {
@@ -100,17 +96,17 @@ final class AddCardViewController: UIViewController {
             cardLogoView.height == cardLogoView.width
         }
         
-        constrain(frontImageView, backImageView, cardNumberTextField, view) {
-            frontImageView, backImageView, cardNumberTextField, view in
-            frontImageView.top == cardNumberTextField.bottom + 40
-            frontImageView.leading == view.leading + 20
-            frontImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
-            frontImageView.height == frontImageView.width * (100 / 158)
+        constrain(frontSelectImageView, backSelectImageView, cardNumberTextField, view) {
+            frontSelectImageView, backSelectImageView, cardNumberTextField, view in
+            frontSelectImageView.top == cardNumberTextField.bottom + 40
+            frontSelectImageView.leading == view.leading + 20
+            frontSelectImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
+            frontSelectImageView.height == frontSelectImageView.width * (100 / 158)
             
-            backImageView.top == frontImageView.top
-            backImageView.trailing == view.trailing - 20
-            backImageView.width == frontImageView.width
-            backImageView.height == frontImageView.height
+            backSelectImageView.top == frontSelectImageView.top
+            backSelectImageView.trailing == view.trailing - 20
+            backSelectImageView.width == frontSelectImageView.width
+            backSelectImageView.height == frontSelectImageView.height
         }
     }
     
