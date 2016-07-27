@@ -82,6 +82,10 @@ extension UIColor {
         return self.colorFromHexCode(ColorCodes.frenchGray + alphaHEX(alpha))
     }
     
+    public static func crimsonColor(alpha: CGFloat = 1.0) -> UIColor {
+        return self.colorFromHexCode(ColorCodes.crimson + alphaHEX(alpha))
+    }
+    
     public struct ColorCodes {
         public static let app = "0198D7"
         public static let tundora = "4A4A4A"
@@ -89,6 +93,7 @@ extension UIColor {
         public static let athensGray = "EFEFF4"
         public static let mountainMist = "8F8E94"
         public static let frenchGray = "C8C7CC"
+        public static let crimson = "E01424"
     }
 }
 

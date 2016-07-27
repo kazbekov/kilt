@@ -40,6 +40,14 @@ final class ProfileTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.textColor = .blackColor()
+        titleLabel.text = nil
+        subtitleLabel.text = nil
+        iconImageView.image = nil
+    }
+    
     private func setUpViews() {
         selectionStyle = .None
         separatorInset = UIEdgeInsets(top: 0, left: 57, bottom: 0, right: 0)
@@ -67,9 +75,15 @@ final class ProfileTableViewCell: UITableViewCell {
 }
 
 extension ProfileTableViewCell {
+    
     func setUpWithTitle(title: String?, subtitle: String?, icon: UIImage?) {
         titleLabel.text = title
         subtitleLabel.text = subtitle
         iconImageView.image = icon
     }
+    
+    func setTitleLabelColor(color: UIColor) {
+        titleLabel.textColor = color
+    }
+    
 }

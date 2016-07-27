@@ -76,7 +76,22 @@ extension ProfileViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return (tableView.dequeueReusableCellWithIdentifier(profileCellIdentifier, forIndexPath: indexPath) as! ProfileTableViewCell).then {
-            $0.setUpWithTitle("asd", subtitle: "asd", icon: nil)
+            switch indexPath.section {
+            case 0:
+                switch indexPath.row {
+                case 0: $0.setUpWithTitle("Facebook", subtitle: "Добавить", icon: Icon.facebookIcon)
+                case 1: $0.setUpWithTitle("Google", subtitle: "Добавить", icon: Icon.googleIcon)
+                default: break
+                }
+            case 1:
+                switch indexPath.row {
+                case 0:
+                    $0.setUpWithTitle("Выйти", subtitle: nil, icon: Icon.exitIcon)
+                    $0.setTitleLabelColor(.crimsonColor())
+                default: break
+                }
+            default: break
+            }
         }
     }
     
