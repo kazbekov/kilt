@@ -70,6 +70,7 @@ final class AddCardViewController: UIViewController {
     private func setUpViews() {
         edgesForExtendedLayout = .None
         view.backgroundColor = .athensGrayColor()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         [cardLogoImageView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
         [cardLogoWrapper, cardNumberTextField, frontSelectImageView, backSelectImageView].forEach { view.addSubview($0) }
     }
@@ -118,6 +119,10 @@ final class AddCardViewController: UIViewController {
     
     @objc private func updateCardLogoImageView(sender: UITextField) {
         cardLogoImageView.setUpWithTitle(sender.text)
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
     }
     
 }
