@@ -36,6 +36,8 @@ final class CardsTableViewCell: UITableViewCell {
     
     private func setUpViews() {
         selectionStyle = .None
+        separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
+        layoutMargins = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         [cardLogoImageView, cardTitleLabel, arrowImageView].forEach { contentView.addSubview($0) }
     }
     
