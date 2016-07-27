@@ -23,4 +23,7 @@ struct Icon {
     static let phoneIcon = UIImage(named: "phone-icon")
     static let frontPlaceholderIcon = UIImage(named: "front-placeholder-icon")
     static let backPlaceholderIcon = UIImage(named: "back-placeholder-icon")
+    static let facebookIcon = UIImage(named: "facebook-icon")
+    static let googleIcon = UIImage(named: "google-icon")
+    static let exitIcon = UIImage(named: "exit-icon")
 }
