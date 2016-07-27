@@ -12,7 +12,7 @@ import Cartography
 
 final class CardsTableViewCell: UITableViewCell {
     
-    private lazy var cardLogoView: CardLogoView = CardLogoView()
+    private lazy var cardLogoView = CardLogoImageView(frame: .zero)
     
     private lazy var cardTitleLabel = UILabel().then {
         $0.textColor = .tundoraColor()

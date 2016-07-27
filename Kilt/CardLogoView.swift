@@ -10,13 +10,7 @@ import UIKit
 import Sugar
 import Cartography
 
-final class CardLogoView: UIView {
-    
-    private lazy var imageView = UIImageView().then {
-        $0.clipsToBounds = true
-        $0.backgroundColor = .tundoraColor()
-        $0.contentMode = .ScaleAspectFill
-    }
+final class CardLogoImageView: UIImageView {
     
     private lazy var titleLabel = UILabel().then {
         $0.textAlignment = .Center
@@ -36,26 +30,28 @@ final class CardLogoView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView.layer.cornerRadius = 6
+        layer.cornerRadius = 6
     }
     
     private func setUpViews() {
-        [imageView, titleLabel].forEach {
+        clipsToBounds = true
+        backgroundColor = .athensGrayColor()
+        contentMode = .ScaleAspectFill
+        [titleLabel].forEach {
             addSubview($0)
         }
     }
     
     private func setUpConstraints() {
-        constrain(imageView, titleLabel, self) {
-            imageView, titleLabel, view in
-            imageView.edges == view.edges
+        constrain(titleLabel, self) {
+            titleLabel, view in
             titleLabel.center == view.center
         }
     }
     
 }
 
-extension CardLogoView {
+extension CardLogoImageView {
     func setUpWithTitle(title: String?) {
         guard let title = title else { return }
         titleLabel.text = String(title.characters.prefix(1)).capitalizedString

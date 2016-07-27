@@ -16,7 +16,7 @@ final class AddCardViewController: UIViewController {
         $0.backgroundColor = .whiteColor()
     }
     
-    private lazy var cardLogoView: CardLogoView = CardLogoView()
+    private lazy var cardLogoView = CardLogoImageView(frame: .zero)
     
     private lazy var cardTitleTextField: UITextField = {
         return UITextField().then {

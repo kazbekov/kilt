@@ -23,7 +23,7 @@ final class CardDetailViewController: UIViewController {
     
     private lazy var contactInfoView: ContactInfoView = ContactInfoView()
     
-    private lazy var cardLogoView: CardLogoView = CardLogoView()
+    private lazy var cardLogoView = CardLogoImageView(frame: .zero)
     
     private lazy var cardLogoWrapper = UIView()
     
