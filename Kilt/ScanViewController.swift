@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import RSBarcodes_Swift
 import Sugar
 import Cartography
 
-final class ScanViewController: BarcodeScannerController {
+final class ScanViewController: RSCodeReaderViewController {
     
     private var barcodeDetected = false
     
@@ -73,11 +74,11 @@ final class ScanViewController: BarcodeScannerController {
         super.viewDidLoad()
         setUpViews()
         setUpConstraints()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        barcodeDetected = false
+        barcodesHandler = { barcodes in
+            guard let barcode = barcodes.last where !self.barcodeDetected else { return }
+            self.barcodeDetected = true
+            self.pushAddCardViewController(barcode.stringValue)
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -92,6 +93,8 @@ final class ScanViewController: BarcodeScannerController {
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Добавить бар-код"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtomItem]
+        focusMarkLayer.strokeColor = UIColor.clearColor().CGColor
+        cornersLayer.strokeColor = UIColor.clearColor().CGColor
         [titleLabel, noBarcodeLabel, noBarcodeButton, holeView].forEach { overlayView.addSubview($0) }
         [overlayView, barcodeImageView].forEach { view.addSubview($0) }
     }
@@ -123,9 +126,6 @@ final class ScanViewController: BarcodeScannerController {
     }
     
     @objc private func pushAddCardViewController(barcode: String?) {
-        navigationController?.pushViewController(AddCardViewController().then {
-            $0.setUpWithBarcode(barcode)
-            }, animated: true)
     }
     
     // MARK: Layout

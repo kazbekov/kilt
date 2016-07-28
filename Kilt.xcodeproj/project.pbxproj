@@ -9,12 +9,6 @@
 /* Begin PBXBuildFile section */
 		23471E096F33A3B0C6C39510 /* Pods_Kilt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */; };
 		7AB332B514227626D2B4D465 /* Pods_KiltTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A8AED0823E860CC7D3477C /* Pods_KiltTests.framework */; };
-		932B68251D4A0FB300C6F5BC /* BarcodeScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B681F1D4A0FB300C6F5BC /* BarcodeScannerController.swift */; };
-		932B68261D4A0FB300C6F5BC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B68201D4A0FB300C6F5BC /* Config.swift */; };
-		932B68271D4A0FB300C6F5BC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B68211D4A0FB300C6F5BC /* HeaderView.swift */; };
-		932B68281D4A0FB300C6F5BC /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B68221D4A0FB300C6F5BC /* InfoView.swift */; };
-		932B68291D4A0FB300C6F5BC /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B68231D4A0FB300C6F5BC /* State.swift */; };
-		932B682A1D4A0FB300C6F5BC /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932B68241D4A0FB300C6F5BC /* TorchMode.swift */; };
 		933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D191D45CB5500E01464 /* AppDelegate.swift */; };
 		933D5D211D45CB5500E01464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933D5D201D45CB5500E01464 /* Assets.xcassets */; };
 		933D5D241D45CB5500E01464 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 933D5D221D45CB5500E01464 /* LaunchScreen.storyboard */; };
@@ -70,12 +64,6 @@
 		4B8270DB7D8700DE59DFB7E8 /* Pods_KiltUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiltUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C67B54A2204204E9208245F /* Pods-KiltTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiltTests/Pods-KiltTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kilt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		932B681F1D4A0FB300C6F5BC /* BarcodeScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerController.swift; sourceTree = "<group>"; };
-		932B68201D4A0FB300C6F5BC /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		932B68211D4A0FB300C6F5BC /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		932B68221D4A0FB300C6F5BC /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
-		932B68231D4A0FB300C6F5BC /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		932B68241D4A0FB300C6F5BC /* TorchMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorchMode.swift; sourceTree = "<group>"; };
 		933D5D161D45CB5500E01464 /* Kilt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kilt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		933D5D191D45CB5500E01464 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		933D5D201D45CB5500E01464 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -162,19 +150,6 @@
 				4457728E1EEA8A979B0E4E49 /* Pods-KiltUITests.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		932B681E1D4A0F9E00C6F5BC /* BarcodeScanner */ = {
-			isa = PBXGroup;
-			children = (
-				932B681F1D4A0FB300C6F5BC /* BarcodeScannerController.swift */,
-				932B68201D4A0FB300C6F5BC /* Config.swift */,
-				932B68211D4A0FB300C6F5BC /* HeaderView.swift */,
-				932B68221D4A0FB300C6F5BC /* InfoView.swift */,
-				932B68231D4A0FB300C6F5BC /* State.swift */,
-				932B68241D4A0FB300C6F5BC /* TorchMode.swift */,
-			);
-			name = BarcodeScanner;
 			sourceTree = "<group>";
 		};
 		933D5D0D1D45CB5500E01464 = {
@@ -301,7 +276,6 @@
 		933D5D5F1D45E75000E01464 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				932B681E1D4A0F9E00C6F5BC /* BarcodeScanner */,
 				933D5D601D45E75C00E01464 /* Icon.swift */,
 			);
 			name = Helpers;
@@ -627,28 +601,22 @@
 				933D5D841D48D28A00E01464 /* Discount.swift in Sources */,
 				933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */,
 				933D5D7C1D48BCE100E01464 /* ProfileTableHeaderView.swift in Sources */,
-				932B68281D4A0FB300C6F5BC /* InfoView.swift in Sources */,
 				933D5D801D48CEDF00E01464 /* DiscountsTableViewCell.swift in Sources */,
 				933D5D6B1D47423800E01464 /* CardLogoImageView.swift in Sources */,
 				933D5D551D45DB8B00E01464 /* MainTabBarController.swift in Sources */,
 				933D5D691D473C5C00E01464 /* Card.swift in Sources */,
 				933D5D781D48A1B600E01464 /* ProfileTableViewCell.swift in Sources */,
-				932B68261D4A0FB300C6F5BC /* Config.swift in Sources */,
 				933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */,
 				933D5D701D486FA600E01464 /* AddCardViewController.swift in Sources */,
 				933D5D511D45D78800E01464 /* CardsViewModel.swift in Sources */,
-				932B68251D4A0FB300C6F5BC /* BarcodeScannerController.swift in Sources */,
 				933D5D741D48827F00E01464 /* SelectCardImageView.swift in Sources */,
-				932B68291D4A0FB300C6F5BC /* State.swift in Sources */,
 				933D5D721D487DEF00E01464 /* BarcodeTextField.swift in Sources */,
 				933D5D651D47295300E01464 /* CardDetailViewController.swift in Sources */,
 				933D5D591D45DC4600E01464 /* DiscountsViewController.swift in Sources */,
-				932B682A1D4A0FB300C6F5BC /* TorchMode.swift in Sources */,
 				933D5D5B1D45DC5800E01464 /* ProfileViewController.swift in Sources */,
 				933D5D611D45E75C00E01464 /* Icon.swift in Sources */,
 				933D5D531D45D8A800E01464 /* CardsTableViewCell.swift in Sources */,
 				933D5D671D47324B00E01464 /* ContactInfoView.swift in Sources */,
-				932B68271D4A0FB300C6F5BC /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
