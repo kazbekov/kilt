@@ -9,6 +9,7 @@ target 'Kilt' do
   pod 'Cartography', '~> 0.6'
   pod 'RSBarcodes_Swift', '~> 0.1.9'
   pod 'Sugar', '~> 1.2'
+  pod 'SwipeBack', '~> 1.1'
 
   target 'KiltTests' do
     inherit! :search_paths
