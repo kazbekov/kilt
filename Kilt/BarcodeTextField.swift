@@ -1,5 +1,5 @@
 //
-//  CardNumberTextField.swift
+//  BarcodeTextField.swift
 //  Kilt
 //
 //  Created by Nurdaulet Bolatov on 7/27/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class CardNumberTextField: UITextField {
+final class BarcodeTextField: UITextField {
     
     override func textRectForBounds(bounds: CGRect) -> CGRect {
         return CGRect(x: bounds.origin.x + 10, y: bounds.origin.y + 8,

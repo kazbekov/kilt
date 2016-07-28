@@ -31,8 +31,8 @@ final class AddCardViewController: UIViewController {
         }
     }()
     
-    private lazy var cardNumberTextField: CardNumberTextField = {
-        return CardNumberTextField().then {
+    private lazy var barcodeTextField: BarcodeTextField = {
+        return BarcodeTextField().then {
             $0.backgroundColor = .whiteColor()
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.mountainMistColor(),
@@ -60,7 +60,7 @@ final class AddCardViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        [cardNumberTextField].forEach {
+        [barcodeTextField].forEach {
             $0.layer.cornerRadius = 6
         }
     }
@@ -72,21 +72,21 @@ final class AddCardViewController: UIViewController {
         view.backgroundColor = .athensGrayColor()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         [cardLogoImageView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
-        [cardLogoWrapper, cardNumberTextField, frontSelectImageView, backSelectImageView].forEach { view.addSubview($0) }
+        [cardLogoWrapper, barcodeTextField, frontSelectImageView, backSelectImageView].forEach { view.addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(cardLogoWrapper, cardNumberTextField, view) {
-            cardLogoWrapper, cardNumberTextField, view in
+        constrain(cardLogoWrapper, barcodeTextField, view) {
+            cardLogoWrapper, barcodeTextField, view in
             cardLogoWrapper.top == view.top
             cardLogoWrapper.leading == view.leading
             cardLogoWrapper.trailing == view.trailing
             cardLogoWrapper.height == view.width - 225 - 16
             
-            cardNumberTextField.top == cardLogoWrapper.bottom + 16
-            cardNumberTextField.leading == view.leading + 16
-            cardNumberTextField.trailing == view.trailing - 16
-            cardNumberTextField.height == 50
+            barcodeTextField.top == cardLogoWrapper.bottom + 16
+            barcodeTextField.leading == view.leading + 16
+            barcodeTextField.trailing == view.trailing - 16
+            barcodeTextField.height == 50
         }
         
         constrain(cardLogoImageView, cardTitleTextField, cardLogoWrapper) {
@@ -101,9 +101,9 @@ final class AddCardViewController: UIViewController {
             cardLogoImageView.height == cardLogoImageView.width
         }
         
-        constrain(frontSelectImageView, backSelectImageView, cardNumberTextField, view) {
-            frontSelectImageView, backSelectImageView, cardNumberTextField, view in
-            frontSelectImageView.top == cardNumberTextField.bottom + 40
+        constrain(frontSelectImageView, backSelectImageView, barcodeTextField, view) {
+            frontSelectImageView, backSelectImageView, barcodeTextField, view in
+            frontSelectImageView.top == barcodeTextField.bottom + 40
             frontSelectImageView.leading == view.leading + 20
             frontSelectImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
             frontSelectImageView.height == frontSelectImageView.width * (100 / 158)
@@ -123,6 +123,14 @@ final class AddCardViewController: UIViewController {
     
     @objc private func hideKeyboard() {
         view.endEditing(true)
+    }
+    
+}
+
+extension AddCardViewController {
+    
+    func setUpWithBarcode(barcode: String?) {
+        barcodeTextField.text = barcode
     }
     
 }

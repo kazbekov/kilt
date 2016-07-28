@@ -77,7 +77,7 @@ final class ScanViewController: RSCodeReaderViewController {
         barcodesHandler = { barcodes in
             guard let barcode = barcodes.last where !self.barcodeDetected else { return }
             self.barcodeDetected = true
-            self.pushAddCardViewController(barcode.stringValue, type: barcode.type)
+            self.pushAddCardViewController(barcode.stringValue)
         }
     }
     
@@ -122,10 +122,10 @@ final class ScanViewController: RSCodeReaderViewController {
     }
     
     @objc private func didPressNoBarcodeButton() {
-        pushAddCardViewController(nil, type: nil)
+        pushAddCardViewController(nil)
     }
     
-    @objc private func pushAddCardViewController(barcode: String?, type: String?) {
+    @objc private func pushAddCardViewController(barcode: String?) {
     }
     
     // MARK: Layout
