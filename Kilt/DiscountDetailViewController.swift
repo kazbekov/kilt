@@ -56,6 +56,20 @@ final class DiscountDetailViewController: UIViewController {
         $0.font = .systemFontOfSize(15)
     }
     
+    private var numberOfPages = 3 {
+        didSet {
+            pageControl.numberOfPages = numberOfPages
+        }
+    }
+    
+    private lazy var pageControl: UIPageControl = {
+        return UIPageControl().then {
+            $0.numberOfPages = self.numberOfPages
+            $0.addTarget(self, action: #selector(pageControlDidChangeCurrentPage(_:)),
+                forControlEvents: .ValueChanged)
+        }
+    }()
+    
     private let discountDetailCellIdentifier = "discountDetailCellIdentifier"
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout().then {
@@ -90,7 +104,8 @@ final class DiscountDetailViewController: UIViewController {
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
-        [logoImageView, titleLabel, subtitleLabel, addressTitleLabel, addressLabel, percentLabel, collectionView]
+        [logoImageView, titleLabel, subtitleLabel, addressTitleLabel,
+            addressLabel, percentLabel, collectionView, pageControl]
             .forEach {
             view.addSubview($0)
         }
@@ -125,12 +140,15 @@ final class DiscountDetailViewController: UIViewController {
             addressLabel.leading == addressTitleLabel.leading
             addressLabel.trailing == addressTitleLabel.trailing
         }
-        constrain(percentLabel, collectionView, view) {
-            percentLabel, collectionView, view in
+        constrain(percentLabel, collectionView, pageControl, view) {
+            percentLabel, collectionView, pageControl, view in
             collectionView.top == percentLabel.bottom + 22
             collectionView.leading == view.leading
             collectionView.trailing == view.trailing
             collectionView.bottom == view.bottom
+            
+            pageControl.centerX == view.centerX
+            pageControl.bottom == view.bottom - 15
         }
     }
     
@@ -140,6 +158,12 @@ final class DiscountDetailViewController: UIViewController {
         navigationController?.popViewControllerAnimated(true)
     }
     
+    @objc private func pageControlDidChangeCurrentPage(sender: UIPageControl) {
+        collectionView.setContentOffset(
+            CGPoint(x: collectionView.bounds.width * CGFloat(pageControl.currentPage), y: 0),
+            animated: true)
+    }
+    
 }
 
 // MARK: UICollectionViewDataSource
@@ -147,7 +171,7 @@ final class DiscountDetailViewController: UIViewController {
 extension DiscountDetailViewController: UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return self.numberOfPages
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -165,6 +189,13 @@ extension DiscountDetailViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return collectionView.frame.size
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.dragging || scrollView.decelerating {
+            let page = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+            pageControl.currentPage = page
+        }
     }
     
 }
