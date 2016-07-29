@@ -102,7 +102,6 @@ final class DiscountDetailViewController: UIViewController {
     private func setUpViews() {
         edgesForExtendedLayout = .None
         view.backgroundColor = .whiteColor()
-        navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
         [logoImageView, titleLabel, subtitleLabel, addressTitleLabel,
             addressLabel, percentLabel, collectionView, pageControl]
@@ -203,6 +202,7 @@ extension DiscountDetailViewController: UICollectionViewDelegate {
 extension DiscountDetailViewController {
     
     func setUpWithDiscount(discount: Discount) {
+        navigationItem.title = discount.title
         logoImageView.setUpWithTitle(discount.title)
         titleLabel.text = discount.title
         subtitleLabel.text = discount.subtitle
