@@ -10,6 +10,7 @@ import UIKit
 import RSBarcodes_Swift
 import Sugar
 import Cartography
+import AVFoundation
 
 final class ScanViewController: RSCodeReaderViewController {
     
@@ -90,6 +91,11 @@ final class ScanViewController: RSCodeReaderViewController {
             self.barcodeDetected = true
             dispatch { self.pushAddCardViewController(barcode.stringValue) }
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        settingsButton.hidden = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == .Authorized
     }
     
     override func viewDidAppear(animated: Bool) {
