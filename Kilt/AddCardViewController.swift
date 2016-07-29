@@ -69,15 +69,7 @@ final class AddCardViewController: UIViewController {
         $0.setUpWithPlaceholderImage(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
     }
     
-    private lazy var barcodeImageView = UIImageView().then {
-        $0.contentMode = .ScaleAspectFit
-    }
-    
-    private lazy var barcodeLabel = UILabel().then {
-        $0.textAlignment = .Center
-        $0.textColor = .blackColor()
-        $0.font = .systemFontOfSize(30)
-    }
+    private lazy var barcodeView: BarcodeView = BarcodeView()
     
     // MARK: View Lifecycle
     
@@ -104,8 +96,8 @@ final class AddCardViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButtonItem
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         [cardLogoImageView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
-        [cardLogoWrapper, barcodeTextField, frontSelectImageView, backSelectImageView,
-            barcodeImageView, barcodeLabel].forEach { view.addSubview($0) }
+        [cardLogoWrapper, barcodeTextField, frontSelectImageView, backSelectImageView, barcodeView]
+            .forEach { view.addSubview($0) }
     }
     
     private func setUpConstraints() {
@@ -147,15 +139,11 @@ final class AddCardViewController: UIViewController {
             backSelectImageView.height == frontSelectImageView.height
         }
         
-        constrain(frontSelectImageView, barcodeImageView, barcodeLabel, view) {
-            frontSelectImageView, barcodeImageView, barcodeLabel, view in
-            barcodeImageView.top == frontSelectImageView.bottom + 20
-            barcodeImageView.leading == view.leading + 20
-            barcodeImageView.trailing == view.trailing - 20
-            barcodeImageView.height == 90
-            
-            barcodeLabel.top == barcodeImageView.bottom + 10
-            barcodeLabel.centerX == view.centerX
+        constrain(frontSelectImageView, barcodeView, view) {
+            frontSelectImageView, barcodeView, view in
+            barcodeView.top == frontSelectImageView.bottom + 20
+            barcodeView.leading == view.leading + 20
+            barcodeView.trailing == view.trailing - 20
         }
     }
     
@@ -177,8 +165,7 @@ final class AddCardViewController: UIViewController {
         guard let text = sender.text, image = RSUnifiedCodeGenerator.shared
             .generateCode(text, machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
             where !text.isEmpty else { return }
-        barcodeImageView.image = image
-        barcodeLabel.text = text
+        barcodeView.setUpWithImage(image, barcode: text)
     }
     
     @objc private func hideKeyboard() {
