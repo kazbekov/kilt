@@ -41,7 +41,7 @@ final class ProfileViewController: UIViewController {
     private func setUpViews() {
         edgesForExtendedLayout = .None
         view.backgroundColor = .whiteColor()
-        navigationItem.title = "Карточки"
+        navigationItem.title = "Профиль"
         view.addSubview(tableView)
     }
     
