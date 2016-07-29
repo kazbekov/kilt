@@ -7,7 +7,7 @@ target 'Kilt' do
 
   # Pods for Kilt
   pod 'Cartography', '~> 0.6'
-  pod 'RSBarcodes_Swift', :git => 'https://github.com/nbolatov/RSBarcodes_Swift.git'
+  pod 'RSBarcodes_Swift', '~> 0.1.9'
   pod 'Sugar', '~> 1.2'
   pod 'SwipeBack', '~> 1.1'
 

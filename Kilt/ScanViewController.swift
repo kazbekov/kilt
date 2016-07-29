@@ -67,6 +67,17 @@ final class ScanViewController: RSCodeReaderViewController {
             $0.layer.borderColor = UIColor.whiteColor().CGColor
         }
     }()
+    
+    private lazy var settingsButton: UIButton = {
+        return UIButton().then {
+            $0.addTarget(self, action: #selector(didPressNoBarcodeButton), forControlEvents: .TouchUpInside)
+            $0.setTitle("РАЗРЕШИТЬ ДОСТУП К КАМЕРЕ", forState: .Normal)
+            $0.titleLabel?.font = .systemFontOfSize(15, weight: UIFontWeightMedium)
+            $0.layer.cornerRadius = 6
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.whiteColor().CGColor
+        }
+    }()
 
     // MARK: View Lifecycle
     
@@ -100,22 +111,27 @@ final class ScanViewController: RSCodeReaderViewController {
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtomItem]
         focusMarkLayer.strokeColor = UIColor.clearColor().CGColor
         cornersLayer.strokeColor = UIColor.clearColor().CGColor
-        [titleLabel, noBarcodeLabel, noBarcodeButton, holeView].forEach { overlayView.addSubview($0) }
+        [titleLabel, settingsButton, noBarcodeLabel, noBarcodeButton, holeView].forEach { overlayView.addSubview($0) }
         [overlayView, barcodeImageView].forEach { view.addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(titleLabel, noBarcodeLabel, noBarcodeButton, holeView) {
-            titleLabel, noBarcodeLabel, noBarcodeButton, holeView in
-            titleLabel.bottom == holeView.top - 30
+        constrain(titleLabel, settingsButton, noBarcodeLabel, noBarcodeButton, holeView) {
+            titleLabel, settingsButton, noBarcodeLabel, noBarcodeButton, holeView in
+            titleLabel.bottom == holeView.top - 20
             titleLabel.centerX == holeView.centerX
             
-            noBarcodeLabel.top == holeView.bottom + 80
+            settingsButton.bottom == titleLabel.top - 20
+            settingsButton.centerX == holeView.centerX
+            settingsButton.width == holeView.width
+            settingsButton.height == 50
+            
+            noBarcodeLabel.top == holeView.bottom + 20
             noBarcodeLabel.centerX == holeView.centerX
             
             noBarcodeButton.top == noBarcodeLabel.bottom + 20
             noBarcodeButton.centerX == holeView.centerX
-            noBarcodeButton.width == 240
+            noBarcodeButton.width == holeView.width
             noBarcodeButton.height == 50
         }
     }
@@ -138,6 +154,12 @@ final class ScanViewController: RSCodeReaderViewController {
         }
     }
     
+    @objc private func showAppSettings() {
+        if let settingsURL = NSURL(string: UIApplicationOpenSettingsURLString) {
+            UIApplication.sharedApplication().openURL(settingsURL)
+        }
+    }
+    
     // MARK: Layout
     
     private func layoutOverlayView() {
@@ -147,8 +169,10 @@ final class ScanViewController: RSCodeReaderViewController {
         let maskLayer = CAShapeLayer()
         maskLayer.frame = overlayView.bounds
         
-        let width: CGFloat = 250, height: CGFloat = 155
-        let rect = CGRect(x: overlayView.frame.midX - width / 2, y: overlayView.frame.midY - height,
+        let width: CGFloat = 250, height: CGFloat = 135
+        let centerX: CGFloat = overlayView.frame.midX - width / 2
+        let centerY: CGFloat = overlayView.frame.midY - height / 2
+        let rect = CGRect(x: centerX, y: centerY,
                           width: width, height: height)
         
         let path = UIBezierPath(rect: overlayView.bounds)
@@ -157,8 +181,8 @@ final class ScanViewController: RSCodeReaderViewController {
         maskLayer.path = path.CGPath
         overlayView.layer.mask = maskLayer
         
-        let borderRect = CGRect(x: overlayView.frame.midX - width / 2 - holeView.layer.borderWidth,
-                                y: overlayView.frame.midY - height - holeView.layer.borderWidth,
+        let borderRect = CGRect(x: centerX - holeView.layer.borderWidth,
+                                y: centerY - holeView.layer.borderWidth,
                                 width: width + holeView.layer.borderWidth * 2,
                                 height: height + holeView.layer.borderWidth * 2)
         holeView.frame = borderRect
