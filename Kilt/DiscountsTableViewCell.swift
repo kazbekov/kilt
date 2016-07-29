@@ -71,7 +71,7 @@ final class DiscountsTableViewCell: UITableViewCell {
             titleLabel.trailing == percentLabel.leading - 15
             
             percentLabel.top == titleLabel.top
-            percentLabel.trailing == arrowImageView.leading - 15
+            percentLabel.trailing == arrowImageView.leading - 10
         }
         constrain(titleLabel, subtitleLabel, percentLabel) {
             titleLabel, subtitleLabel, percentLabel in
