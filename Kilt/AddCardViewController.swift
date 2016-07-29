@@ -114,8 +114,9 @@ final class AddCardViewController: UIViewController {
         
         constrain(logoImageView, titleTextField, logoWrapper) {
             logoImageView, titleTextField, logoWrapper in
+            titleTextField.top == logoWrapper.top
             titleTextField.trailing == logoWrapper.trailing - 16
-            titleTextField.centerY == logoWrapper.centerY
+            titleTextField.bottom == logoWrapper.bottom
             titleTextField.width == 225
             
             logoImageView.leading == logoWrapper.leading + 16
