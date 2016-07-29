@@ -33,16 +33,12 @@ final class CardDetailViewController: UIViewController {
         $0.font = .systemFontOfSize(18)
     }
     
-    private lazy var frontImageView = UIImageView().then {
-        $0.backgroundColor = .tundoraColor()
-        $0.contentMode = .ScaleAspectFill
-        $0.clipsToBounds = true
+    private lazy var frontImageView = SelectCardImageView(frame: .zero).then {
+        $0.setUpWithPlaceholderImage(Icon.frontPlaceholderIcon, placeholderText: "Лицевая часть карты")
     }
     
-    private lazy var backImageView = UIImageView().then {
-        $0.backgroundColor = .tundoraColor()
-        $0.contentMode = .ScaleAspectFill
-        $0.clipsToBounds = true
+    private lazy var backImageView = SelectCardImageView(frame: .zero).then {
+        $0.setUpWithPlaceholderImage(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
     }
     
     // MARK: View Lifecycle
@@ -123,9 +119,11 @@ final class CardDetailViewController: UIViewController {
 extension CardDetailViewController {
     
     func setUpWithCard(card: Card) {
-        cardLogoImageView.setUpWithTitle(card.title)
         cardTitleLabel.text = card.title
+        cardLogoImageView.setUpWithTitle(card.title)
         contactInfoView.setUpWithAvatar(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
+        frontImageView.setUpWithImage(nil)
+        backImageView.setUpWithImage(nil)
     }
     
 }
