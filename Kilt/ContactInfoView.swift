@@ -10,7 +10,13 @@ import UIKit
 import Sugar
 import Cartography
 
+protocol ContactInfoViewDelegate {
+    func makeCall(sender: UIButton)
+}
+
 final class ContactInfoView: UIView {
+    
+    var delegate: ContactInfoViewDelegate?
     
     private lazy var avatarImageView = UIImageView().then {
         $0.backgroundColor = .tundoraColor()
@@ -33,9 +39,11 @@ final class ContactInfoView: UIView {
     
     private lazy var callButton: UIButton = {
         return UIButton().then {
+            $0.addTarget(self, action: #selector(didPressCallButton(_:)), forControlEvents: .TouchUpInside)
             $0.backgroundColor = .fruitSaladColor()
             $0.titleLabel?.font = .systemFontOfSize(15, weight: UIFontWeightMedium)
             $0.setImage(Icon.phoneIcon, forState: .Normal)
+            $0.setImage(Icon.phoneIcon, forState: .Highlighted)
             $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: -7, bottom: 0, right: 0)
         }
     }()
@@ -83,6 +91,10 @@ final class ContactInfoView: UIView {
             callButton.width == 148
             callButton.height == 30
         }
+    }
+    
+    @objc private func didPressCallButton(sender: UIButton) {
+        delegate?.makeCall(sender)
     }
     
 }

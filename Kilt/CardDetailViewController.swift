@@ -21,7 +21,9 @@ final class CardDetailViewController: UIViewController {
         $0.width = -7
     }
     
-    private lazy var contactInfoView: ContactInfoView = ContactInfoView()
+    private lazy var contactInfoView: ContactInfoView = ContactInfoView().then {
+        $0.delegate = self
+    }
     
     private lazy var logoImageView = LogoImageView(frame: .zero)
     
@@ -120,6 +122,19 @@ final class CardDetailViewController: UIViewController {
         navigationController?.popViewControllerAnimated(true)
     }
     
+}
+
+// MARK: ContactInfoViewDelegate
+
+extension CardDetailViewController: ContactInfoViewDelegate {
+    func makeCall(sender: UIButton) {
+        guard let phoneNumber = sender.titleLabel?.text, phoneCallURL:NSURL = NSURL(string:"tel://\(phoneNumber)")
+            else { return }
+        let application = UIApplication.sharedApplication()
+        if (application.canOpenURL(phoneCallURL)) {
+            application.openURL(phoneCallURL);
+        }
+    }
 }
 
 extension CardDetailViewController {
