@@ -72,6 +72,9 @@ final class DiscountsViewController: UIViewController {
 extension DiscountsViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        navigationController?.pushViewController(DiscountDetailViewController().then {
+            $0.setUpWithDiscount(viewModel.discounts[indexPath.row])
+            }, animated: true)
     }
     
 }

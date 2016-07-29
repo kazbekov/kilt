@@ -11,10 +11,10 @@ import UIKit
 final class DiscountsViewModel {
     var discounts = [
         Discount(title: "MEXX", percent: "15%", avatarImage: Icon.profileIcon,
-            subtitle: "Работает вместе с дисконтной картой Mexx."),
+            subtitle: "Работает вместе с дисконтной картой Mexx.", address: "г. Алматы, пр. Абылай-хана 45"),
         Discount(title: "MEXX", percent: "15%", avatarImage: Icon.profileIcon,
-            subtitle: "Работает вместе с дисконтной картой Mexx."),
+            subtitle: "Работает вместе с дисконтной картой Mexx.", address: "г. Алматы, пр. Абылай-хана 45"),
         Discount(title: "MEXX", percent: "15%", avatarImage: Icon.profileIcon,
-            subtitle: "Работает вместе с дисконтной картой Mexx.")
+            subtitle: "Работает вместе с дисконтной картой Mexx.", address: "г. Алматы, пр. Абылай-хана 45")
     ]
 }

@@ -13,4 +13,5 @@ struct Discount {
     var percent: String?
     var avatarImage: UIImage?
     var subtitle: String?
+    var address: String?
 }
