@@ -12,6 +12,21 @@ import Cartography
 
 final class AddCardViewController: UIViewController {
     
+    private lazy var leftBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
+                               target: self, action: #selector(popViewController))
+    }()
+    
+    private lazy var rightBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(title: "Сохранить", style: .Plain, target: self, action: #selector(saveCard)).then {
+            $0.setTitleTextAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(17)], forState: .Normal)
+        }
+    }()
+    
+    private lazy var negativeSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil).then {
+        $0.width = -7
+    }
+    
     private lazy var cardLogoWrapper = UIView().then {
         $0.backgroundColor = .whiteColor()
     }
@@ -70,6 +85,9 @@ final class AddCardViewController: UIViewController {
     private func setUpViews() {
         edgesForExtendedLayout = .None
         view.backgroundColor = .athensGrayColor()
+        navigationItem.title = "Карта"
+        navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
+        navigationItem.rightBarButtonItem = rightBarButtonItem
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         [cardLogoImageView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
         [cardLogoWrapper, barcodeTextField, frontSelectImageView, backSelectImageView].forEach { view.addSubview($0) }
@@ -116,6 +134,14 @@ final class AddCardViewController: UIViewController {
     }
     
     // MARK: User Interaction
+    
+    @objc private func saveCard() {
+        
+    }
+    
+    @objc private func popViewController() {
+        navigationController?.popViewControllerAnimated(true)
+    }
     
     @objc private func updateCardLogoImageView(sender: UITextField) {
         cardLogoImageView.setUpWithTitle(sender.text)

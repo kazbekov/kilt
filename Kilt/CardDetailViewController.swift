@@ -12,7 +12,7 @@ import Cartography
 
 final class CardDetailViewController: UIViewController {
 
-    private lazy var leftBarButtomItem: UIBarButtonItem = {
+    private lazy var leftBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
                                target: self, action: #selector(popViewController))
     }()
@@ -66,7 +66,7 @@ final class CardDetailViewController: UIViewController {
         edgesForExtendedLayout = .None
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
-        navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtomItem]
+        navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
         [cardLogoImageView, cardTitleLabel].forEach { cardLogoWrapper.addSubview($0) }
         [contactInfoView, cardLogoWrapper, frontImageView, backImageView].forEach {
             view.addSubview($0)

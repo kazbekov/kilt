@@ -14,7 +14,7 @@ final class DiscountsViewController: UIViewController {
     
     private let viewModel = DiscountsViewModel()
     
-    private lazy var rightBarButtomItem: UIBarButtonItem = {
+    private lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.locationIcon, style: UIBarButtonItemStyle.Plain,
                                target: self, action: #selector(pushScanViewController))
     }()
@@ -50,7 +50,7 @@ final class DiscountsViewController: UIViewController {
         edgesForExtendedLayout = .None
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Бонусы"
-        navigationItem.rightBarButtonItems = [negativeSpace, rightBarButtomItem]
+        navigationItem.rightBarButtonItems = [negativeSpace, rightBarButtonItem]
         view.addSubview(tableView)
     }
     

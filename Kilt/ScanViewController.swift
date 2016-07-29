@@ -16,7 +16,7 @@ final class ScanViewController: RSCodeReaderViewController {
     
     private var barcodeDetected = false
     
-    private lazy var leftBarButtomItem: UIBarButtonItem = {
+    private lazy var leftBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
                                target: self, action: #selector(popViewController))
     }()
@@ -114,7 +114,7 @@ final class ScanViewController: RSCodeReaderViewController {
         edgesForExtendedLayout = .None
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Добавить бар-код"
-        navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtomItem]
+        navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
         focusMarkLayer.strokeColor = UIColor.clearColor().CGColor
         cornersLayer.strokeColor = UIColor.clearColor().CGColor
         [titleLabel, settingsButton, noBarcodeLabel, noBarcodeButton, holeView].forEach { overlayView.addSubview($0) }

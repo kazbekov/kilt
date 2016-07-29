@@ -14,7 +14,7 @@ final class CardsViewController: UIViewController {
     
     private let viewModel = CardsViewModel()
     
-    private lazy var rightBarButtomItem: UIBarButtonItem = {
+    private lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.addCardIcon, style: UIBarButtonItemStyle.Plain,
                         target: self, action: #selector(pushScanViewController))
     }()
@@ -50,7 +50,7 @@ final class CardsViewController: UIViewController {
         edgesForExtendedLayout = .None
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
-        navigationItem.rightBarButtonItems = [negativeSpace, rightBarButtomItem]
+        navigationItem.rightBarButtonItems = [negativeSpace, rightBarButtonItem]
         view.addSubview(tableView)
     }
     
