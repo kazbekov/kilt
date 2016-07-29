@@ -75,10 +75,15 @@ final class ScanViewController: RSCodeReaderViewController {
         setUpViews()
         setUpConstraints()
         barcodesHandler = { barcodes in
-            guard let barcode = barcodes.last where !self.barcodeDetected else { return }
+            guard let barcode = barcodes.first where !self.barcodeDetected else { return }
             self.barcodeDetected = true
-            self.pushAddCardViewController(barcode.stringValue)
+            dispatch { self.pushAddCardViewController(barcode.stringValue) }
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        barcodeDetected = false
     }
     
     override func viewWillLayoutSubviews() {
@@ -126,6 +131,11 @@ final class ScanViewController: RSCodeReaderViewController {
     }
     
     @objc private func pushAddCardViewController(barcode: String?) {
+        dispatch {
+            self.navigationController?.pushViewController(AddCardViewController().then({
+                $0.setUpWithBarcode(barcode)
+            }), animated: true)
+        }
     }
     
     // MARK: Layout
