@@ -9,6 +9,8 @@
 import UIKit
 import Sugar
 import Cartography
+import RSBarcodes_Swift
+import AVFoundation
 
 final class AddCardViewController: UIViewController {
     
@@ -48,6 +50,8 @@ final class AddCardViewController: UIViewController {
     
     private lazy var barcodeTextField: BarcodeTextField = {
         return BarcodeTextField().then {
+            $0.addTarget(self, action: #selector(generateBarcodeImage(_:)),
+                forControlEvents: .EditingChanged)
             $0.backgroundColor = .whiteColor()
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.mountainMistColor(),
@@ -63,6 +67,16 @@ final class AddCardViewController: UIViewController {
     
     private lazy var backSelectImageView = SelectCardImageView(frame: .zero).then {
         $0.setUpWithPlaceholderImage(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
+    }
+    
+    private lazy var barcodeImageView = UIImageView().then {
+        $0.contentMode = .ScaleAspectFit
+    }
+    
+    private lazy var barcodeLabel = UILabel().then {
+        $0.textAlignment = .Center
+        $0.textColor = .blackColor()
+        $0.font = .systemFontOfSize(30)
     }
     
     // MARK: View Lifecycle
@@ -90,7 +104,8 @@ final class AddCardViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButtonItem
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         [cardLogoImageView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
-        [cardLogoWrapper, barcodeTextField, frontSelectImageView, backSelectImageView].forEach { view.addSubview($0) }
+        [cardLogoWrapper, barcodeTextField, frontSelectImageView, backSelectImageView,
+            barcodeImageView, barcodeLabel].forEach { view.addSubview($0) }
     }
     
     private func setUpConstraints() {
@@ -121,7 +136,7 @@ final class AddCardViewController: UIViewController {
         
         constrain(frontSelectImageView, backSelectImageView, barcodeTextField, view) {
             frontSelectImageView, backSelectImageView, barcodeTextField, view in
-            frontSelectImageView.top == barcodeTextField.bottom + 40
+            frontSelectImageView.top == barcodeTextField.bottom + 20
             frontSelectImageView.leading == view.leading + 20
             frontSelectImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
             frontSelectImageView.height == frontSelectImageView.width * (100 / 158)
@@ -130,6 +145,17 @@ final class AddCardViewController: UIViewController {
             backSelectImageView.trailing == view.trailing - 20
             backSelectImageView.width == frontSelectImageView.width
             backSelectImageView.height == frontSelectImageView.height
+        }
+        
+        constrain(frontSelectImageView, barcodeImageView, barcodeLabel, view) {
+            frontSelectImageView, barcodeImageView, barcodeLabel, view in
+            barcodeImageView.top == frontSelectImageView.bottom + 20
+            barcodeImageView.leading == view.leading + 20
+            barcodeImageView.trailing == view.trailing - 20
+            barcodeImageView.height == 90
+            
+            barcodeLabel.top == barcodeImageView.bottom + 10
+            barcodeLabel.centerX == view.centerX
         }
     }
     
@@ -147,6 +173,14 @@ final class AddCardViewController: UIViewController {
         cardLogoImageView.setUpWithTitle(sender.text)
     }
     
+    @objc private func generateBarcodeImage(sender: UITextField) {
+        guard let text = sender.text, image = RSUnifiedCodeGenerator.shared
+            .generateCode(text, machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
+            where !text.isEmpty else { return }
+        barcodeImageView.image = image
+        barcodeLabel.text = text
+    }
+    
     @objc private func hideKeyboard() {
         view.endEditing(true)
     }
@@ -157,6 +191,7 @@ extension AddCardViewController {
     
     func setUpWithBarcode(barcode: String?) {
         barcodeTextField.text = barcode
+        generateBarcodeImage(barcodeTextField)
     }
     
 }
