@@ -124,8 +124,8 @@ final class AddCardViewController: UIViewController {
             cardLogoImageView.height == cardLogoImageView.width
         }
         
-        constrain(frontSelectImageView, backSelectImageView, barcodeTextField, view) {
-            frontSelectImageView, backSelectImageView, barcodeTextField, view in
+        constrain(frontSelectImageView, backSelectImageView, barcodeView, barcodeTextField, view) {
+            frontSelectImageView, backSelectImageView, barcodeView, barcodeTextField, view in
             frontSelectImageView.top == barcodeTextField.bottom + 20
             frontSelectImageView.leading == view.leading + 20
             frontSelectImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
@@ -135,10 +135,7 @@ final class AddCardViewController: UIViewController {
             backSelectImageView.trailing == view.trailing - 20
             backSelectImageView.width == frontSelectImageView.width
             backSelectImageView.height == frontSelectImageView.height
-        }
-        
-        constrain(frontSelectImageView, barcodeView, view) {
-            frontSelectImageView, barcodeView, view in
+            
             barcodeView.top == frontSelectImageView.bottom + 20
             barcodeView.leading == view.leading + 20
             barcodeView.trailing == view.trailing - 20
