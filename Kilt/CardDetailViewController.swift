@@ -9,8 +9,6 @@
 import UIKit
 import Sugar
 import Cartography
-import RSBarcodes_Swift
-import AVFoundation
 
 final class CardDetailViewController: UIViewController {
 

@@ -9,8 +9,6 @@
 import UIKit
 import Sugar
 import Cartography
-import RSBarcodes_Swift
-import AVFoundation
 
 final class AddCardViewController: UIViewController {
     
@@ -162,10 +160,7 @@ final class AddCardViewController: UIViewController {
     }
     
     @objc private func generateBarcodeImage(sender: UITextField) {
-        guard let text = sender.text, image = RSUnifiedCodeGenerator.shared
-            .generateCode(text, machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
-            where !text.isEmpty else { return }
-        barcodeView.setUpWithImage(image, barcode: text)
+        barcodeView.setUpWithBarcode(sender.text)
     }
     
     @objc private func hideKeyboard() {
