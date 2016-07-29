@@ -56,6 +56,25 @@ final class DiscountDetailViewController: UIViewController {
         $0.font = .systemFontOfSize(15)
     }
     
+    private let discountDetailCellIdentifier = "discountDetailCellIdentifier"
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout().then {
+            $0.scrollDirection = .Horizontal
+            $0.minimumInteritemSpacing = 0
+            $0.minimumLineSpacing = 0
+        }
+
+        return UICollectionView(frame: .zero, collectionViewLayout: layout).then {
+            $0.showsHorizontalScrollIndicator = false
+            $0.pagingEnabled = true
+            $0.backgroundColor = .whiteColor()
+            $0.delegate = self
+            $0.dataSource = self
+            $0.registerClass(DiscountDetailCollectionViewCell.self,
+                forCellWithReuseIdentifier: self.discountDetailCellIdentifier)
+        }
+    }()
+    
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
@@ -71,7 +90,8 @@ final class DiscountDetailViewController: UIViewController {
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
-        [logoImageView, titleLabel, subtitleLabel, addressTitleLabel, addressLabel, percentLabel].forEach {
+        [logoImageView, titleLabel, subtitleLabel, addressTitleLabel, addressLabel, percentLabel, collectionView]
+            .forEach {
             view.addSubview($0)
         }
     }
@@ -105,12 +125,46 @@ final class DiscountDetailViewController: UIViewController {
             addressLabel.leading == addressTitleLabel.leading
             addressLabel.trailing == addressTitleLabel.trailing
         }
+        constrain(percentLabel, collectionView, view) {
+            percentLabel, collectionView, view in
+            collectionView.top == percentLabel.bottom + 22
+            collectionView.leading == view.leading
+            collectionView.trailing == view.trailing
+            collectionView.bottom == view.bottom
+        }
     }
     
     // MARK: User Interaction
     
     @objc private func popViewController() {
         navigationController?.popViewControllerAnimated(true)
+    }
+    
+}
+
+// MARK: UICollectionViewDataSource
+
+extension DiscountDetailViewController: UICollectionViewDataSource {
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        return (collectionView.dequeueReusableCellWithReuseIdentifier(discountDetailCellIdentifier,
+            forIndexPath: indexPath) as! DiscountDetailCollectionViewCell).then {
+            $0.setUpWithImage(Icon.profileIcon)
+        }
+    }
+    
+}
+
+// MARK: UICollectionViewDelegate
+
+extension DiscountDetailViewController: UICollectionViewDelegate {
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return collectionView.frame.size
     }
     
 }

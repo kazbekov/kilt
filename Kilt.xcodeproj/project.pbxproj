@@ -38,6 +38,7 @@
 		933D5D841D48D28A00E01464 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D831D48D28A00E01464 /* Discount.swift */; };
 		93E635831D4B2F4F00F84199 /* BarcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E635821D4B2F4F00F84199 /* BarcodeView.swift */; };
 		93E635851D4B576D00F84199 /* DiscountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E635841D4B576D00F84199 /* DiscountDetailViewController.swift */; };
+		93E635871D4B738800F84199 /* DiscountDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E635861D4B738800F84199 /* DiscountDetailCollectionViewCell.swift */; };
 		E836D4DC1C650F1928D2CF25 /* Pods_KiltUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8270DB7D8700DE59DFB7E8 /* Pods_KiltUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,7 @@
 		933D5D831D48D28A00E01464 /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
 		93E635821D4B2F4F00F84199 /* BarcodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeView.swift; sourceTree = "<group>"; };
 		93E635841D4B576D00F84199 /* DiscountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailViewController.swift; sourceTree = "<group>"; };
+		93E635861D4B738800F84199 /* DiscountDetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		CA09CF8F04CB8CE0EEA18DB6 /* Pods-KiltUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiltUITests/Pods-KiltUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E5A8AED0823E860CC7D3477C /* Pods_KiltTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiltTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -331,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				933D5D7F1D48CEDF00E01464 /* DiscountsTableViewCell.swift */,
+				93E635861D4B738800F84199 /* DiscountDetailCollectionViewCell.swift */,
 			);
 			name = Discounts;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				933D5D591D45DC4600E01464 /* DiscountsViewController.swift in Sources */,
 				933D5D5B1D45DC5800E01464 /* ProfileViewController.swift in Sources */,
 				933D5D611D45E75C00E01464 /* Icon.swift in Sources */,
+				93E635871D4B738800F84199 /* DiscountDetailCollectionViewCell.swift in Sources */,
 				933D5D531D45D8A800E01464 /* CardsTableViewCell.swift in Sources */,
 				933D5D671D47324B00E01464 /* ContactInfoView.swift in Sources */,
 				93E635831D4B2F4F00F84199 /* BarcodeView.swift in Sources */,
