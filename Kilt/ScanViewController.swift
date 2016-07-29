@@ -112,7 +112,7 @@ final class ScanViewController: RSCodeReaderViewController {
     
     private func setUpViews() {
         edgesForExtendedLayout = .None
-        view.backgroundColor = .whiteColor()
+        view.backgroundColor = .blackColor()
         navigationItem.title = "Добавить бар-код"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
         focusMarkLayer.strokeColor = UIColor.clearColor().CGColor
