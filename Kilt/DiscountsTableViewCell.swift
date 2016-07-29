@@ -12,7 +12,7 @@ import Cartography
 
 final class DiscountsTableViewCell: UITableViewCell {
     
-    private lazy var logoImageView = CardLogoImageView(frame: .zero)
+    private lazy var logoImageView = LogoImageView(frame: .zero)
     
     private lazy var titleLabel = UILabel().then {
         $0.textColor = .blackColor()

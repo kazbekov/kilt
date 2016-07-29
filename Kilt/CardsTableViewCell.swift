@@ -12,9 +12,9 @@ import Cartography
 
 final class CardsTableViewCell: UITableViewCell {
     
-    private lazy var cardLogoImageView = CardLogoImageView(frame: .zero)
+    private lazy var logoImageView = LogoImageView(frame: .zero)
     
-    private lazy var cardTitleLabel = UILabel().then {
+    private lazy var titleLabel = UILabel().then {
         $0.textColor = .tundoraColor()
         $0.font = .systemFontOfSize(18)
     }
@@ -38,25 +38,25 @@ final class CardsTableViewCell: UITableViewCell {
         selectionStyle = .None
         separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         layoutMargins = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
-        [cardLogoImageView, cardTitleLabel, arrowImageView].forEach { contentView.addSubview($0) }
+        [logoImageView, titleLabel, arrowImageView].forEach { contentView.addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(cardLogoImageView, cardTitleLabel, arrowImageView, contentView) {
-            cardLogoImageView, cardTitleLabel, arrowImageView, contentView in
-            cardLogoImageView.leading == contentView.leading + 10
-            cardLogoImageView.centerY == contentView.centerY
-            cardLogoImageView.width == 55
-            cardLogoImageView.height == 55
+        constrain(logoImageView, titleLabel, arrowImageView, contentView) {
+            logoImageView, titleLabel, arrowImageView, contentView in
+            logoImageView.leading == contentView.leading + 10
+            logoImageView.centerY == contentView.centerY
+            logoImageView.width == 55
+            logoImageView.height == 55
             
             arrowImageView.trailing == contentView.trailing - 18
             arrowImageView.centerY == contentView.centerY
             arrowImageView.width == 6
             arrowImageView.height == 12
             
-            cardTitleLabel.leading == cardLogoImageView.trailing + 15
-            cardTitleLabel.trailing == arrowImageView.leading - 15
-            cardTitleLabel.centerY == contentView.centerY
+            titleLabel.leading == logoImageView.trailing + 15
+            titleLabel.trailing == arrowImageView.leading - 15
+            titleLabel.centerY == contentView.centerY
         }
     }
     
@@ -65,8 +65,8 @@ final class CardsTableViewCell: UITableViewCell {
 extension CardsTableViewCell {
     
     func setUpWithTitle(title: String?) {
-        cardLogoImageView.setUpWithTitle(title)
-        cardTitleLabel.text = title
+        logoImageView.setUpWithTitle(title)
+        titleLabel.text = title
     }
     
 }

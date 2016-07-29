@@ -27,15 +27,15 @@ final class AddCardViewController: UIViewController {
         $0.width = -7
     }
     
-    private lazy var cardLogoWrapper = UIView().then {
+    private lazy var logoWrapper = UIView().then {
         $0.backgroundColor = .whiteColor()
     }
     
-    private lazy var cardLogoImageView = CardLogoImageView(frame: .zero)
+    private lazy var logoImageView = LogoImageView(frame: .zero)
     
-    private lazy var cardTitleTextField: UITextField = {
+    private lazy var titleTextField: UITextField = {
         return UITextField().then {
-            $0.addTarget(self, action: #selector(updateCardLogoImageView(_:)),
+            $0.addTarget(self, action: #selector(updateLogoImageView(_:)),
                 forControlEvents: .EditingChanged)
             $0.tag = 1
             let attributes = [
@@ -93,35 +93,35 @@ final class AddCardViewController: UIViewController {
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
         navigationItem.rightBarButtonItem = rightBarButtonItem
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
-        [cardLogoImageView, cardTitleTextField].forEach { cardLogoWrapper.addSubview($0) }
-        [cardLogoWrapper, barcodeTextField, frontSelectImageView, backSelectImageView, barcodeView]
+        [logoImageView, titleTextField].forEach { logoWrapper.addSubview($0) }
+        [logoWrapper, barcodeTextField, frontSelectImageView, backSelectImageView, barcodeView]
             .forEach { view.addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(cardLogoWrapper, barcodeTextField, view) {
-            cardLogoWrapper, barcodeTextField, view in
-            cardLogoWrapper.top == view.top
-            cardLogoWrapper.leading == view.leading
-            cardLogoWrapper.trailing == view.trailing
-            cardLogoWrapper.height == view.width - 225 - 16
+        constrain(logoWrapper, barcodeTextField, view) {
+            logoWrapper, barcodeTextField, view in
+            logoWrapper.top == view.top
+            logoWrapper.leading == view.leading
+            logoWrapper.trailing == view.trailing
+            logoWrapper.height == view.width - 225 - 16
             
-            barcodeTextField.top == cardLogoWrapper.bottom + 16
+            barcodeTextField.top == logoWrapper.bottom + 16
             barcodeTextField.leading == view.leading + 16
             barcodeTextField.trailing == view.trailing - 16
             barcodeTextField.height == 50
         }
         
-        constrain(cardLogoImageView, cardTitleTextField, cardLogoWrapper) {
-            cardLogoImageView, cardTitleTextField, cardLogoWrapper in
-            cardTitleTextField.trailing == cardLogoWrapper.trailing - 16
-            cardTitleTextField.centerY == cardLogoWrapper.centerY
-            cardTitleTextField.width == 225
+        constrain(logoImageView, titleTextField, logoWrapper) {
+            logoImageView, titleTextField, logoWrapper in
+            titleTextField.trailing == logoWrapper.trailing - 16
+            titleTextField.centerY == logoWrapper.centerY
+            titleTextField.width == 225
             
-            cardLogoImageView.leading == cardLogoWrapper.leading + 16
-            cardLogoImageView.trailing == cardTitleTextField.leading - 16
-            cardLogoImageView.centerY == cardLogoWrapper.centerY
-            cardLogoImageView.height == cardLogoImageView.width
+            logoImageView.leading == logoWrapper.leading + 16
+            logoImageView.trailing == titleTextField.leading - 16
+            logoImageView.centerY == logoWrapper.centerY
+            logoImageView.height == logoImageView.width
         }
         
         constrain(frontSelectImageView, backSelectImageView, barcodeView, barcodeTextField, view) {
@@ -152,8 +152,8 @@ final class AddCardViewController: UIViewController {
         navigationController?.popViewControllerAnimated(true)
     }
     
-    @objc private func updateCardLogoImageView(sender: UITextField) {
-        cardLogoImageView.setUpWithTitle(sender.text)
+    @objc private func updateLogoImageView(sender: UITextField) {
+        logoImageView.setUpWithTitle(sender.text)
     }
     
     @objc private func generateBarcodeImage(sender: UITextField) {

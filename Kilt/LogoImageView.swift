@@ -10,7 +10,7 @@ import UIKit
 import Sugar
 import Cartography
 
-final class CardLogoImageView: UIImageView {
+final class LogoImageView: UIImageView {
     
     private lazy var titleLabel = UILabel().then {
         $0.textAlignment = .Center
@@ -51,7 +51,7 @@ final class CardLogoImageView: UIImageView {
     
 }
 
-extension CardLogoImageView {
+extension LogoImageView {
     
     func setUpWithTitle(title: String?) {
         guard let title = title else { return }

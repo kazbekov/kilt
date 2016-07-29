@@ -23,11 +23,11 @@ final class CardDetailViewController: UIViewController {
     
     private lazy var contactInfoView: ContactInfoView = ContactInfoView()
     
-    private lazy var cardLogoImageView = CardLogoImageView(frame: .zero)
+    private lazy var logoImageView = LogoImageView(frame: .zero)
     
-    private lazy var cardLogoWrapper = UIView()
+    private lazy var logoWrapper = UIView()
     
-    private lazy var cardTitleLabel = UILabel().then {
+    private lazy var titleLabel = UILabel().then {
         $0.textAlignment = .Center
         $0.textColor = .tundoraColor()
         $0.font = .systemFontOfSize(18)
@@ -65,40 +65,40 @@ final class CardDetailViewController: UIViewController {
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
-        [cardLogoImageView, cardTitleLabel].forEach { cardLogoWrapper.addSubview($0) }
-        [contactInfoView, cardLogoWrapper, frontImageView, backImageView, barcodeView].forEach {
+        [logoImageView, titleLabel].forEach { logoWrapper.addSubview($0) }
+        [contactInfoView, logoWrapper, frontImageView, backImageView, barcodeView].forEach {
             view.addSubview($0)
         }
     }
     
     private func setUpConstraints() {
-        constrain(contactInfoView, cardLogoWrapper, view) {
-            contactInfoView, cardLogoWrapper, view in
+        constrain(contactInfoView, logoWrapper, view) {
+            contactInfoView, logoWrapper, view in
             contactInfoView.top == view.top + 20
             contactInfoView.trailing == view.trailing - 10
             contactInfoView.width == 220
             contactInfoView.height == 75
             
-            cardLogoWrapper.top == contactInfoView.top
-            cardLogoWrapper.leading == view.leading
-            cardLogoWrapper.trailing == contactInfoView.leading
-            cardLogoWrapper.height == 90
+            logoWrapper.top == contactInfoView.top
+            logoWrapper.leading == view.leading
+            logoWrapper.trailing == contactInfoView.leading
+            logoWrapper.height == 90
         }
         
-        constrain(cardLogoImageView, cardTitleLabel, cardLogoWrapper) {
-            cardLogoImageView, cardLogoLabel, cardLogoWrapper in
-            cardLogoImageView.top == cardLogoWrapper.top
-            cardLogoImageView.centerX == cardLogoWrapper.centerX
-            cardLogoImageView.height == 55
-            cardLogoImageView.width == 55
+        constrain(logoImageView, titleLabel, logoWrapper) {
+            logoImageView, cardLogoLabel, logoWrapper in
+            logoImageView.top == logoWrapper.top
+            logoImageView.centerX == logoWrapper.centerX
+            logoImageView.height == 55
+            logoImageView.width == 55
             
-            cardLogoLabel.top == cardLogoImageView.bottom + 9
-            cardLogoLabel.centerX == cardLogoImageView.centerX
+            cardLogoLabel.top == logoImageView.bottom + 9
+            cardLogoLabel.centerX == logoImageView.centerX
         }
         
-        constrain(frontImageView, backImageView, barcodeView, cardLogoWrapper, view) {
-            frontImageView, backImageView, barcodeView, cardLogoWrapper, view in
-            frontImageView.top == cardLogoWrapper.bottom + 20
+        constrain(frontImageView, backImageView, barcodeView, logoWrapper, view) {
+            frontImageView, backImageView, barcodeView, logoWrapper, view in
+            frontImageView.top == logoWrapper.bottom + 20
             frontImageView.leading == view.leading + 20
             frontImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
             frontImageView.height == frontImageView.width * (100 / 158)
@@ -125,8 +125,8 @@ final class CardDetailViewController: UIViewController {
 extension CardDetailViewController {
     
     func setUpWithCard(card: Card) {
-        cardTitleLabel.text = card.title
-        cardLogoImageView.setUpWithTitle(card.title)
+        titleLabel.text = card.title
+        logoImageView.setUpWithTitle(card.title)
         contactInfoView.setUpWithAvatar(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
         frontImageView.setUpWithImage(nil)
         backImageView.setUpWithImage(nil)

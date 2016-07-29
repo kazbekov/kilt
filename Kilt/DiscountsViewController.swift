@@ -16,7 +16,7 @@ final class DiscountsViewController: UIViewController {
     
     private lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.locationIcon, style: UIBarButtonItemStyle.Plain,
-                               target: self, action: #selector(pushScanViewController))
+                               target: self, action: #selector(pushMapViewController))
     }()
     
     private lazy var negativeSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil).then {
@@ -62,7 +62,7 @@ final class DiscountsViewController: UIViewController {
     
     // MARK: User Interaction
     
-    @objc private func pushScanViewController() {
+    @objc private func pushMapViewController() {
     }
     
 }
