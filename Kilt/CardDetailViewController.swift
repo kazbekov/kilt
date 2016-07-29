@@ -74,12 +74,12 @@ final class CardDetailViewController: UIViewController {
     private func setUpConstraints() {
         constrain(contactInfoView, cardLogoWrapper, view) {
             contactInfoView, cardLogoWrapper, view in
-            contactInfoView.top == view.top + 30
+            contactInfoView.top == view.top + 20
             contactInfoView.trailing == view.trailing - 10
             contactInfoView.width == 220
             contactInfoView.height == 75
             
-            cardLogoWrapper.top == view.top + 30
+            cardLogoWrapper.top == contactInfoView.top
             cardLogoWrapper.leading == view.leading
             cardLogoWrapper.trailing == contactInfoView.leading
             cardLogoWrapper.height == 90
