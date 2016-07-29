@@ -81,12 +81,14 @@ extension DiscountsViewController: UITableViewDelegate {
 extension DiscountsViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.cards.count
+        return viewModel.discounts.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return (tableView.dequeueReusableCellWithIdentifier(discountsCellIdentifier, forIndexPath: indexPath) as! DiscountsTableViewCell).then {
-            $0.setUpWithTitle(viewModel.cards[indexPath.row].title)
+            $0.setUpWithTitle(viewModel.discounts[indexPath.row].title,
+                subtitle: viewModel.discounts[indexPath.row].subtitle,
+                percent: viewModel.discounts[indexPath.row].percent)
         }
     }
     

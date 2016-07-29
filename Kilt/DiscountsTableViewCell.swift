@@ -12,11 +12,23 @@ import Cartography
 
 final class DiscountsTableViewCell: UITableViewCell {
     
-    private lazy var cardLogoImageView = CardLogoImageView(frame: .zero)
+    private lazy var logoImageView = CardLogoImageView(frame: .zero)
     
-    private lazy var cardTitleLabel = UILabel().then {
-        $0.textColor = .tundoraColor()
-        $0.font = .systemFontOfSize(18)
+    private lazy var titleLabel = UILabel().then {
+        $0.textColor = .blackColor()
+        $0.font = .systemFontOfSize(15, weight: UIFontWeightMedium)
+    }
+    
+    private lazy var subtitleLabel = UILabel().then {
+        $0.numberOfLines = 2
+        $0.textColor = .mountainMistColor()
+        $0.font = .systemFontOfSize(15)
+    }
+    
+    private lazy var percentLabel = UILabel().then {
+        $0.setContentHuggingPriority(1000, forAxis: .Horizontal)
+        $0.textColor = .appColor()
+        $0.font = .systemFontOfSize(17, weight: UIFontWeightSemibold)
     }
     
     private lazy var arrowImageView = UIImageView().then {
@@ -38,25 +50,34 @@ final class DiscountsTableViewCell: UITableViewCell {
         selectionStyle = .None
         separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         layoutMargins = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
-        [cardLogoImageView, cardTitleLabel, arrowImageView].forEach { contentView.addSubview($0) }
+        [logoImageView, titleLabel, subtitleLabel, percentLabel, arrowImageView].forEach { contentView.addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(cardLogoImageView, cardTitleLabel, arrowImageView, contentView) {
-            cardLogoImageView, cardTitleLabel, arrowImageView, contentView in
-            cardLogoImageView.leading == contentView.leading + 10
-            cardLogoImageView.centerY == contentView.centerY
-            cardLogoImageView.width == 55
-            cardLogoImageView.height == 55
+        constrain(logoImageView, titleLabel, percentLabel, arrowImageView, contentView) {
+            logoImageView, titleLabel, percentLabel, arrowImageView, contentView in
+            logoImageView.leading == contentView.leading + 10
+            logoImageView.centerY == contentView.centerY
+            logoImageView.width == 55
+            logoImageView.height == 55
             
             arrowImageView.trailing == contentView.trailing - 18
             arrowImageView.centerY == contentView.centerY
             arrowImageView.width == 6
             arrowImageView.height == 12
             
-            cardTitleLabel.leading == cardLogoImageView.trailing + 15
-            cardTitleLabel.trailing == arrowImageView.leading - 15
-            cardTitleLabel.centerY == contentView.centerY
+            titleLabel.top == logoImageView.top
+            titleLabel.leading == logoImageView.trailing + 15
+            titleLabel.trailing == percentLabel.leading - 15
+            
+            percentLabel.top == titleLabel.top
+            percentLabel.trailing == arrowImageView.leading - 15
+        }
+        constrain(titleLabel, subtitleLabel, percentLabel) {
+            titleLabel, subtitleLabel, percentLabel in
+            subtitleLabel.top == percentLabel.bottom
+            subtitleLabel.leading == titleLabel.leading
+            subtitleLabel.trailing == percentLabel.trailing
         }
     }
     
@@ -64,9 +85,11 @@ final class DiscountsTableViewCell: UITableViewCell {
 
 extension DiscountsTableViewCell {
     
-    func setUpWithTitle(title: String?) {
-        cardLogoImageView.setUpWithTitle(title)
-        cardTitleLabel.text = title
+    func setUpWithTitle(title: String?, subtitle: String?, percent: String?) {
+        logoImageView.setUpWithTitle(title)
+        titleLabel.text = title
+        subtitleLabel.text = subtitle
+        percentLabel.text = percent
     }
     
 }

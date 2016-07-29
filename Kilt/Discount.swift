@@ -10,7 +10,7 @@ import UIKit
 
 struct Discount {
     var title: String?
-    var ownerName: String?
-    var phoneNumber: String?
+    var percent: String?
     var avatarImage: UIImage?
+    var subtitle: String?
 }
