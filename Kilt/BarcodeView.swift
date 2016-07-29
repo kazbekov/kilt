@@ -9,6 +9,8 @@
 import UIKit
 import Sugar
 import Cartography
+import RSBarcodes_Swift
+import AVFoundation
 
 final class BarcodeView: UIView {
     
@@ -54,7 +56,10 @@ final class BarcodeView: UIView {
 
 extension BarcodeView {
     
-    func setUpWithImage(image: UIImage?, barcode: String?) {
+    func setUpWithBarcode(barcode: String?) {
+        guard let barcode = barcode, image = RSUnifiedCodeGenerator.shared
+            .generateCode(barcode, machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
+            where !barcode.isEmpty else { return }
         barcodeImageView.image = image
         barcodeLabel.text = barcode
     }

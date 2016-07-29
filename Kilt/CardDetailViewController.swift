@@ -9,6 +9,8 @@
 import UIKit
 import Sugar
 import Cartography
+import RSBarcodes_Swift
+import AVFoundation
 
 final class CardDetailViewController: UIViewController {
 
@@ -41,6 +43,8 @@ final class CardDetailViewController: UIViewController {
         $0.setUpWithPlaceholderImage(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
     }
     
+    private lazy var barcodeView: BarcodeView = BarcodeView()
+    
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
@@ -64,7 +68,7 @@ final class CardDetailViewController: UIViewController {
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
         [cardLogoImageView, cardTitleLabel].forEach { cardLogoWrapper.addSubview($0) }
-        [contactInfoView, cardLogoWrapper, frontImageView, backImageView].forEach {
+        [contactInfoView, cardLogoWrapper, frontImageView, backImageView, barcodeView].forEach {
             view.addSubview($0)
         }
     }
@@ -94,9 +98,9 @@ final class CardDetailViewController: UIViewController {
             cardLogoLabel.centerX == cardLogoImageView.centerX
         }
         
-        constrain(frontImageView, backImageView, cardLogoWrapper, view) {
-            frontImageView, backImageView, cardLogoWrapper, view in
-            frontImageView.top == cardLogoWrapper.bottom + 40
+        constrain(frontImageView, backImageView, barcodeView, cardLogoWrapper, view) {
+            frontImageView, backImageView, barcodeView, cardLogoWrapper, view in
+            frontImageView.top == cardLogoWrapper.bottom + 20
             frontImageView.leading == view.leading + 20
             frontImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
             frontImageView.height == frontImageView.width * (100 / 158)
@@ -105,6 +109,10 @@ final class CardDetailViewController: UIViewController {
             backImageView.trailing == view.trailing - 20
             backImageView.width == frontImageView.width
             backImageView.height == frontImageView.height
+            
+            barcodeView.top == frontImageView.bottom + 20
+            barcodeView.leading == view.leading + 20
+            barcodeView.trailing == view.trailing - 20
         }
     }
     
@@ -124,6 +132,7 @@ extension CardDetailViewController {
         contactInfoView.setUpWithAvatar(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
         frontImageView.setUpWithImage(nil)
         backImageView.setUpWithImage(nil)
+        barcodeView.setUpWithBarcode(card.barcode)
     }
     
 }
