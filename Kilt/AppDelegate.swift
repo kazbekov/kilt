@@ -8,6 +8,7 @@
 
 import UIKit
 import Sugar
+import GoogleMaps
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         coordinateAppFlow()
+        setUpThirdParties()
         setUpTabBarAppearance()
         setUpNavigationBarAppearance()
         return true
@@ -54,6 +56,10 @@ extension AppDelegate {
             $0.rootViewController = MainTabBarController()
             $0.makeKeyAndVisible()
         }
+    }
+    
+    private func setUpThirdParties() {
+        GMSServices.provideAPIKey("AIzaSyDZOGyRuy1hgxhGM6KAaGRN0l0Po8m7wys")
     }
     
     private func setUpTabBarAppearance() {
