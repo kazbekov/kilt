@@ -63,6 +63,7 @@ final class DiscountsViewController: UIViewController {
     // MARK: User Interaction
     
     @objc private func pushMapViewController() {
+        navigationController?.pushViewController(MapViewController(), animated: true)
     }
     
 }

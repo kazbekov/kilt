@@ -28,4 +28,5 @@ struct Icon {
     static let exitIcon = UIImage(named: "exit-icon")
     static let locationIcon = UIImage(named: "location-icon")
     static let barcodeIcon = UIImage(named: "barcode-icon")
+    static let listIcon = UIImage(named: "list-icon")
 }
