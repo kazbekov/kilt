@@ -9,6 +9,7 @@
 import UIKit
 import Sugar
 import GoogleMaps
+import Firebase
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -59,6 +60,7 @@ extension AppDelegate {
     }
     
     private func setUpThirdParties() {
+        FIRApp.configure()
         GMSServices.provideAPIKey("AIzaSyDZOGyRuy1hgxhGM6KAaGRN0l0Po8m7wys")
     }
     

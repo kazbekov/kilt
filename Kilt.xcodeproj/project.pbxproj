@@ -36,6 +36,7 @@
 		933D5D801D48CEDF00E01464 /* DiscountsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D7F1D48CEDF00E01464 /* DiscountsTableViewCell.swift */; };
 		933D5D821D48D17E00E01464 /* DiscountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D811D48D17E00E01464 /* DiscountsViewModel.swift */; };
 		933D5D841D48D28A00E01464 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D831D48D28A00E01464 /* Discount.swift */; };
+		939860B61D4E0FD800F477E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 939860B51D4E0FD800F477E1 /* GoogleService-Info.plist */; };
 		93E635831D4B2F4F00F84199 /* BarcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E635821D4B2F4F00F84199 /* BarcodeView.swift */; };
 		93E635851D4B576D00F84199 /* DiscountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E635841D4B576D00F84199 /* DiscountDetailViewController.swift */; };
 		93E635871D4B738800F84199 /* DiscountDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E635861D4B738800F84199 /* DiscountDetailCollectionViewCell.swift */; };
@@ -101,6 +102,7 @@
 		933D5D7F1D48CEDF00E01464 /* DiscountsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsTableViewCell.swift; sourceTree = "<group>"; };
 		933D5D811D48D17E00E01464 /* DiscountsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsViewModel.swift; sourceTree = "<group>"; };
 		933D5D831D48D28A00E01464 /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
+		939860B51D4E0FD800F477E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		93E635821D4B2F4F00F84199 /* BarcodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeView.swift; sourceTree = "<group>"; };
 		93E635841D4B576D00F84199 /* DiscountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailViewController.swift; sourceTree = "<group>"; };
 		93E635861D4B738800F84199 /* DiscountDetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				933D5D201D45CB5500E01464 /* Assets.xcassets */,
 				933D5D221D45CB5500E01464 /* LaunchScreen.storyboard */,
 				933D5D251D45CB5500E01464 /* Info.plist */,
+				939860B51D4E0FD800F477E1 /* GoogleService-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 			files = (
 				933D5D241D45CB5500E01464 /* LaunchScreen.storyboard in Resources */,
 				933D5D211D45CB5500E01464 /* Assets.xcassets in Resources */,
+				939860B61D4E0FD800F477E1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,6 +776,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Kilt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Kilt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -788,6 +793,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Kilt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Kilt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
