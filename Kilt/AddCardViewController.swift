@@ -46,8 +46,8 @@ final class AddCardViewController: UIViewController {
         }
     }()
     
-    private lazy var barcodeTextField: BarcodeTextField = {
-        return BarcodeTextField().then {
+    private lazy var barcodeTextField: PaddingTextField = {
+        return PaddingTextField(verticalPadding: 8, horizontalPadding: 10).then {
             $0.addTarget(self, action: #selector(generateBarcodeImage(_:)),
                 forControlEvents: .EditingChanged)
             $0.backgroundColor = .whiteColor()

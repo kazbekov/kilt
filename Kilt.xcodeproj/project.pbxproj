@@ -29,7 +29,7 @@
 		933D5D6B1D47423800E01464 /* LogoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D6A1D47423800E01464 /* LogoImageView.swift */; };
 		933D5D6E1D47799300E01464 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D6D1D47799300E01464 /* ScanViewController.swift */; };
 		933D5D701D486FA600E01464 /* AddCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D6F1D486FA600E01464 /* AddCardViewController.swift */; };
-		933D5D721D487DEF00E01464 /* BarcodeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D711D487DEF00E01464 /* BarcodeTextField.swift */; };
+		933D5D721D487DEF00E01464 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D711D487DEF00E01464 /* PaddingTextField.swift */; };
 		933D5D741D48827F00E01464 /* SelectCardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D731D48827F00E01464 /* SelectCardImageView.swift */; };
 		933D5D781D48A1B600E01464 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D771D48A1B600E01464 /* ProfileTableViewCell.swift */; };
 		933D5D7C1D48BCE100E01464 /* ProfileTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D7B1D48BCE100E01464 /* ProfileTableHeaderView.swift */; };
@@ -98,7 +98,7 @@
 		933D5D6A1D47423800E01464 /* LogoImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoImageView.swift; sourceTree = "<group>"; };
 		933D5D6D1D47799300E01464 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		933D5D6F1D486FA600E01464 /* AddCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCardViewController.swift; sourceTree = "<group>"; };
-		933D5D711D487DEF00E01464 /* BarcodeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeTextField.swift; sourceTree = "<group>"; };
+		933D5D711D487DEF00E01464 /* PaddingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingTextField.swift; sourceTree = "<group>"; };
 		933D5D731D48827F00E01464 /* SelectCardImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCardImageView.swift; sourceTree = "<group>"; };
 		933D5D771D48A1B600E01464 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		933D5D7B1D48BCE100E01464 /* ProfileTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableHeaderView.swift; sourceTree = "<group>"; };
@@ -234,6 +234,7 @@
 		933D5D481D45CD1800E01464 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				933D5D711D487DEF00E01464 /* PaddingTextField.swift */,
 				939860CC1D4F421C00F477E1 /* ThirdParty */,
 				933D5D7E1D48CEB400E01464 /* Discounts */,
 				933D5D761D48A1A500E01464 /* Profile */,
@@ -317,7 +318,6 @@
 				933D5D521D45D8A800E01464 /* CardsTableViewCell.swift */,
 				933D5D661D47324B00E01464 /* ContactInfoView.swift */,
 				933D5D6A1D47423800E01464 /* LogoImageView.swift */,
-				933D5D711D487DEF00E01464 /* BarcodeTextField.swift */,
 				933D5D731D48827F00E01464 /* SelectCardImageView.swift */,
 				93E635821D4B2F4F00F84199 /* BarcodeView.swift */,
 			);
@@ -655,7 +655,7 @@
 				933D5D701D486FA600E01464 /* AddCardViewController.swift in Sources */,
 				933D5D511D45D78800E01464 /* CardsViewModel.swift in Sources */,
 				933D5D741D48827F00E01464 /* SelectCardImageView.swift in Sources */,
-				933D5D721D487DEF00E01464 /* BarcodeTextField.swift in Sources */,
+				933D5D721D487DEF00E01464 /* PaddingTextField.swift in Sources */,
 				933D5D651D47295300E01464 /* CardDetailViewController.swift in Sources */,
 				933D5D591D45DC4600E01464 /* DiscountsViewController.swift in Sources */,
 				933D5D5B1D45DC5800E01464 /* ProfileViewController.swift in Sources */,
