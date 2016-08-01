@@ -86,11 +86,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func linkFacebook() {
-        var isLinked = false
-        FIRAuth.auth()?.currentUser?.providerData.forEach {
-            isLinked = isLinked || $0.providerID == facebookProviderId
-        }
-        guard !isLinked else {
+        guard FIRAuth.auth()?.currentUser?.providerData.filter({ $0.providerID == facebookProviderId }).count == 0 else {
             unlinkFacebook()
             return
         }
