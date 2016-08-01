@@ -40,6 +40,7 @@ final class SignInViewController: UIViewController {
                 NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
             ]
             $0.attributedPlaceholder = NSAttributedString(string: "Пароль", attributes:attributes)
+            $0.secureTextEntry = true
         }
     }()
     
@@ -73,7 +74,20 @@ final class SignInViewController: UIViewController {
     private func setUpConstraints() {
         constrain(emailTextField, passwordTextField, signInButton, view) {
             emailTextField, passwordTextField, signInButton, view in
-
+            emailTextField.top == view.top + 80
+            emailTextField.leading == view.leading + 20
+            emailTextField.trailing == view.trailing - 20
+            emailTextField.height == 50
+            
+            passwordTextField.top == emailTextField.bottom + 15
+            passwordTextField.leading == emailTextField.leading
+            passwordTextField.trailing == emailTextField.trailing
+            passwordTextField.height == emailTextField.height
+            
+            signInButton.top == passwordTextField.bottom + 15
+            signInButton.leading == passwordTextField.leading
+            signInButton.trailing == passwordTextField.trailing
+            signInButton.height == passwordTextField.height
         }
     }
     
