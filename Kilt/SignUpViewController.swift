@@ -75,6 +75,7 @@ final class SignUpViewController: UIViewController {
     private func setUpViews() {
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
         view.backgroundColor = .appColor()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         [emailTextField, passwordTextField, signUpButton].forEach { view.addSubview($0) }
     }
     
@@ -122,6 +123,10 @@ final class SignUpViewController: UIViewController {
     
     @objc private func popViewController() {
         navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
     }
     
 }
