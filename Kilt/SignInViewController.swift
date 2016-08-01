@@ -12,7 +12,7 @@ import Cartography
 
 final class SignInViewController: UIViewController {
     
-    private var viewModel = SignInViewModel()
+    private let viewModel = SignInViewModel()
     
     private lazy var leftBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,

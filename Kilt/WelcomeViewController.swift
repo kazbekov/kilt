@@ -12,7 +12,7 @@ import Cartography
 
 final class WelcomeViewController: UIViewController {
     
-    private var viewModel = WelcomeViewModel()
+    private let viewModel = WelcomeViewModel()
     
     private lazy var titleLabel = UILabel().then {
         $0.textAlignment = .Center
