@@ -27,6 +27,7 @@ final class SignInViewController: UIViewController {
         return PaddingTextField(verticalPadding: 8, horizontalPadding: 10).then {
             $0.layer.cornerRadius = 6
             $0.keyboardType = .EmailAddress
+            $0.autocapitalizationType = .None
             $0.backgroundColor = .whiteColor()
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.mountainMistColor(),
