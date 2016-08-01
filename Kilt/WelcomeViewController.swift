@@ -101,6 +101,7 @@ final class WelcomeViewController: UIViewController {
     }
     
     @objc private func pushSignInViewController() {
+        navigationController?.pushViewController(SignInViewController(), animated: true)
     }
     
     @objc private func pushSignUpViewController() {
