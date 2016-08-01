@@ -9,6 +9,8 @@
 import UIKit
 import Sugar
 import Cartography
+import Firebase
+import FirebaseAuth
 
 final class ProfileViewController: UIViewController {
 
@@ -56,6 +58,16 @@ final class ProfileViewController: UIViewController {
 // MARK: UITableViewDelegate
 
 extension ProfileViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch indexPath.section {
+        case 1:
+            try! FIRAuth.auth()?.signOut()
+        default:
+            break
+        }
+    }
+    
 }
 
 // MARK: UITableViewDataSource
