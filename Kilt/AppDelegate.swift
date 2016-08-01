@@ -10,6 +10,7 @@ import UIKit
 import Sugar
 import GoogleMaps
 import Firebase
+import FirebaseAuth
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -55,7 +56,11 @@ extension AppDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds).then {
             $0.backgroundColor = .whiteColor()
         }
-        loadLoginPages()
+        if let _ = FIRAuth.auth()?.currentUser {
+            loadMainPages()
+        } else {
+            loadLoginPages()
+        }
     }
     
     private func loadMainPages() {
