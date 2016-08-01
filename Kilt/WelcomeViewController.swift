@@ -15,6 +15,7 @@ final class WelcomeViewController: UIViewController {
     private lazy var titleLabel = UILabel().then {
         $0.textAlignment = .Center
         $0.textColor = .whiteColor()
+        $0.font = .boldSystemFontOfSize(30)
         $0.text = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as? String
     }
     
@@ -63,6 +64,9 @@ final class WelcomeViewController: UIViewController {
     // MARK: Set Up
     
     private func setUpViews() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.translucent = true
         view.backgroundColor = .appColor()
         [titleLabel, fbButton, signInButton, signUpButton].forEach { view.addSubview($0) }
     }
@@ -70,13 +74,13 @@ final class WelcomeViewController: UIViewController {
     private func setUpConstraints() {
         constrain(titleLabel, fbButton, signInButton, signUpButton, view) {
             titleLabel, fbButton, signInButton, signUpButton, view in
-            titleLabel.top == view.top
+            titleLabel.top == view.top + 50
             titleLabel.centerX == view.centerX
             
             signUpButton.bottom == view.bottom - 15
             signUpButton.leading == view.leading + 20
             signUpButton.trailing == view.trailing - 20
-            signUpButton.height == 40
+            signUpButton.height == 50
             
             signInButton.bottom == signUpButton.top - 15
             signInButton.leading == signUpButton.leading

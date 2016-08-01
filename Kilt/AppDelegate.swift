@@ -54,9 +54,18 @@ extension AppDelegate {
     private func coordinateAppFlow() {
         window = UIWindow(frame: UIScreen.mainScreen().bounds).then {
             $0.backgroundColor = .whiteColor()
-            $0.rootViewController = MainTabBarController()
-            $0.makeKeyAndVisible()
         }
+        loadLoginPages()
+    }
+    
+    private func loadMainPages() {
+        window?.rootViewController = MainTabBarController()
+        window?.makeKeyAndVisible()
+    }
+    
+    private func loadLoginPages() {
+        window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
+        window?.makeKeyAndVisible()
     }
     
     private func setUpThirdParties() {
