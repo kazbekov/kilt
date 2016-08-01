@@ -9,6 +9,10 @@
 import UIKit
 import Sugar
 import Cartography
+import FBSDKCoreKit
+import FBSDKLoginKit
+import Firebase
+import FirebaseAuth
 
 final class WelcomeViewController: UIViewController {
     
@@ -97,7 +101,26 @@ final class WelcomeViewController: UIViewController {
     // MARK: User Interaction
     
     @objc private func loginWithFacebook(sender: UIButton) {
-        
+        let loginManager = FBSDKLoginManager()
+        sender.enabled = false
+        loginManager.logInWithReadPermissions(["public_profile"], fromViewController: self) { result, error in
+            sender.enabled = true
+            guard error == nil && !result.isCancelled else {
+                Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
+                return
+            }
+            let credential = FIRFacebookAuthProvider.credentialWithAccessToken(
+                FBSDKAccessToken.currentAccessToken().tokenString)
+            sender.enabled = false
+            FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+                sender.enabled = true
+                guard let _ = user where error == nil else {
+                    Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
+                    return
+                }
+                (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadMainPages()
+            }
+        }
     }
     
     @objc private func pushSignInViewController() {

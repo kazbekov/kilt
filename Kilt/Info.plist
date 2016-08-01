@@ -47,6 +47,23 @@
 	<array>
 		<string>googlechromes</string>
 		<string>comgooglemaps</string>
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
 	</array>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb189059491509451</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>189059491509451</string>
+    <key>FacebookDisplayName</key>
+    <string>Kilt</string>
 </dict>
 </plist>

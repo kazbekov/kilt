@@ -11,6 +11,7 @@ import Sugar
 import GoogleMaps
 import Firebase
 import FirebaseAuth
+import FBSDKCoreKit
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +20,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        setUpThirdParties()
+        setUpThirdParties(application, launchOptions: launchOptions)
         setUpTabBarAppearance()
         setUpNavigationBarAppearance()
         coordinateAppFlow()
@@ -42,10 +43,25 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        FBSDKAppEvents.activateApp()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        if #available(iOS 9.0, *) {
+            return FBSDKApplicationDelegate.sharedInstance().application(app,
+                                                                         openURL: url,
+                                                                         sourceApplication: options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String,
+                                                                         annotation: options [UIApplicationOpenURLOptionsAnnotationKey])
+        }
+        return true
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
 }
@@ -73,9 +89,10 @@ extension AppDelegate {
         window?.makeKeyAndVisible()
     }
     
-    private func setUpThirdParties() {
+    private func setUpThirdParties(application: UIApplication, launchOptions: [NSObject: AnyObject]?) {
         FIRApp.configure()
         GMSServices.provideAPIKey("AIzaSyDZOGyRuy1hgxhGM6KAaGRN0l0Po8m7wys")
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
     private func setUpTabBarAppearance() {
