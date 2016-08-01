@@ -113,11 +113,11 @@ final class WelcomeViewController: UIViewController {
     }
     
     @objc private func pushSignInViewController() {
-        navigationController?.pushViewController(SignInViewController(), animated: true)
+        dispatch { self.navigationController?.pushViewController(SignInViewController(), animated: true) }
     }
     
     @objc private func pushSignUpViewController() {
-        navigationController?.pushViewController(SignUpViewController(), animated: true)
+        dispatch { self.navigationController?.pushViewController(SignUpViewController(), animated: true) }
     }
     
 }
