@@ -38,6 +38,7 @@
 		933D5D841D48D28A00E01464 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D831D48D28A00E01464 /* Discount.swift */; };
 		93430B6B1D4FC2AF00992C09 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B6A1D4FC2AF00992C09 /* WelcomeViewModel.swift */; };
 		93430B6F1D4FC91C00992C09 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B6E1D4FC91C00992C09 /* SignInViewModel.swift */; };
+		93430B711D4FCAB400992C09 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B701D4FCAB400992C09 /* SignUpViewModel.swift */; };
 		939860B61D4E0FD800F477E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 939860B51D4E0FD800F477E1 /* GoogleService-Info.plist */; };
 		939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860C61D4F33D800F477E1 /* WelcomeViewController.swift */; };
 		939860C91D4F3DBE00F477E1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860C81D4F3DBE00F477E1 /* SignInViewController.swift */; };
@@ -110,6 +111,7 @@
 		933D5D831D48D28A00E01464 /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
 		93430B6A1D4FC2AF00992C09 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		93430B6E1D4FC91C00992C09 /* SignInViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		93430B701D4FCAB400992C09 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		939860B51D4E0FD800F477E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		939860C61D4F33D800F477E1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		939860C81D4F3DBE00F477E1 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				933D5D811D48D17E00E01464 /* DiscountsViewModel.swift */,
 				93430B6A1D4FC2AF00992C09 /* WelcomeViewModel.swift */,
 				93430B6E1D4FC91C00992C09 /* SignInViewModel.swift */,
+				93430B701D4FCAB400992C09 /* SignUpViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -662,6 +665,7 @@
 				933D5D781D48A1B600E01464 /* ProfileTableViewCell.swift in Sources */,
 				93E635851D4B576D00F84199 /* DiscountDetailViewController.swift in Sources */,
 				939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */,
+				93430B711D4FCAB400992C09 /* SignUpViewModel.swift in Sources */,
 				939860D01D4F490900F477E1 /* SignUpViewController.swift in Sources */,
 				933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */,
 				933D5D701D486FA600E01464 /* AddCardViewController.swift in Sources */,
