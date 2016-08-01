@@ -86,6 +86,7 @@ final class ProfileViewController: UIViewController {
     private func linkFacebook() {
         if viewModel.isLinkedWithFacebook {
             unlinkFacebook()
+            return
         }
         viewModel.linkFacebook(self) { errorMessage in
             dispatch {
