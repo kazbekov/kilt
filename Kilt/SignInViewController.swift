@@ -111,8 +111,9 @@ final class SignInViewController: UIViewController {
             Drop.down("Введите пароль", state: .Error)
             return
         }
-        
+        sender.enabled = false
         FIRAuth.auth()?.signInWithEmail(email, password: password) { user, error in
+            sender.enabled = true
             guard let _ = user where error == nil else {
                 Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
                 return

@@ -111,13 +111,22 @@ final class SignUpViewController: UIViewController {
             Drop.down("Введите пароль", state: .Error)
             return
         }
-        
+        sender.enabled = false
         FIRAuth.auth()?.createUserWithEmail(email, password: password) { user, error in
+            sender.enabled = true
             guard let _ = user where error == nil else {
                 Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
                 return
             }
-            (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadMainPages()
+            sender.enabled = false
+            FIRAuth.auth()?.signInWithEmail(email, password: password) { user, error in
+                sender.enabled = true
+                guard let _ = user where error == nil else {
+                    Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
+                    return
+                }
+                (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadMainPages()
+            }
         }
     }
     
