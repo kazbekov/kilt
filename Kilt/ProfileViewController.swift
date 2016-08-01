@@ -63,6 +63,7 @@ extension ProfileViewController: UITableViewDelegate {
         switch indexPath.section {
         case 1:
             try! FIRAuth.auth()?.signOut()
+            (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadLoginPages()
         default:
             break
         }
