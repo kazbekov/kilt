@@ -48,6 +48,7 @@ final class AddCardViewController: UIViewController {
     
     private lazy var barcodeTextField: PaddingTextField = {
         return PaddingTextField(verticalPadding: 8, horizontalPadding: 10).then {
+            $0.layer.cornerRadius = 6
             $0.addTarget(self, action: #selector(generateBarcodeImage(_:)),
                 forControlEvents: .EditingChanged)
             $0.backgroundColor = .whiteColor()
@@ -75,13 +76,6 @@ final class AddCardViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         setUpConstraints()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        [barcodeTextField].forEach {
-            $0.layer.cornerRadius = 6
-        }
     }
     
     // MARK: Set Up
