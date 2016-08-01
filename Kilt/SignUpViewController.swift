@@ -113,11 +113,11 @@ final class SignUpViewController: UIViewController {
         }
         
         FIRAuth.auth()?.createUserWithEmail(email, password: password) { user, error in
-            guard let user = user where error == nil else {
+            guard let _ = user where error == nil else {
                 Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
                 return
             }
-            print("\(user)")
+            (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadMainPages()
         }
     }
     

@@ -63,12 +63,12 @@ extension AppDelegate {
         }
     }
     
-    private func loadMainPages() {
+    func loadMainPages() {
         window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
     }
     
-    private func loadLoginPages() {
+    func loadLoginPages() {
         window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
         window?.makeKeyAndVisible()
     }
