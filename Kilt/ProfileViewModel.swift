@@ -45,7 +45,7 @@ final class ProfileViewModel {
         let loginManager = FBSDKLoginManager()
         loginManager.logInWithReadPermissions(["public_profile"], fromViewController: viewController) { result, error in
             guard error == nil && !result.isCancelled else {
-                completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                completion(errorMessage: error?.localizedDescription ?? "Отменено")
                 return
             }
             let credential = FIRFacebookAuthProvider.credentialWithAccessToken(
