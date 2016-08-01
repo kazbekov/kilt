@@ -49,7 +49,7 @@ final class SignInViewController: UIViewController {
     private lazy var signInButton: UIButton = {
         return UIButton().then {
             $0.layer.masksToBounds = true
-            $0.layer.cornerRadius = 5
+            $0.layer.cornerRadius = 6
             $0.backgroundColor = .whiteColor()
             $0.setTitleColor(.appColor(), forState: .Normal)
             $0.setTitle("Войти через почту", forState: .Normal)
