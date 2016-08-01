@@ -53,6 +53,7 @@ final class SignInViewController: UIViewController {
             $0.backgroundColor = .whiteColor()
             $0.setTitleColor(.appColor(), forState: .Normal)
             $0.setTitle("Войти через почту", forState: .Normal)
+            $0.setTitle("Подождите...", forState: .Disabled)
             $0.addTarget(self, action: #selector(loginWithEmail(_:)), forControlEvents: .TouchUpInside)
         }
     }()

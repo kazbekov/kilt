@@ -40,6 +40,7 @@
 		939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860C61D4F33D800F477E1 /* WelcomeViewController.swift */; };
 		939860C91D4F3DBE00F477E1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860C81D4F3DBE00F477E1 /* SignInViewController.swift */; };
 		939860CB1D4F421200F477E1 /* Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860CA1D4F421200F477E1 /* Drop.swift */; };
+		939860CE1D4F484800F477E1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860CD1D4F484800F477E1 /* SignUpViewController.swift */; };
 		93E635831D4B2F4F00F84199 /* BarcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E635821D4B2F4F00F84199 /* BarcodeView.swift */; };
 		93E635851D4B576D00F84199 /* DiscountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E635841D4B576D00F84199 /* DiscountDetailViewController.swift */; };
 		93E635871D4B738800F84199 /* DiscountDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E635861D4B738800F84199 /* DiscountDetailCollectionViewCell.swift */; };
@@ -109,6 +110,7 @@
 		939860C61D4F33D800F477E1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		939860C81D4F3DBE00F477E1 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		939860CA1D4F421200F477E1 /* Drop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drop.swift; sourceTree = "<group>"; };
+		939860CD1D4F484800F477E1 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		93E635821D4B2F4F00F84199 /* BarcodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeView.swift; sourceTree = "<group>"; };
 		93E635841D4B576D00F84199 /* DiscountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailViewController.swift; sourceTree = "<group>"; };
 		93E635861D4B738800F84199 /* DiscountDetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 			children = (
 				939860C61D4F33D800F477E1 /* WelcomeViewController.swift */,
 				939860C81D4F3DBE00F477E1 /* SignInViewController.swift */,
+				939860CD1D4F484800F477E1 /* SignUpViewController.swift */,
 			);
 			name = LoginPages;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				933D5D781D48A1B600E01464 /* ProfileTableViewCell.swift in Sources */,
 				93E635851D4B576D00F84199 /* DiscountDetailViewController.swift in Sources */,
 				939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */,
+				939860CE1D4F484800F477E1 /* SignUpViewController.swift in Sources */,
 				933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */,
 				933D5D701D486FA600E01464 /* AddCardViewController.swift in Sources */,
 				933D5D511D45D78800E01464 /* CardsViewModel.swift in Sources */,
