@@ -167,7 +167,7 @@ extension ProfileViewController: UITableViewDataSource {
                 case 0:
                     $0.setUpWithTitle("Facebook", subtitle: viewModel.facebookDisplayName ?? "Добавить",
                         icon: Icon.facebookIcon)
-                case 1: $0.setUpWithTitle("Google", subtitle: "Добавить", icon: Icon.googleIcon)
+                case 1: $0.setUpWithTitle("Email", subtitle: "Добавить", icon: Icon.mailIcon)
                 default: break
                 }
             case 1:
