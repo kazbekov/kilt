@@ -22,7 +22,7 @@ final class SignInViewController: UIViewController {
     }
     
     private lazy var emailTextField: UITextField = {
-        return UITextField().then {
+        return PaddingTextField(verticalPadding: 8, horizontalPadding: 10).then {
             $0.backgroundColor = .whiteColor()
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.mountainMistColor(),
@@ -33,7 +33,7 @@ final class SignInViewController: UIViewController {
     }()
     
     private lazy var passwordTextField: UITextField = {
-        return UITextField().then {
+        return PaddingTextField(verticalPadding: 8, horizontalPadding: 10).then {
             $0.backgroundColor = .whiteColor()
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.mountainMistColor(),
