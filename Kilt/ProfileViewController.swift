@@ -11,6 +11,10 @@ import Sugar
 import Cartography
 import Firebase
 import FirebaseAuth
+import FBSDKCoreKit
+import FBSDKLoginKit
+
+private let facebookProviderId = "facebook.com"
 
 final class ProfileViewController: UIViewController {
 
@@ -53,6 +57,74 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    // MARK: Helpers
+    
+    private func unlinkFacebook() {
+        let alertController = UIAlertController(title: "Удалить Facebook?",
+            message: "", preferredStyle: .ActionSheet).then {
+                $0.modalPresentationStyle = .Popover
+                
+                $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
+                    FIRAuth.auth()?.currentUser?.unlinkFromProvider(facebookProviderId) { user, error in
+                        guard error == nil else {
+                            Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
+                            return
+                        }
+                        dispatch { self.tableView.reloadSection(0, animation: .Fade) }
+                    }
+                    })
+                
+                $0.addAction(UIAlertAction(title: "Отмена", style: .Cancel, handler: nil))
+        }
+        
+        if let presenter = alertController.popoverPresentationController {
+            presenter.barButtonItem = navigationItem.leftBarButtonItem
+            presenter.sourceView = view
+        }
+        
+        dispatch { self.presentViewController(alertController, animated: true, completion: nil) }
+    }
+    
+    private func linkFacebook() {
+        var isLinked = false
+        FIRAuth.auth()?.currentUser?.providerData.forEach {
+            isLinked = isLinked || $0.providerID == facebookProviderId
+        }
+        guard !isLinked else {
+            unlinkFacebook()
+            return
+        }
+        
+        let loginManager = FBSDKLoginManager()
+        loginManager.logInWithReadPermissions(["public_profile"], fromViewController: self) { result, error in
+            guard error == nil && !result.isCancelled else {
+                Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
+                return
+            }
+            let credential = FIRFacebookAuthProvider.credentialWithAccessToken(
+                FBSDKAccessToken.currentAccessToken().tokenString)
+            FIRAuth.auth()?.currentUser?.linkWithCredential(credential) { user, error in
+                guard let _ = user where error == nil else {
+                    Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
+                    return
+                }
+                dispatch { self.tableView.reloadSection(0, animation: .Fade) }
+            }
+        }
+    }
+    
+    private func signOut() {
+        dispatch { self.presentViewController(UIAlertController(title: "Выйти",
+            message: "Уверены в ответе? Мы будем скучать :(",
+            preferredStyle: .Alert).then {
+                $0.addAction(UIAlertAction(title: "Да", style: .Default) { _ in
+                    try! FIRAuth.auth()?.signOut()
+                    dispatch { (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadLoginPages() }
+                    })
+                $0.addAction(UIAlertAction(title: "Нет", style: .Default, handler: nil))
+            }, animated: true, completion: nil) }
+    }
+    
 }
 
 // MARK: UITableViewDelegate
@@ -61,9 +133,15 @@ extension ProfileViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                linkFacebook()
+            default:
+                break
+            }
         case 1:
-            try! FIRAuth.auth()?.signOut()
-            (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadLoginPages()
+            signOut()
         default:
             break
         }
@@ -92,7 +170,11 @@ extension ProfileViewController: UITableViewDataSource {
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
-                case 0: $0.setUpWithTitle("Facebook", subtitle: "Добавить", icon: Icon.facebookIcon)
+                case 0:
+                    $0.setUpWithTitle("Facebook",
+                        subtitle: FIRAuth.auth()?.currentUser?.providerData.filter { $0.providerID == facebookProviderId }
+                            .first?.displayName ?? "Добавить",
+                        icon: Icon.facebookIcon)
                 case 1: $0.setUpWithTitle("Google", subtitle: "Добавить", icon: Icon.googleIcon)
                 default: break
                 }

@@ -60,7 +60,7 @@ final class ContactInfoView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        avatarImageView.layer.cornerRadius = avatarImageView.height / 2
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2
         callButton.layer.cornerRadius = 4
     }
     
