@@ -86,6 +86,10 @@ extension UIColor {
         return self.colorFromHexCode(ColorCodes.crimson + alphaHEX(alpha))
     }
     
+    public static func facebookColor(alpha: CGFloat = 1.0) -> UIColor {
+        return self.colorFromHexCode(ColorCodes.azure + alphaHEX(alpha))
+    }
+    
     public struct ColorCodes {
         public static let app = "0198D7"
         public static let tundora = "4A4A4A"
@@ -94,6 +98,7 @@ extension UIColor {
         public static let mountainMist = "8F8E94"
         public static let frenchGray = "C8C7CC"
         public static let crimson = "E01424"
+        public static let azure = "3b5998"
     }
 }
 
