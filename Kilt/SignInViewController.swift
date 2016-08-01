@@ -9,10 +9,10 @@
 import UIKit
 import Sugar
 import Cartography
-import Firebase
-import FirebaseAuth
 
 final class SignInViewController: UIViewController {
+    
+    private var viewModel = SignInViewModel()
     
     private lazy var leftBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
@@ -102,23 +102,17 @@ final class SignInViewController: UIViewController {
     // MARK: User Interaction
     
     @objc private func loginWithEmail(sender: UIButton) {
-        guard let email = emailTextField.text where !email.isEmpty else {
-            Drop.down("Введите email", state: .Error)
-            return
-        }
-        
-        guard let password = passwordTextField.text where !password.isEmpty else {
-            Drop.down("Введите пароль", state: .Error)
-            return
-        }
-        sender.enabled = false
-        FIRAuth.auth()?.signInWithEmail(email, password: password) { user, error in
-            sender.enabled = true
-            guard let _ = user where error == nil else {
-                Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
-                return
+        dispatch { sender.enabled = false }
+        viewModel.loginWithEmail(emailTextField.text, password: passwordTextField.text) {
+            errorMessage in
+            dispatch {
+                sender.enabled = true
+                if let errorMessage = errorMessage {
+                    Drop.down(errorMessage, state: .Error)
+                    return
+                }
+                (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadMainPages()
             }
-            (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadMainPages()
         }
     }
     
