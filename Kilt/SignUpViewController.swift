@@ -9,6 +9,8 @@
 import UIKit
 import Sugar
 import Cartography
+import Firebase
+import FirebaseAuth
 
 final class SignUpViewController: UIViewController {
     
@@ -99,7 +101,23 @@ final class SignUpViewController: UIViewController {
     // MARK: User Interaction
     
     @objc private func registerWithEmail(sender: UIButton) {
+        guard let email = emailTextField.text where !email.isEmpty else {
+            Drop.down("Введите email", state: .Error)
+            return
+        }
         
+        guard let password = passwordTextField.text where !password.isEmpty else {
+            Drop.down("Введите пароль", state: .Error)
+            return
+        }
+        
+        FIRAuth.auth()?.createUserWithEmail(email, password: password) { user, error in
+            guard let user = user where error == nil else {
+                Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
+                return
+            }
+            print("\(user)")
+        }
     }
     
     @objc private func popViewController() {
