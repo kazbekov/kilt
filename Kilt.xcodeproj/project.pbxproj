@@ -39,6 +39,7 @@
 		93430B6B1D4FC2AF00992C09 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B6A1D4FC2AF00992C09 /* WelcomeViewModel.swift */; };
 		93430B6F1D4FC91C00992C09 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B6E1D4FC91C00992C09 /* SignInViewModel.swift */; };
 		93430B711D4FCAB400992C09 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B701D4FCAB400992C09 /* SignUpViewModel.swift */; };
+		93430B731D4FCBBD00992C09 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B721D4FCBBD00992C09 /* ProfileViewModel.swift */; };
 		939860B61D4E0FD800F477E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 939860B51D4E0FD800F477E1 /* GoogleService-Info.plist */; };
 		939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860C61D4F33D800F477E1 /* WelcomeViewController.swift */; };
 		939860C91D4F3DBE00F477E1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860C81D4F3DBE00F477E1 /* SignInViewController.swift */; };
@@ -112,6 +113,7 @@
 		93430B6A1D4FC2AF00992C09 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		93430B6E1D4FC91C00992C09 /* SignInViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		93430B701D4FCAB400992C09 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		93430B721D4FCBBD00992C09 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		939860B51D4E0FD800F477E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		939860C61D4F33D800F477E1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		939860C81D4F3DBE00F477E1 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				93430B6A1D4FC2AF00992C09 /* WelcomeViewModel.swift */,
 				93430B6E1D4FC91C00992C09 /* SignInViewModel.swift */,
 				93430B701D4FCAB400992C09 /* SignUpViewModel.swift */,
+				93430B721D4FCBBD00992C09 /* ProfileViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				933D5D531D45D8A800E01464 /* CardsTableViewCell.swift in Sources */,
 				933D5D671D47324B00E01464 /* ContactInfoView.swift in Sources */,
 				93E635831D4B2F4F00F84199 /* BarcodeView.swift in Sources */,
+				93430B731D4FCBBD00992C09 /* ProfileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
