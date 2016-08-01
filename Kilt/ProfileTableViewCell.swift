@@ -49,7 +49,6 @@ final class ProfileTableViewCell: UITableViewCell {
     }
     
     private func setUpViews() {
-        selectionStyle = .None
         separatorInset = UIEdgeInsets(top: 0, left: 57, bottom: 0, right: 0)
         layoutMargins = UIEdgeInsets(top: 0, left: 57, bottom: 0, right: 0)
         [titleLabel, subtitleLabel, iconImageView].forEach { contentView.addSubview($0) }

@@ -15,7 +15,7 @@ final class ProfileViewModel {
     private let facebookProviderId = "facebook.com"
     
     var isLinkedWithFacebook: Bool {
-        FIRAuth.auth()?.currentUser?.providerData.filter({ $0.providerID == facebookProviderId }).count == 0
+        return FIRAuth.auth()?.currentUser?.providerData.filter({ $0.providerID == facebookProviderId }).count == 0
     }
     
     var facebookDisplayName: String? {
