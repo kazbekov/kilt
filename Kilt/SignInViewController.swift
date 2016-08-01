@@ -102,12 +102,12 @@ final class SignInViewController: UIViewController {
     
     @objc private func loginWithEmail(sender: UIButton) {
         guard let email = emailTextField.text where !email.isEmpty else {
-            Drop.down("Введите свой email", state: .Error)
+            Drop.down("Введите email", state: .Error)
             return
         }
         
         guard let password = passwordTextField.text where !password.isEmpty else {
-            Drop.down("Введите свой пароль", state: .Error)
+            Drop.down("Введите пароль", state: .Error)
             return
         }
         
