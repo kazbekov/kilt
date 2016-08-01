@@ -8,6 +8,7 @@ target 'Kilt' do
   # Pods for Kilt
   pod 'Cartography', '~> 0.6'
   pod 'Firebase', '~> 3.3'
+  pod 'Firebase/Auth', '~> 3.0'
   pod 'GoogleMaps', '~> 2.0.1'
   pod 'RSBarcodes_Swift', '~> 0.1.9'
   pod 'Sugar', '~> 1.2'

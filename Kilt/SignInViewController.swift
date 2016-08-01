@@ -9,6 +9,8 @@
 import UIKit
 import Sugar
 import Cartography
+import Firebase
+import FirebaseAuth
 
 final class SignInViewController: UIViewController {
     
@@ -24,6 +26,7 @@ final class SignInViewController: UIViewController {
     private lazy var emailTextField: UITextField = {
         return PaddingTextField(verticalPadding: 8, horizontalPadding: 10).then {
             $0.layer.cornerRadius = 6
+            $0.keyboardType = .EmailAddress
             $0.backgroundColor = .whiteColor()
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.mountainMistColor(),
@@ -97,7 +100,23 @@ final class SignInViewController: UIViewController {
     // MARK: User Interaction
     
     @objc private func loginWithEmail(sender: UIButton) {
+        guard let email = emailTextField.text where !email.isEmpty else {
+            Drop.down("Введите свой email", state: .Error)
+            return
+        }
         
+        guard let password = passwordTextField.text where !password.isEmpty else {
+            Drop.down("Введите свой пароль", state: .Error)
+            return
+        }
+        
+        FIRAuth.auth()?.createUserWithEmail(email, password: password) { user, error in
+            guard let user = user where error == nil else {
+                Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
+                return
+            }
+            print("\(user)")
+        }
     }
     
     @objc private func popViewController() {
