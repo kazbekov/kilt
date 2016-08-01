@@ -1,5 +1,5 @@
 //
-//  SignInViewController.swift
+//  SignUpViewController.swift
 //  Kilt
 //
 //  Created by Nurdaulet Bolatov on 8/1/16.
@@ -10,7 +10,7 @@ import UIKit
 import Sugar
 import Cartography
 
-final class SignInViewController: UIViewController {
+final class SignUpViewController: UIViewController {
     
     private lazy var leftBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
@@ -46,15 +46,15 @@ final class SignInViewController: UIViewController {
         }
     }()
     
-    private lazy var signInButton: UIButton = {
+    private lazy var signUpButton: UIButton = {
         return UIButton().then {
             $0.layer.masksToBounds = true
             $0.layer.cornerRadius = 6
             $0.backgroundColor = .whiteColor()
             $0.setTitleColor(.appColor(), forState: .Normal)
-            $0.setTitle("Войти через почту", forState: .Normal)
+            $0.setTitle("Зарегистрироваться", forState: .Normal)
             $0.setTitle("Подождите...", forState: .Disabled)
-            $0.addTarget(self, action: #selector(loginWithEmail(_:)), forControlEvents: .TouchUpInside)
+            $0.addTarget(self, action: #selector(pushSignUpViewController), forControlEvents: .TouchUpInside)
         }
     }()
     
