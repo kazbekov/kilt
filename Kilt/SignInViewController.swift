@@ -111,7 +111,7 @@ final class SignInViewController: UIViewController {
             return
         }
         
-        FIRAuth.auth()?.createUserWithEmail(email, password: password) { user, error in
+        FIRAuth.auth()?.signInWithEmail(email, password: password) { user, error in
             guard let user = user where error == nil else {
                 Drop.down(error?.localizedDescription ?? "Ошибка", state: .Error)
                 return
