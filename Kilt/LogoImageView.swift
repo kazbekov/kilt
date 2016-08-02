@@ -35,7 +35,7 @@ final class LogoImageView: UIImageView {
     
     private func setUpViews() {
         clipsToBounds = true
-        backgroundColor = .athensGrayColor()
+        backgroundColor = .appColor()
         contentMode = .ScaleAspectFill
         [titleLabel].forEach {
             addSubview($0)
