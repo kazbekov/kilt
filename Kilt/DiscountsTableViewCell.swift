@@ -86,7 +86,6 @@ final class DiscountsTableViewCell: UITableViewCell {
 extension DiscountsTableViewCell {
     
     func setUpWithTitle(title: String?, subtitle: String?, percent: String?) {
-        logoImageView.setUpWithTitle(title)
         titleLabel.text = title
         subtitleLabel.text = subtitle
         percentLabel.text = percent

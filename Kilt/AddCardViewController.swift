@@ -35,8 +35,6 @@ final class AddCardViewController: UIViewController {
     
     private lazy var titleTextField: UITextField = {
         return UITextField().then {
-            $0.addTarget(self, action: #selector(updateLogoImageView(_:)),
-                forControlEvents: .EditingChanged)
             $0.tag = 1
             let attributes = [
                 NSForegroundColorAttributeName: UIColor.mountainMistColor(),
@@ -145,10 +143,6 @@ final class AddCardViewController: UIViewController {
     
     @objc private func popViewController() {
         navigationController?.popViewControllerAnimated(true)
-    }
-    
-    @objc private func updateLogoImageView(sender: UITextField) {
-        logoImageView.setUpWithTitle(sender.text)
     }
     
     @objc private func generateBarcodeImage(sender: UITextField) {

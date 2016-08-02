@@ -141,7 +141,6 @@ extension CardDetailViewController {
     
     func setUpWithCard(card: Card) {
         titleLabel.text = card.title
-        logoImageView.setUpWithTitle(card.title)
         contactInfoView.setUpWithAvatar(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
         frontImageView.setUpWithImage(nil)
         backImageView.setUpWithImage(nil)

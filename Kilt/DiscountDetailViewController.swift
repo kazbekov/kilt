@@ -203,7 +203,6 @@ extension DiscountDetailViewController {
     
     func setUpWithDiscount(discount: Discount) {
         navigationItem.title = discount.title
-        logoImageView.setUpWithTitle(discount.title)
         titleLabel.text = discount.title
         subtitleLabel.text = discount.subtitle
         percentLabel.text = discount.percent

@@ -65,7 +65,6 @@ final class CardsTableViewCell: UITableViewCell {
 extension CardsTableViewCell {
     
     func setUpWithTitle(title: String?) {
-        logoImageView.setUpWithTitle(title)
         titleLabel.text = title
     }
     
