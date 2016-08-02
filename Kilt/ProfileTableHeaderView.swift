@@ -35,6 +35,10 @@ final class ProfileTableHeaderView: UIView {
         }
     }()
     
+    private lazy var nameBottomLine = UIView().then {
+        $0.backgroundColor = .mountainMistColor()
+    }
+    
     private lazy var locationTextField: UITextField = {
         return UITextField().then {
             $0.textAlignment = .Center
@@ -51,6 +55,10 @@ final class ProfileTableHeaderView: UIView {
         }
     }()
     
+    private lazy var locationBottomLine = UIView().then {
+        $0.backgroundColor = .mountainMistColor()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpViews()
@@ -63,7 +71,9 @@ final class ProfileTableHeaderView: UIView {
     
     private func setUpViews() {
         backgroundColor = .whiteColor()
-        [avatarImageView, nameTextField, locationTextField].forEach { addSubview($0) }
+        userInteractionEnabled = false
+        updateBottomLines()
+        [avatarImageView, nameTextField, locationTextField, nameBottomLine, locationBottomLine].forEach { addSubview($0) }
     }
     
     private func setUpConstraints() {
@@ -75,20 +85,43 @@ final class ProfileTableHeaderView: UIView {
             avatarImageView.height == 60
             
             nameTextField.top == avatarImageView.bottom + 8
-            nameTextField.leading == view.leading
-            nameTextField.trailing == view.trailing
+            nameTextField.leading == view.leading + 20
+            nameTextField.trailing == view.trailing - 20
             nameTextField.height == 30
             
             locationTextField.top == nameTextField.bottom + 2
-            locationTextField.leading == view.leading
-            locationTextField.trailing == view.trailing
+            locationTextField.leading == nameTextField.leading
+            locationTextField.trailing == nameTextField.trailing
             locationTextField.height == 30
         }
+        
+        constrain(nameTextField, locationTextField, nameBottomLine, locationBottomLine) {
+            nameTextField, locationTextField, nameBottomLine, locationBottomLine in
+            nameBottomLine.top == nameTextField.bottom
+            nameBottomLine.leading == nameTextField.leading
+            nameBottomLine.trailing == nameTextField.trailing
+            nameBottomLine.height == 1
+            
+            locationBottomLine.top == locationTextField.bottom
+            locationBottomLine.leading == locationTextField.leading
+            locationBottomLine.trailing == locationTextField.trailing
+            locationBottomLine.height == 1
+        }
+    }
+    
+    private func updateBottomLines() {
+        nameBottomLine.hidden = !userInteractionEnabled
+        locationBottomLine.hidden = !userInteractionEnabled
     }
     
 }
 
 extension ProfileTableHeaderView {
+    
+    func toggleInteraction() {
+        userInteractionEnabled = !userInteractionEnabled
+        updateBottomLines()
+    }
     
     func setUpWithAvatar(avatar: UIImage?, name: String?, location: String?) {
         avatarImageView.image = avatar ?? Icon.profilePlaceholderIcon
