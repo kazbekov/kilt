@@ -123,6 +123,7 @@ final class ProfileViewController: UIViewController {
         edgesForExtendedLayout = .None
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Профиль"
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         view.addSubview(tableView)
     }
     
@@ -132,7 +133,7 @@ final class ProfileViewController: UIViewController {
         }
     }
     
-    // MARK: Helpers
+    // MARK: User Interaction
     
     private func unlinkFacebook() {
         dispatch { self.presentViewController( self.unlinkFacebookAlertController, animated: true, completion: nil) }
@@ -168,6 +169,10 @@ final class ProfileViewController: UIViewController {
     
     private func signOut() {
         dispatch { self.presentViewController(self.signOutAlertController, animated: true, completion: nil) }
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
     }
     
 }
