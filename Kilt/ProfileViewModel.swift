@@ -80,6 +80,16 @@ final class ProfileViewModel {
         }
     }
     
+    func unlinkEmail(completion: (errorMessage: String?) -> Void) {
+        FIRAuth.auth()?.currentUser?.unlinkFromProvider(passwordProviderId) { user, error in
+            guard error == nil else {
+                completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                return
+            }
+            completion(errorMessage: nil)
+        }
+    }
+    
     func linkEmail(email: String?, password: String?, completion: (errorMessage: String?) -> Void) {
         guard let email = email where !email.isEmpty else {
             completion(errorMessage: "Введите email")
