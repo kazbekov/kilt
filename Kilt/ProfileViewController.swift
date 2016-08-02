@@ -18,6 +18,11 @@ final class ProfileViewController: UIViewController {
     
     private var heightForHeaders: [CGFloat] = [20, 84]
     
+    private lazy var rightBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(title: "Изменить", style: UIBarButtonItemStyle.Plain,
+                               target: self, action: #selector(toggleEditMode(_:)))
+    }()
+    
     private lazy var tableView: UITableView = {
         return UITableView().then {
             $0.backgroundColor = .athensGrayColor()
@@ -123,6 +128,7 @@ final class ProfileViewController: UIViewController {
         edgesForExtendedLayout = .None
         view.backgroundColor = .whiteColor()
         navigationItem.title = "Профиль"
+        navigationItem.rightBarButtonItem = rightBarButtonItem
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         view.addSubview(tableView)
     }
@@ -134,6 +140,12 @@ final class ProfileViewController: UIViewController {
     }
     
     // MARK: User Interaction
+    
+    @objc private func toggleEditMode(sender: UIBarButtonItem) {
+        guard let headerView = tableView.tableHeaderView as? ProfileTableHeaderView else { return }
+        headerView.toggleInteraction()
+        sender.title = headerView.userInteractionEnabled ? "Сохранить" : "Изменить"
+    }
     
     private func unlinkFacebook() {
         dispatch { self.presentViewController( self.unlinkFacebookAlertController, animated: true, completion: nil) }
