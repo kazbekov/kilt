@@ -32,6 +32,22 @@ final class ProfileViewController: UIViewController {
         }
     }()
     
+    private lazy var unlinkAlertController: UIAlertController = {
+        return AlertController.actionSheetControllerWith("Удалить Facebook", subtitle: "Уверены в ответе?", vc: self).then {
+            $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
+                self.viewModel.unlinkFacebook() { errorMessage in
+                    dispatch {
+                        if let errorMessage = errorMessage {
+                            Drop.down(errorMessage, state: .Error)
+                            return
+                        }
+                        self.tableView.reloadSection(0, animation: .Fade)
+                    }
+                }
+                })
+        }
+    }
+    
     private lazy var linkEmailAlertController: UIAlertController = {
         return UIAlertController(title: "Привязка email", message: "Напишите свой email и придумайте пароль",
             preferredStyle: .Alert).then { alertController in
@@ -89,21 +105,7 @@ final class ProfileViewController: UIViewController {
     // MARK: Helpers
     
     private func unlinkFacebook() {
-        dispatch { self.presentViewController(
-            AlertController.actionSheetControllerWith("Удалить Facebook", subtitle: "Уверены в ответе?", vc: self).then {
-                $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
-                    self.viewModel.unlinkFacebook() { errorMessage in
-                        dispatch {
-                            if let errorMessage = errorMessage {
-                                Drop.down(errorMessage, state: .Error)
-                                return
-                            }
-                            self.tableView.reloadSection(0, animation: .Fade)
-                        }
-                    }
-                })
-            }, animated: true, completion: nil)
-        }
+        dispatch { self.presentViewController( self.unlinkAlertController, animated: true, completion: nil) }
     }
     
     private func linkFacebook() {
