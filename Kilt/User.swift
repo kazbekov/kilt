@@ -12,32 +12,20 @@ import FirebaseDatabase
 
 struct User {
     
-    private var ref: FIRDatabaseReference? {
+    static var ref: FIRDatabaseReference? {
         guard let currentUserId = FIRAuth.auth()?.currentUser?.uid else { return nil }
         return FIRDatabase.database().reference().child("users/\(currentUserId)")
     }
     
-    var name: String?
-    var address: String?
-    var icon: String?
-    var cards: [String : Bool]?
-    
-    init(name: String? = nil, address: String? = nil, icon: String? = nil, cards: [String : Bool]? = nil) {
-        self.name = name
-        self.address = address
-        self.icon = icon
-        self.cards = cards
-    }
-    
-    func saveName() {
+    static func saveName(name: String?) {
         ref?.child("name").setValue(name)
     }
     
-    func saveAddress() {
+    static func saveAddress(address: String?) {
         ref?.child("address").setValue(address)
     }
     
-    func saveIcon() {
+    static func saveIcon(icon: String?) {
         ref?.child("icon").setValue(icon)
     }
     

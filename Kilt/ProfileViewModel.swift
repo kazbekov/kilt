@@ -128,9 +128,8 @@ final class ProfileViewModel {
     }
     
     func saveUserWithName(name: String?, address: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {
-        var currentUser = User(name: name, address: address)
-        currentUser.saveName()
-        currentUser.saveAddress()
+        User.saveName(name)
+        User.saveAddress(address)
         guard let icon = icon, data = UIImageJPEGRepresentation(icon, 0.7) else {
             completion(errorMessage: nil)
             return
@@ -141,10 +140,9 @@ final class ProfileViewModel {
                 completion(errorMessage: error.localizedDescription)
                 return
             }
-            currentUser.icon = downloadURL?.absoluteString
-            currentUser.saveIcon()
+            User.saveIcon(downloadURL?.absoluteString)
         }
     }
-    
+        
 }
 
