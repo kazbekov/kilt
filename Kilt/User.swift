@@ -29,4 +29,16 @@ struct User {
         ref?.child("icon").setValue(icon)
     }
     
+    static func fetchName(completion: (String?) -> Void) {
+        ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            completion(snapshot.value?["name"] as? String)
+        })
+    }
+    
+    static func fetchAddress(completion: (String?) -> Void) {
+        ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            completion(snapshot.value?["address"] as? String)
+        })
+    }
+    
 }

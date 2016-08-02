@@ -13,17 +13,27 @@ import Cartography
 final class ProfileTableHeaderView: UIView {
     
     var name: String? {
-        guard let text = nameTextField.text where !text.isEmpty else {
-            return nil
+        get {
+            guard let text = nameTextField.text where !text.isEmpty else {
+                return nil
+            }
+            return nameTextField.text
         }
-        return nameTextField.text
+        set(name) {
+            dispatch { self.nameTextField.text = name }
+        }
     }
     
     var address: String? {
-        guard let text = locationTextField.text where !text.isEmpty else {
-            return nil
+        get {
+            guard let text = locationTextField.text where !text.isEmpty else {
+                return nil
+            }
+            return locationTextField.text
         }
-        return locationTextField.text
+        set(address) {
+            dispatch { self.locationTextField.text = address }
+        }
     }
     
     var icon: UIImage? {

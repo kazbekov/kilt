@@ -143,6 +143,14 @@ final class ProfileViewModel {
             User.saveIcon(downloadURL?.absoluteString)
         }
     }
+    
+    func fetchName(completion: (String?) -> Void) {
+        User.fetchName { completion($0 ?? self.facebookDisplayName) }
+    }
+    
+    func fetchAddress(completion: (String?) -> Void) {
+        User.fetchAddress { completion($0) }
+    }
         
 }
 
