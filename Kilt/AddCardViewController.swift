@@ -12,6 +12,20 @@ import Cartography
 
 final class AddCardViewController: UIViewController {
     
+    private let viewModel = AddCardViewModel()
+    
+    private var name: String? {
+        guard let text = titleTextField.text where !text.isEmpty else {
+            return nil
+        }
+        return titleTextField.text
+    }
+    
+    private var icon: UIImage? {
+        if logoImageView.image == Icon.cardPlaceholderIcon { return nil }
+        return logoImageView.image
+    }
+    
     private lazy var leftBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
                                target: self, action: #selector(popViewController))
@@ -138,7 +152,7 @@ final class AddCardViewController: UIViewController {
     // MARK: User Interaction
     
     @objc private func saveCard() {
-        
+        viewModel.saveWithName(name, icon: nil)
     }
     
     @objc private func popViewController() {
