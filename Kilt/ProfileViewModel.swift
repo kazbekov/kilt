@@ -151,6 +151,10 @@ final class ProfileViewModel {
     func fetchAddress(completion: (String?) -> Void) {
         User.fetchAddress { completion($0) }
     }
+    
+    func fetchIcon(completion: (NSURL?) -> Void) {
+        User.fetchIcon { completion(NSURL(string: $0 ?? "")) }
+    }
         
 }
 

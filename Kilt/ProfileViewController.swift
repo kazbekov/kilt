@@ -10,6 +10,7 @@ import UIKit
 import Sugar
 import Cartography
 import Fusuma
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
@@ -36,6 +37,10 @@ final class ProfileViewController: UIViewController {
                     headerView.avatarImageView
                         .addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectImage)))
                     headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+                    self.viewModel.fetchIcon {
+                        headerView.avatarImageView.kf_setImageWithURL($0, placeholderImage: Icon.profilePlaceholderIcon,
+                            optionsInfo: nil, progressBlock: nil, completionHandler: nil)
+                    }
                     self.viewModel.fetchName { headerView.name = $0 }
                     self.viewModel.fetchAddress { headerView.address = $0 }
             }

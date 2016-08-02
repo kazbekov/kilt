@@ -41,4 +41,10 @@ struct User {
         })
     }
     
+    static func fetchIcon(completion: (String?) -> Void) {
+        ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            completion(snapshot.value?["icon"] as? String)
+        })
+    }
+    
 }
