@@ -58,10 +58,8 @@ final class ProfileViewController: UIViewController {
     // MARK: Helpers
     
     private func unlinkFacebook() {
-        let alertController = UIAlertController(title: "Удалить Facebook?",
-            message: "", preferredStyle: .ActionSheet).then {
-                $0.modalPresentationStyle = .Popover
-                
+        dispatch { self.presentViewController(
+            AlertController.actionSheetControllerWith("Удалить Facebook", subtitle: "Уверены в ответе?", vc: self).then {
                 $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
                     self.viewModel.unlinkFacebook() { errorMessage in
                         dispatch {
@@ -73,16 +71,8 @@ final class ProfileViewController: UIViewController {
                         }
                     }
                 })
-                
-                $0.addAction(UIAlertAction(title: "Отмена", style: .Cancel, handler: nil))
+            }, animated: true, completion: nil)
         }
-        
-        if let presenter = alertController.popoverPresentationController {
-            presenter.barButtonItem = navigationItem.leftBarButtonItem
-            presenter.sourceView = view
-        }
-        
-        dispatch { self.presentViewController(alertController, animated: true, completion: nil) }
     }
     
     private func linkFacebook() {
