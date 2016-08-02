@@ -17,17 +17,38 @@ final class ProfileTableHeaderView: UIView {
         $0.clipsToBounds = true
     }
     
-    private lazy var nameLabel = UILabel().then {
-        $0.textAlignment = .Center
-        $0.textColor = .blackColor()
-        $0.font = .systemFontOfSize(17, weight: UIFontWeightMedium)
-    }
+    private lazy var nameTextField: UITextField = {
+        return UITextField().then {
+            $0.textAlignment = .Center
+            $0.textColor = .blackColor()
+            $0.font = .systemFontOfSize(17, weight: UIFontWeightMedium)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .Center
+            let placeholderAttributes = [
+                NSForegroundColorAttributeName: UIColor.mountainMistColor(),
+                NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightMedium),
+                NSParagraphStyleAttributeName: paragraphStyle
+            ]
+            $0.attributedPlaceholder = NSAttributedString(string: "Имя", attributes: placeholderAttributes)
+            
+        }
+    }()
     
-    private lazy var locationLabel = UILabel().then {
-        $0.textAlignment = .Center
-        $0.textColor = .blackColor()
-        $0.font = .systemFontOfSize(12)
-    }
+    private lazy var locationTextField: UITextField = {
+        return UITextField().then {
+            $0.textAlignment = .Center
+            $0.textColor = .blackColor()
+            $0.font = .systemFontOfSize(12, weight: UIFontWeightMedium)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .Center
+            let placeholderAttributes = [
+                NSForegroundColorAttributeName: UIColor.mountainMistColor(),
+                NSFontAttributeName: UIFont.systemFontOfSize(12, weight: UIFontWeightMedium),
+                NSParagraphStyleAttributeName: paragraphStyle
+            ]
+            $0.attributedPlaceholder = NSAttributedString(string: "Адрес", attributes: placeholderAttributes)
+        }
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,22 +62,24 @@ final class ProfileTableHeaderView: UIView {
     
     private func setUpViews() {
         backgroundColor = .whiteColor()
-        [avatarImageView, nameLabel, locationLabel].forEach { addSubview($0) }
+        [avatarImageView, nameTextField, locationTextField].forEach { addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(avatarImageView, nameLabel, locationLabel, self) {
-            avatarImageView, nameLabel, locationLabel, view in
+        constrain(avatarImageView, nameTextField, locationTextField, self) {
+            avatarImageView, nameTextField, locationTextField, view in
             avatarImageView.top == view.top + 17
             avatarImageView.centerX == view.centerX
             avatarImageView.width == 60
             avatarImageView.height == 60
             
-            nameLabel.top == avatarImageView.bottom + 8
-            nameLabel.centerX == view.centerX
+            nameTextField.top == avatarImageView.bottom + 8
+            nameTextField.leading == view.leading
+            nameTextField.trailing == view.trailing
             
-            locationLabel.top == nameLabel.bottom + 6
-            locationLabel.centerX == view.centerX
+            locationTextField.top == nameTextField.bottom + 6
+            locationTextField.leading == view.leading
+            locationTextField.trailing == view.trailing
         }
     }
     
@@ -66,8 +89,8 @@ extension ProfileTableHeaderView {
     
     func setUpWithAvatar(avatar: UIImage?, name: String?, location: String?) {
         avatarImageView.image = avatar
-        nameLabel.text = name
-        locationLabel.text = location
+        nameTextField.text = name
+        locationTextField.text = location
     }
     
 }
