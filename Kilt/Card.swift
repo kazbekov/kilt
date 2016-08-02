@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Card {
+struct Card2 {
     var title: String?
     var barcode: String?
     var ownerName: String?

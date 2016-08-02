@@ -139,7 +139,7 @@ extension CardDetailViewController: ContactInfoViewDelegate {
 
 extension CardDetailViewController {
     
-    func setUpWithCard(card: Card) {
+    func setUpWithCard(card: Card2) {
         titleLabel.text = card.title
         contactInfoView.setUpWithAvatar(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
         frontImageView.setUpWithImage(nil)

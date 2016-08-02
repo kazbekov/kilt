@@ -10,10 +10,10 @@ import UIKit
 
 final class CardsViewModel {
     var cards = [
-        Card(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
+        Card2(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
             avatarImage: Icon.profileIcon),
-        Card(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
+        Card2(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
             avatarImage: Icon.profileIcon),
-        Card(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
+        Card2(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
             avatarImage: Icon.profileIcon)]
 }
