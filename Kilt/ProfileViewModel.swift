@@ -90,13 +90,7 @@ final class ProfileViewModel {
                 completion(errorMessage: error.localizedDescription)
                 return
             }
-            FIRAuth.auth()?.currentUser?.reloadWithCompletion({ error in
-                if let error = error {
-                    completion(errorMessage: error.localizedDescription)
-                    return
-                }
-                completion(errorMessage: nil)
-            })
+            self.reloadUser(completion)
         }
     }
     
@@ -117,13 +111,7 @@ final class ProfileViewModel {
                 completion(errorMessage: error.localizedDescription)
                 return
             }
-            FIRAuth.auth()?.currentUser?.reloadWithCompletion({ error in
-                if let error = error {
-                    completion(errorMessage: error.localizedDescription)
-                    return
-                }
-                completion(errorMessage: nil)
-            })
+            self.reloadUser(completion)
         }
     }
     
@@ -155,6 +143,16 @@ final class ProfileViewModel {
     func fetchIcon(completion: (NSURL?) -> Void) {
         User.fetchIcon { completion(NSURL(string: $0 ?? "")) }
     }
-        
+    
+    func reloadUser(completion: (errorMessage: String?) -> Void) {
+        FIRAuth.auth()?.currentUser?.reloadWithCompletion({ error in
+            if let error = error {
+                completion(errorMessage: error.localizedDescription)
+                return
+            }
+            completion(errorMessage: nil)
+        })
+    }
+    
 }
 

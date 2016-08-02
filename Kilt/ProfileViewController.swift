@@ -33,16 +33,10 @@ final class ProfileViewController: UIViewController {
             $0.dataSource = self
             $0.rowHeight = 44
             $0.tableHeaderView = ProfileTableHeaderView(frame:
-                CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 156)).then { headerView in
-                    headerView.avatarImageView
+                CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 156)).then {
+                    $0.avatarImageView
                         .addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectImage)))
-                    headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
-                    self.viewModel.fetchIcon {
-                        headerView.avatarImageView.kf_setImageWithURL($0, placeholderImage: Icon.profilePlaceholderIcon,
-                            optionsInfo: nil, progressBlock: nil, completionHandler: nil)
-                    }
-                    self.viewModel.fetchName { headerView.name = $0 }
-                    self.viewModel.fetchAddress { headerView.address = $0 }
+                    $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
             }
             $0.tableFooterView = UIView()
             $0.registerClass(ProfileTableViewCell.self, forCellReuseIdentifier: self.profileCellIdentifier)
@@ -132,6 +126,23 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         setUpConstraints()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let headerView = tableView.tableHeaderView as? ProfileTableHeaderView {
+            viewModel.fetchIcon {
+                headerView.avatarImageView.kf_setImageWithURL($0, placeholderImage: Icon.profilePlaceholderIcon,
+                    optionsInfo: nil, progressBlock: nil, completionHandler: nil)
+            }
+            viewModel.fetchName { headerView.name = $0 }
+            viewModel.fetchAddress { headerView.address = $0 }
+        }
+        viewModel.reloadUser { errorMessage in
+            if errorMessage == nil {
+                self.tableView.reloadSection(0, animation: .None)
+            }
+        }
     }
     
     // MARK: Set Up
