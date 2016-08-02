@@ -144,6 +144,14 @@ final class ProfileViewController: UIViewController {
     @objc private func toggleEditMode(sender: UIBarButtonItem) {
         guard let headerView = tableView.tableHeaderView as? ProfileTableHeaderView else { return }
         headerView.toggleInteraction()
+        if !headerView.userInteractionEnabled {
+            viewModel.saveUserWithName(headerView.name, address: headerView.address, icon: headerView.icon) { errorMessage in
+                if let errorMessage = errorMessage {
+                    Drop.down(errorMessage, state: .Error)
+                    return
+                }
+            }
+        }
         sender.title = headerView.userInteractionEnabled ? "Сохранить" : "Изменить"
     }
     

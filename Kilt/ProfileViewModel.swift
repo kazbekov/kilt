@@ -127,5 +127,24 @@ final class ProfileViewModel {
         }
     }
     
+    func saveUserWithName(name: String?, address: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {
+        var currentUser = User(name: name, address: address)
+        currentUser.saveName()
+        currentUser.saveAddress()
+        guard let icon = icon, data = UIImageJPEGRepresentation(icon, 0.7) else {
+            completion(errorMessage: nil)
+            return
+        }
+        StorageManager.saveAvatar(data) {
+            downloadURL, error in
+            guard error == nil else {
+                completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                return
+            }
+            currentUser.icon = downloadURL?.absoluteString
+            currentUser.saveIcon()
+        }
+    }
+    
 }
 

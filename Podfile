@@ -10,6 +10,7 @@ target 'Kilt' do
   pod 'Firebase', '~> 3.3'
   pod 'Firebase/Auth', '~> 3.0'
   pod 'Firebase/Database', '~> 3.0'
+  pod 'Firebase/Storage'
   pod 'FBSDKCoreKit', '~> 4.14'
   pod 'FBSDKLoginKit', '~> 4.14'
   pod 'GoogleMaps', '~> 2.0.1'

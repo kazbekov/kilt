@@ -12,6 +12,25 @@ import Cartography
 
 final class ProfileTableHeaderView: UIView {
     
+    var name: String? {
+        guard let text = nameTextField.text where !text.isEmpty else {
+            return nil
+        }
+        return nameTextField.text
+    }
+    
+    var address: String? {
+        guard let text = locationTextField.text where !text.isEmpty else {
+            return nil
+        }
+        return locationTextField.text
+    }
+    
+    var icon: UIImage? {
+        if avatarImageView.image == Icon.profilePlaceholderIcon { return nil }
+        return avatarImageView.image
+    }
+    
     private lazy var avatarImageView = UIImageView().then {
         $0.contentMode = .ScaleAspectFill
         $0.clipsToBounds = true
