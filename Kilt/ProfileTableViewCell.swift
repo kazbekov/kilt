@@ -75,14 +75,11 @@ final class ProfileTableViewCell: UITableViewCell {
 
 extension ProfileTableViewCell {
     
-    func setUpWithTitle(title: String?, subtitle: String?, icon: UIImage?) {
+    func setUpWithTitle(title: String?, subtitle: String?, icon: UIImage?, titleColor: UIColor?) {
         titleLabel.text = title
         subtitleLabel.text = subtitle
         iconImageView.image = icon
-    }
-    
-    func setTitleLabelColor(color: UIColor) {
-        titleLabel.textColor = color
+        titleLabel.textColor = titleColor ?? .blackColor()
     }
     
 }

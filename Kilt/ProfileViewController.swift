@@ -16,6 +16,8 @@ final class ProfileViewController: UIViewController {
 
     private let profileCellIdentifier = "profileCellIdentifier"
     
+    private var heightForHeaders: [CGFloat] = [20, 84]
+    
     private lazy var tableView: UITableView = {
         return UITableView().then {
             $0.backgroundColor = .athensGrayColor()
@@ -127,18 +129,11 @@ extension ProfileViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
-            case 0:
-                linkFacebook()
-            default:
-                break
-            }
-        case 1:
-            signOut()
-        default:
-            break
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0): linkFacebook()
+        case (0, 1): break
+        case (1, _): signOut()
+        default: break
         }
     }
     
@@ -149,37 +144,17 @@ extension ProfileViewController: UITableViewDelegate {
 extension ProfileViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return viewModel.cellItems.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return 2
-        case 1: return 1
-        default: return 0
-        }
+        return viewModel.cellItems[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return (tableView.dequeueReusableCellWithIdentifier(profileCellIdentifier, forIndexPath: indexPath) as! ProfileTableViewCell).then {
-            switch indexPath.section {
-            case 0:
-                switch indexPath.row {
-                case 0:
-                    $0.setUpWithTitle("Facebook", subtitle: viewModel.facebookDisplayName ?? "Добавить",
-                        icon: Icon.facebookIcon)
-                case 1: $0.setUpWithTitle("Email", subtitle: "Добавить", icon: Icon.mailIcon)
-                default: break
-                }
-            case 1:
-                switch indexPath.row {
-                case 0:
-                    $0.setUpWithTitle("Выйти", subtitle: nil, icon: Icon.exitIcon)
-                    $0.setTitleLabelColor(.crimsonColor())
-                default: break
-                }
-            default: break
-            }
+            let item = viewModel.cellItems[indexPath.section][indexPath.row]
+            $0.setUpWithTitle(item.title, subtitle: item.subtitle, icon: item.icon, titleColor: item.titleColor)
         }
     }
     
@@ -190,11 +165,7 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0: return 20
-        case 1: return 84
-        default: return 0
-        }
+        return heightForHeaders[section]
     }
     
 }

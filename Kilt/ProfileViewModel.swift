@@ -14,12 +14,27 @@ final class ProfileViewModel {
     
     private let facebookProviderId = "facebook.com"
     
+    private var facebookDisplayName: String? {
+        return FIRAuth.auth()?.currentUser?.providerData.filter { $0.providerID == facebookProviderId }.first?.displayName
+    }
+    
     var isLinkedWithFacebook: Bool {
         return FIRAuth.auth()?.currentUser?.providerData.filter({ $0.providerID == facebookProviderId }).count != 0
     }
     
-    var facebookDisplayName: String? {
-        return FIRAuth.auth()?.currentUser?.providerData.filter { $0.providerID == facebookProviderId }.first?.displayName
+    var cellItems: [[ProfileCellItem]] {
+        return [
+            [
+                ProfileCellItem(title: "Facebook", subtitle: facebookDisplayName ?? "Добавить",
+                    icon: Icon.facebookIcon),
+                ProfileCellItem(title: "Email", subtitle: "Добавить",
+                    icon: Icon.mailIcon)
+            ],
+            [
+                ProfileCellItem(title: "Выйти", subtitle: nil,
+                    icon: Icon.exitIcon, titleColor: .crimsonColor())
+            ]
+        ]
     }
     
     func signOut(completion: (errorMessage: String?) -> Void) {
