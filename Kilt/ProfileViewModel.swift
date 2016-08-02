@@ -57,8 +57,8 @@ final class ProfileViewModel {
     
     func unlinkFacebook(completion: (errorMessage: String?) -> Void) {
         FIRAuth.auth()?.currentUser?.unlinkFromProvider(facebookProviderId) { user, error in
-            guard error == nil else {
-                completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+            if let error = error {
+                completion(errorMessage: error.localizedDescription)
                 return
             }
             completion(errorMessage: nil)
@@ -75,8 +75,8 @@ final class ProfileViewModel {
             let credential = FIRFacebookAuthProvider.credentialWithAccessToken(
                 FBSDKAccessToken.currentAccessToken().tokenString)
             FIRAuth.auth()?.currentUser?.linkWithCredential(credential) { user, error in
-                guard let _ = user where error == nil else {
-                    completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                if let error = error {
+                    completion(errorMessage: error.localizedDescription)
                     return
                 }
                 completion(errorMessage: nil)
@@ -86,13 +86,13 @@ final class ProfileViewModel {
     
     func unlinkEmail(completion: (errorMessage: String?) -> Void) {
         FIRAuth.auth()?.currentUser?.unlinkFromProvider(passwordProviderId) { user, error in
-            guard error == nil else {
-                completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+            if let error = error {
+                completion(errorMessage: error.localizedDescription)
                 return
             }
             FIRAuth.auth()?.currentUser?.reloadWithCompletion({ error in
-                guard error == nil else {
-                    completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                if let error = error {
+                    completion(errorMessage: error.localizedDescription)
                     return
                 }
                 completion(errorMessage: nil)
@@ -113,13 +113,13 @@ final class ProfileViewModel {
         
         let credential = FIREmailPasswordAuthProvider.credentialWithEmail(email, password: password)
         FIRAuth.auth()?.currentUser?.linkWithCredential(credential) { user, error in
-            guard let _ = user where error == nil else {
-                completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+            if let error = error {
+                completion(errorMessage: error.localizedDescription)
                 return
             }
             FIRAuth.auth()?.currentUser?.reloadWithCompletion({ error in
-                guard error == nil else {
-                    completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                if let error = error {
+                    completion(errorMessage: error.localizedDescription)
                     return
                 }
                 completion(errorMessage: nil)
@@ -137,8 +137,8 @@ final class ProfileViewModel {
         }
         StorageManager.saveAvatar(data) {
             downloadURL, error in
-            guard error == nil else {
-                completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+            if let error = error {
+                completion(errorMessage: error.localizedDescription)
                 return
             }
             currentUser.icon = downloadURL?.absoluteString

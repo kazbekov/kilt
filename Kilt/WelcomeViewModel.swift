@@ -23,8 +23,8 @@ final class WelcomeViewModel {
             let credential = FIRFacebookAuthProvider.credentialWithAccessToken(
                 FBSDKAccessToken.currentAccessToken().tokenString)
             FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
-                guard let _ = user where error == nil else {
-                    completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                if let error = error {
+                    completion(errorMessage: error.localizedDescription)
                     return
                 }
                 completion(errorMessage: nil)
