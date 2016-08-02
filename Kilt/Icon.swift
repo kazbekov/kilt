@@ -30,4 +30,5 @@ struct Icon {
     static let barcodeIcon = UIImage(named: "barcode-icon")
     static let listIcon = UIImage(named: "list-icon")
     static let profilePlaceholderIcon = UIImage(named: "profile-placeholder-icon")
+    static let cardPlaceholderIcon = UIImage(named: "card-placeholder-icon")
 }
