@@ -9,10 +9,15 @@
 import UIKit
 
 final class AlertController {
-    static func actionSheetControllerWith(title: String?, subtitle: String?, vc: UIViewController) -> UIAlertController {
-        let alertController = UIAlertController(title: "Удалить Facebook",
+    
+    static func unlinkAlertControllerWithTitle(title: String?, vc: UIViewController,
+                                     removeActionClosure: () -> Void) -> UIAlertController {
+        let alertController = UIAlertController(title: title,
             message: "Уверены в ответе?", preferredStyle: .ActionSheet).then {
                 $0.modalPresentationStyle = .Popover
+                $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
+                    removeActionClosure()
+                })
                 $0.addAction(UIAlertAction(title: "Отмена", style: .Cancel, handler: nil))
         }
         
@@ -23,4 +28,5 @@ final class AlertController {
         
         return alertController
     }
+    
 }

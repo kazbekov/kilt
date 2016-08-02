@@ -33,36 +33,32 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var unlinkFacebookAlertController: UIAlertController = {
-        return AlertController.actionSheetControllerWith("Удалить Facebook", subtitle: "Уверены в ответе?", vc: self).then {
-            $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
-                self.viewModel.unlinkFacebook() { errorMessage in
-                    dispatch {
-                        if let errorMessage = errorMessage {
-                            Drop.down(errorMessage, state: .Error)
-                            return
-                        }
-                        self.tableView.reloadSection(0, animation: .Fade)
+        return AlertController.unlinkAlertControllerWithTitle("Удалить Facebook", vc: self) {
+            self.viewModel.unlinkFacebook() { errorMessage in
+                dispatch {
+                    if let errorMessage = errorMessage {
+                        Drop.down(errorMessage, state: .Error)
+                        return
                     }
+                    self.tableView.reloadSection(0, animation: .Fade)
                 }
-            })
+            }
         }
-    }
+    }()
     
     private lazy var unlinkEmailAlertController: UIAlertController = {
-        return AlertController.actionSheetControllerWith("Удалить Email", subtitle: "Уверены в ответе?", vc: self).then {
-            $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
-                self.viewModel.unlinkEmail() { errorMessage in
-                    dispatch {
-                        if let errorMessage = errorMessage {
-                            Drop.down(errorMessage, state: .Error)
-                            return
-                        }
-                        self.tableView.reloadSection(0, animation: .Fade)
+        return AlertController.unlinkAlertControllerWithTitle("Удалить Email", vc: self) {
+            self.viewModel.unlinkEmail() { errorMessage in
+                dispatch {
+                    if let errorMessage = errorMessage {
+                        Drop.down(errorMessage, state: .Error)
+                        return
                     }
+                    self.tableView.reloadSection(0, animation: .Fade)
                 }
-            })
+            }
         }
-    }
+    }()
     
     private lazy var linkEmailAlertController: UIAlertController = {
         return UIAlertController(title: "Привязка email", message: "Напишите свой email и придумайте пароль",
@@ -92,6 +88,24 @@ final class ProfileViewController: UIViewController {
                 $0.placeholder = "Пароль"
                 $0.secureTextEntry = true
             }
+        }
+    }()
+    
+    private lazy var signOutAlertController: UIAlertController = {
+        return UIAlertController(title: "Выйти",
+            message: "Уверены в ответе? Мы будем скучать :(", preferredStyle: .Alert).then {
+            $0.addAction(UIAlertAction(title: "Да", style: .Default) { _ in
+                self.viewModel.signOut() { errorMessage in
+                    dispatch {
+                        if let errorMessage = errorMessage {
+                            Drop.down(errorMessage, state: .Error)
+                            return
+                        }
+                        (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadLoginPages()
+                    }
+                }
+            })
+            $0.addAction(UIAlertAction(title: "Нет", style: .Default, handler: nil))
         }
     }()
     
@@ -153,23 +167,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func signOut() {
-        dispatch {
-            self.presentViewController(UIAlertController(title: "Выйти",
-                message: "Уверены в ответе? Мы будем скучать :(", preferredStyle: .Alert).then {
-                $0.addAction(UIAlertAction(title: "Да", style: .Default) { _ in
-                    self.viewModel.signOut() { errorMessage in
-                        dispatch {
-                            if let errorMessage = errorMessage {
-                                Drop.down(errorMessage, state: .Error)
-                                return
-                            }
-                            (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadLoginPages()
-                        }
-                    }
-                })
-                $0.addAction(UIAlertAction(title: "Нет", style: .Default, handler: nil))
-            }, animated: true, completion: nil)
-        }
+        dispatch { self.presentViewController(self.signOutAlertController, animated: true, completion: nil) }
     }
     
 }
