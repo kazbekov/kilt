@@ -90,7 +90,13 @@ final class ProfileViewModel {
                 completion(errorMessage: error?.localizedDescription ?? "Ошибка")
                 return
             }
-            completion(errorMessage: nil)
+            FIRAuth.auth()?.currentUser?.reloadWithCompletion({ error in
+                guard error == nil else {
+                    completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                    return
+                }
+                completion(errorMessage: nil)
+            })
         }
     }
     
@@ -111,7 +117,13 @@ final class ProfileViewModel {
                 completion(errorMessage: error?.localizedDescription ?? "Ошибка")
                 return
             }
-            completion(errorMessage: nil)
+            FIRAuth.auth()?.currentUser?.reloadWithCompletion({ error in
+                guard error == nil else {
+                    completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                    return
+                }
+                completion(errorMessage: nil)
+            })
         }
     }
     
