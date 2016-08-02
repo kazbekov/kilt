@@ -9,6 +9,7 @@
 import UIKit
 import Sugar
 import Cartography
+import Fusuma
 
 final class ProfileViewController: UIViewController {
     
@@ -32,6 +33,8 @@ final class ProfileViewController: UIViewController {
             $0.rowHeight = 44
             $0.tableHeaderView = ProfileTableHeaderView(frame:
                 CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 156)).then {
+                $0.avatarImageView
+                    .addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectImage)))
                 $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
             }
             $0.tableFooterView = UIView()
@@ -142,6 +145,13 @@ final class ProfileViewController: UIViewController {
     
     // MARK: User Interaction
     
+    @objc private func selectImage() {
+        let fusuma = FusumaViewController()
+        fusuma.delegate = self
+        fusumaTintColor = .appColor()
+        self.presentViewController(fusuma, animated: true, completion: nil)
+    }
+    
     @objc private func toggleEditMode(sender: UIBarButtonItem) {
         guard let headerView = tableView.tableHeaderView as? ProfileTableHeaderView else { return }
         headerView.toggleInteraction()
@@ -241,6 +251,21 @@ extension ProfileViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return heightForHeaders[section]
+    }
+    
+}
+
+extension ProfileViewController: FusumaDelegate {
+    
+    func fusumaImageSelected(image: UIImage) {
+        (tableView.tableHeaderView as? ProfileTableHeaderView)?.avatarImageView.image = image
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: NSURL) {
+    }
+    
+    func fusumaCameraRollUnauthorized() {
+        Drop.down("Разрешите доступ к вашим фотографиям в настройках", state: .Error)
     }
     
 }

@@ -31,10 +31,11 @@ final class ProfileTableHeaderView: UIView {
         return avatarImageView.image
     }
     
-    private lazy var avatarImageView = UIImageView().then {
+    lazy var avatarImageView = UIImageView().then {
         $0.contentMode = .ScaleAspectFill
         $0.clipsToBounds = true
         $0.image = Icon.profilePlaceholderIcon
+        $0.userInteractionEnabled = true
     }
     
     private lazy var nameTextField: UITextField = {
@@ -142,8 +143,7 @@ extension ProfileTableHeaderView {
         updateBottomLines()
     }
     
-    func setUpWithAvatar(avatar: UIImage?, name: String?, location: String?) {
-        avatarImageView.image = avatar ?? Icon.profilePlaceholderIcon
+    func setUpWithAvatar(name: String?, location: String?) {
         nameTextField.text = name
         locationTextField.text = location
     }
