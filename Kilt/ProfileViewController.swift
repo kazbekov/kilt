@@ -32,7 +32,7 @@ final class ProfileViewController: UIViewController {
         }
     }()
     
-    private lazy var unlinkAlertController: UIAlertController = {
+    private lazy var unlinkFacebookAlertController: UIAlertController = {
         return AlertController.actionSheetControllerWith("Удалить Facebook", subtitle: "Уверены в ответе?", vc: self).then {
             $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
                 self.viewModel.unlinkFacebook() { errorMessage in
@@ -44,7 +44,23 @@ final class ProfileViewController: UIViewController {
                         self.tableView.reloadSection(0, animation: .Fade)
                     }
                 }
-                })
+            })
+        }
+    }
+    
+    private lazy var unlinkEmailAlertController: UIAlertController = {
+        return AlertController.actionSheetControllerWith("Удалить Email", subtitle: "Уверены в ответе?", vc: self).then {
+            $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
+                self.viewModel.unlinkEmail() { errorMessage in
+                    dispatch {
+                        if let errorMessage = errorMessage {
+                            Drop.down(errorMessage, state: .Error)
+                            return
+                        }
+                        self.tableView.reloadSection(0, animation: .Fade)
+                    }
+                }
+            })
         }
     }
     
@@ -105,7 +121,7 @@ final class ProfileViewController: UIViewController {
     // MARK: Helpers
     
     private func unlinkFacebook() {
-        dispatch { self.presentViewController( self.unlinkAlertController, animated: true, completion: nil) }
+        dispatch { self.presentViewController( self.unlinkFacebookAlertController, animated: true, completion: nil) }
     }
     
     private func linkFacebook() {
@@ -124,7 +140,15 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    private func unlinkEmail() {
+        dispatch { self.presentViewController( self.unlinkEmailAlertController, animated: true, completion: nil) }
+    }
+    
     private func linkEmail() {
+        if viewModel.isLinkedWithEmail {
+            unlinkEmail()
+            return
+        }
         dispatch { self.presentViewController(self.linkEmailAlertController, animated: true, completion: nil) }
     }
     

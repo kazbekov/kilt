@@ -27,6 +27,10 @@ final class ProfileViewModel {
         return FIRAuth.auth()?.currentUser?.providerData.filter({ $0.providerID == facebookProviderId }).count != 0
     }
     
+    var isLinkedWithEmail: Bool {
+        return FIRAuth.auth()?.currentUser?.providerData.filter({ $0.providerID == passwordProviderId }).count != 0
+    }
+    
     var cellItems: [[ProfileCellItem]] {
         return [
             [
