@@ -44,6 +44,7 @@
 		93430B771D5059A600992C09 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B761D5059A600992C09 /* AlertController.swift */; };
 		93430B7B1D50939A00992C09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B7A1D50939A00992C09 /* User.swift */; };
 		93430B7D1D50A6F400992C09 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93430B7C1D50A6F400992C09 /* StorageManager.swift */; };
+		938E325B1D5115D0002DFD05 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938E325A1D5115D0002DFD05 /* Company.swift */; };
 		939860B61D4E0FD800F477E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 939860B51D4E0FD800F477E1 /* GoogleService-Info.plist */; };
 		939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860C61D4F33D800F477E1 /* WelcomeViewController.swift */; };
 		939860C91D4F3DBE00F477E1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939860C81D4F3DBE00F477E1 /* SignInViewController.swift */; };
@@ -122,6 +123,7 @@
 		93430B761D5059A600992C09 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		93430B7A1D50939A00992C09 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93430B7C1D50A6F400992C09 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		938E325A1D5115D0002DFD05 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		939860B51D4E0FD800F477E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		939860C61D4F33D800F477E1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		939860C81D4F3DBE00F477E1 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				933D5D681D473C5C00E01464 /* Card.swift */,
+				938E325A1D5115D0002DFD05 /* Company.swift */,
 				933D5D831D48D28A00E01464 /* Discount.swift */,
 				93430B741D50539600992C09 /* ProfileCellItem.swift */,
 				93430B7A1D50939A00992C09 /* User.swift */,
@@ -685,6 +688,7 @@
 				939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */,
 				93430B711D4FCAB400992C09 /* SignUpViewModel.swift in Sources */,
 				939860D01D4F490900F477E1 /* SignUpViewController.swift in Sources */,
+				938E325B1D5115D0002DFD05 /* Company.swift in Sources */,
 				933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */,
 				933D5D701D486FA600E01464 /* AddCardViewController.swift in Sources */,
 				933D5D511D45D78800E01464 /* CardsViewModel.swift in Sources */,

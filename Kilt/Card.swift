@@ -15,3 +15,13 @@ struct Card2 {
     var phoneNumber: String?
     var avatarImage: UIImage?
 }
+
+struct Card {
+    var user: String?
+    var company: String?
+    var barcode: String?
+    var frontIcon: String?
+    var backIcon: String?
+    
+    
+}
