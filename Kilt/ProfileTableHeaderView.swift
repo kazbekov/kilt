@@ -89,6 +89,11 @@ final class ProfileTableHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2
+    }
+    
     private func setUpViews() {
         backgroundColor = .whiteColor()
         userInteractionEnabled = false
