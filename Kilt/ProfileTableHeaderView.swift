@@ -77,10 +77,12 @@ final class ProfileTableHeaderView: UIView {
             nameTextField.top == avatarImageView.bottom + 8
             nameTextField.leading == view.leading
             nameTextField.trailing == view.trailing
+            nameTextField.height == 30
             
-            locationTextField.top == nameTextField.bottom + 6
+            locationTextField.top == nameTextField.bottom + 2
             locationTextField.leading == view.leading
             locationTextField.trailing == view.trailing
+            locationTextField.height == 30
         }
     }
     
