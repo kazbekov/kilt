@@ -13,9 +13,14 @@ import FBSDKLoginKit
 final class ProfileViewModel {
     
     private let facebookProviderId = "facebook.com"
+    private let passwordProviderId = "password"
     
     private var facebookDisplayName: String? {
         return FIRAuth.auth()?.currentUser?.providerData.filter { $0.providerID == facebookProviderId }.first?.displayName
+    }
+    
+    private var emailDisplayName: String? {
+        return FIRAuth.auth()?.currentUser?.providerData.filter { $0.providerID == passwordProviderId }.first?.email
     }
     
     var isLinkedWithFacebook: Bool {
@@ -27,7 +32,7 @@ final class ProfileViewModel {
             [
                 ProfileCellItem(title: "Facebook", subtitle: facebookDisplayName ?? "Добавить",
                     icon: Icon.facebookIcon),
-                ProfileCellItem(title: "Email", subtitle: "Добавить",
+                ProfileCellItem(title: "Email", subtitle: emailDisplayName ?? "Добавить",
                     icon: Icon.mailIcon)
             ],
             [
@@ -74,5 +79,27 @@ final class ProfileViewModel {
             }
         }
     }
+    
+    func linkEmail(email: String?, password: String?, completion: (errorMessage: String?) -> Void) {
+        guard let email = email where !email.isEmpty else {
+            completion(errorMessage: "Введите email")
+            return
+        }
+        
+        guard let password = password where !password.isEmpty else {
+            completion(errorMessage: "Введите пароль")
+            return
+        }
+        
+        let credential = FIREmailPasswordAuthProvider.credentialWithEmail(email, password: password)
+        FIRAuth.auth()?.currentUser?.linkWithCredential(credential) { user, error in
+            guard let _ = user where error == nil else {
+                completion(errorMessage: error?.localizedDescription ?? "Ошибка")
+                return
+            }
+            completion(errorMessage: nil)
+        }
+    }
+    
 }
 

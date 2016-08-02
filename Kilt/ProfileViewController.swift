@@ -32,6 +32,37 @@ final class ProfileViewController: UIViewController {
         }
     }()
     
+    private lazy var linkEmailAlertController: UIAlertController = {
+        return UIAlertController(title: "Привязка email", message: "Напишите свой email и придумайте пароль",
+            preferredStyle: .Alert).then { alertController in
+            alertController.addAction(UIAlertAction(title: "Привязать", style: .Default) { _ in
+                self.viewModel.linkEmail(alertController.textFields?[0].text,
+                password: alertController.textFields?[1].text) { errorMessage in
+                    dispatch {
+                        if let errorMessage = errorMessage {
+                            Drop.down(errorMessage, state: .Error)
+                            self.linkEmail()
+                            return
+                        }
+                        alertController.textFields?[0].text = nil
+                        alertController.textFields?[1].text = nil
+                        self.tableView.reloadSection(0, animation: .Fade)
+                    }
+                }
+                })
+            alertController.addAction(UIAlertAction(title: "Отмена", style: .Default, handler: nil))
+            alertController.addTextFieldWithConfigurationHandler {
+                $0.keyboardType = .EmailAddress
+                $0.autocapitalizationType = .None
+                $0.placeholder = "Email"
+            }
+            alertController.addTextFieldWithConfigurationHandler {
+                $0.placeholder = "Пароль"
+                $0.secureTextEntry = true
+            }
+        }
+    }()
+    
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
@@ -91,6 +122,10 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    private func linkEmail() {
+        dispatch { self.presentViewController(self.linkEmailAlertController, animated: true, completion: nil) }
+    }
+    
     private func signOut() {
         dispatch {
             self.presentViewController(UIAlertController(title: "Выйти",
@@ -121,7 +156,7 @@ extension ProfileViewController: UITableViewDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {
         case (0, 0): linkFacebook()
-        case (0, 1): break
+        case (0, 1): linkEmail()
         case (1, _): signOut()
         default: break
         }
