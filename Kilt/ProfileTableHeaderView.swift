@@ -158,9 +158,4 @@ extension ProfileTableHeaderView {
         updateBottomLines()
     }
     
-    func setUpWithAvatar(name: String?, location: String?) {
-        nameTextField.text = name
-        locationTextField.text = location
-    }
-    
 }
