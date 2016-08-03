@@ -140,7 +140,7 @@ final class ProfileViewController: UIViewController {
         }
         viewModel.reloadUser { errorMessage in
             if errorMessage == nil {
-                self.tableView.reloadSection(0, animation: .None)
+                self.tableView.reloadData()
             }
         }
     }
