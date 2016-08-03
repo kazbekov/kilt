@@ -201,6 +201,10 @@ final class AddCardViewController: UIViewController {
     }
     
     @objc private func saveCard() {
+        if name == nil || barcode == nil {
+            Drop.down("Название и номер карты не могут быть пустыми", state: .Error)
+            return
+        }
         dispatch { self.navigationController?.popToRootViewControllerAnimated(true) }
         viewModel.createCardWithName(name, icon: icon, barcode: barcode, frontIcon: frontSelectView.imageView.image,
                                      backIcon: backSelectView.imageView.image) { errorMessage in
