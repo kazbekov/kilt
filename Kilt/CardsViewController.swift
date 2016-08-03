@@ -40,15 +40,11 @@ final class CardsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
-        setUpConstraints()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         viewModel.fetchCards { _ in
             dispatch { self.tableView.reloadData() }
         }
+        setUpViews()
+        setUpConstraints()
     }
     
     // MARK: Set Up
