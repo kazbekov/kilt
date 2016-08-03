@@ -23,7 +23,7 @@ final class Company {
     var icon: String?
     var contact: [String : AnyObject]?
     
-    init(key: String?, name: String?, icon: String?, contact: Contact? = nil) {
+    init(name: String?, icon: String?, contact: Contact? = nil) {
         self.name = name
         self.icon = icon
         self.contact = [
@@ -31,11 +31,14 @@ final class Company {
             "name": contact?.name ?? NSNull(),
             "phone": contact?.phone ?? NSNull()
         ]
-        if let key = key {
-            ref = FIRDatabase.database().reference().child("companies/\(key)")
-        } else {
-            ref = FIRDatabase.database().reference().child("companies").childByAutoId()
-        }
+        ref = FIRDatabase.database().reference().child("companies").childByAutoId()
+    }
+    
+    init(snapshot: FIRDataSnapshot) {
+        ref = snapshot.ref
+        name = snapshot.value?.objectForKey("name") as? String
+        icon = snapshot.value?.objectForKey("icon") as? String
+        contact = snapshot.value?.objectForKey("contact") as? [String : String]
     }
     
     func saveName(completion: (error: NSError?) -> Void) {

@@ -18,8 +18,10 @@ final class CardsViewModel {
         Card2(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
             avatarImage: Icon.profileIcon)]
     
-    func fetchCards() {
-        
+    func fetchCards(completion: (card: Card) -> Void) {
+        Card.fetchCards { (card) in
+            completion(card: card)
+        }
     }
     
 }
