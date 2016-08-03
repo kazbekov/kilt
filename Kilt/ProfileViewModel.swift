@@ -116,8 +116,16 @@ final class ProfileViewModel {
     }
     
     func saveUserWithName(name: String?, address: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {
-        User.saveName(name)
-        User.saveAddress(address)
+        User.saveName(name) { error in
+            if let error = error {
+                completion(errorMessage: error.localizedDescription)
+            }
+        }
+        User.saveAddress(address) { error in
+            if let error = error {
+                completion(errorMessage: error.localizedDescription)
+            }
+        }
         guard let icon = icon, data = UIImageJPEGRepresentation(icon, 0.7) else {
             completion(errorMessage: nil)
             return
@@ -128,7 +136,11 @@ final class ProfileViewModel {
                 completion(errorMessage: error.localizedDescription)
                 return
             }
-            User.saveIcon(downloadURL?.absoluteString)
+            User.saveIcon(downloadURL?.absoluteString) { error in
+                if let error = error {
+                    completion(errorMessage: error.localizedDescription)
+                }
+            }
         }
     }
     

@@ -17,16 +17,22 @@ struct User {
         return FIRDatabase.database().reference().child("users/\(currentUserId)")
     }
     
-    static func saveName(name: String?) {
-        ref?.child("name").setValue(name)
+    static func saveName(name: String?, completion: (error: NSError?) -> Void) {
+        ref?.child("name").setValue(name) { error, ref in
+            completion(error: error)
+        }
     }
     
-    static func saveAddress(address: String?) {
-        ref?.child("address").setValue(address)
+    static func saveAddress(address: String?, completion: (error: NSError?) -> Void) {
+        ref?.child("address").setValue(address) { error, ref in
+            completion(error: error)
+        }
     }
     
-    static func saveIcon(icon: String?) {
-        ref?.child("icon").setValue(icon)
+    static func saveIcon(icon: String?, completion: (error: NSError?) -> Void) {
+        ref?.child("icon").setValue(icon) { error, ref in
+            completion(error: error)
+        }
     }
     
     static func fetchName(completion: (String?) -> Void) {
