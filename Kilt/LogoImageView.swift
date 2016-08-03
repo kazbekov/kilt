@@ -12,6 +12,11 @@ import Cartography
 
 final class LogoImageView: UIImageView {
     
+    var selectedImage: UIImage? {
+        if image == Icon.cardPlaceholderIcon { return nil }
+        return image
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpViews()
