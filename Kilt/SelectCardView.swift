@@ -12,7 +12,7 @@ import Cartography
 
 final class SelectCardView: UIView {
     
-    private lazy var imageView = UIImageView().then {
+    lazy var imageView = UIImageView().then {
         $0.contentMode = .ScaleAspectFill
     }
     

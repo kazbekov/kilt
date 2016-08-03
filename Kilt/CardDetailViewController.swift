@@ -35,11 +35,11 @@ final class CardDetailViewController: UIViewController {
         $0.font = .systemFontOfSize(18)
     }
     
-    private lazy var frontImageView = SelectCardView(frame: .zero).then {
+    private lazy var frontView = SelectCardView(frame: .zero).then {
         $0.setUpWithPlaceholderImage(Icon.frontPlaceholderIcon, placeholderText: "Лицевая часть карты")
     }
     
-    private lazy var backImageView = SelectCardView(frame: .zero).then {
+    private lazy var backView = SelectCardView(frame: .zero).then {
         $0.setUpWithPlaceholderImage(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
     }
     
@@ -55,7 +55,7 @@ final class CardDetailViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        [frontImageView, backImageView].forEach {
+        [frontView, backView].forEach {
             $0.layer.cornerRadius = 6
         }
     }
@@ -68,7 +68,7 @@ final class CardDetailViewController: UIViewController {
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
         [logoImageView, titleLabel].forEach { logoWrapper.addSubview($0) }
-        [contactInfoView, logoWrapper, frontImageView, backImageView, barcodeView].forEach {
+        [contactInfoView, logoWrapper, frontView, backView, barcodeView].forEach {
             view.addSubview($0)
         }
     }
@@ -98,19 +98,19 @@ final class CardDetailViewController: UIViewController {
             cardLogoLabel.centerX == logoImageView.centerX
         }
         
-        constrain(frontImageView, backImageView, barcodeView, logoWrapper, view) {
-            frontImageView, backImageView, barcodeView, logoWrapper, view in
-            frontImageView.top == logoWrapper.bottom + 20
-            frontImageView.leading == view.leading + 20
-            frontImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
-            frontImageView.height == frontImageView.width * (100 / 158)
+        constrain(frontView, backView, barcodeView, logoWrapper, view) {
+            frontView, backView, barcodeView, logoWrapper, view in
+            frontView.top == logoWrapper.bottom + 20
+            frontView.leading == view.leading + 20
+            frontView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
+            frontView.height == frontView.width * (100 / 158)
             
-            backImageView.top == frontImageView.top
-            backImageView.trailing == view.trailing - 20
-            backImageView.width == frontImageView.width
-            backImageView.height == frontImageView.height
+            backView.top == frontView.top
+            backView.trailing == view.trailing - 20
+            backView.width == frontView.width
+            backView.height == frontView.height
             
-            barcodeView.top == frontImageView.bottom + 20
+            barcodeView.top == frontView.bottom + 20
             barcodeView.leading == view.leading + 20
             barcodeView.trailing == view.trailing - 20
         }

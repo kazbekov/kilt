@@ -86,13 +86,19 @@ final class AddCardViewController: UIViewController {
         }
     }()
     
-    private lazy var frontSelectImageView = SelectCardView(frame: .zero).then {
-        $0.setUpWithPlaceholderImage(Icon.frontPlaceholderIcon, placeholderText: "Лицевая часть карты")
-    }
+    private lazy var frontSelectView: SelectCardView = {
+        return SelectCardView(frame: .zero).then {
+            $0.setUpWithPlaceholderImage(Icon.frontPlaceholderIcon, placeholderText: "Лицевая часть карты")
+            $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectFrontImage)))
+        }
+    }()
     
-    private lazy var backSelectImageView = SelectCardView(frame: .zero).then {
-        $0.setUpWithPlaceholderImage(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
-    }
+    private lazy var backSelectView: SelectCardView = {
+        return SelectCardView(frame: .zero).then {
+            $0.setUpWithPlaceholderImage(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
+            $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectBackImage)))
+        }
+    }()
     
     private lazy var barcodeView: BarcodeView = BarcodeView()
     
@@ -114,7 +120,7 @@ final class AddCardViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButtonItem
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         [logoImageView, titleTextField].forEach { logoWrapper.addSubview($0) }
-        [logoWrapper, barcodeTextField, frontSelectImageView, backSelectImageView, barcodeView]
+        [logoWrapper, barcodeTextField, frontSelectView, backSelectView, barcodeView]
             .forEach { view.addSubview($0) }
     }
     
@@ -145,19 +151,19 @@ final class AddCardViewController: UIViewController {
             logoImageView.height == logoImageView.width
         }
         
-        constrain(frontSelectImageView, backSelectImageView, barcodeView, barcodeTextField, view) {
-            frontSelectImageView, backSelectImageView, barcodeView, barcodeTextField, view in
-            frontSelectImageView.top == barcodeTextField.bottom + 20
-            frontSelectImageView.leading == view.leading + 20
-            frontSelectImageView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
-            frontSelectImageView.height == frontSelectImageView.width * (100 / 158)
+        constrain(frontSelectView, backSelectView, barcodeView, barcodeTextField, view) {
+            frontSelectView, backSelectView, barcodeView, barcodeTextField, view in
+            frontSelectView.top == barcodeTextField.bottom + 20
+            frontSelectView.leading == view.leading + 20
+            frontSelectView.width == (UIScreen.mainScreen().bounds.width - 60) / 2
+            frontSelectView.height == frontSelectView.width * (100 / 158)
             
-            backSelectImageView.top == frontSelectImageView.top
-            backSelectImageView.trailing == view.trailing - 20
-            backSelectImageView.width == frontSelectImageView.width
-            backSelectImageView.height == frontSelectImageView.height
+            backSelectView.top == frontSelectView.top
+            backSelectView.trailing == view.trailing - 20
+            backSelectView.width == frontSelectView.width
+            backSelectView.height == frontSelectView.height
             
-            barcodeView.top == frontSelectImageView.bottom + 20
+            barcodeView.top == frontSelectView.bottom + 20
             barcodeView.leading == view.leading + 20
             barcodeView.trailing == view.trailing - 20
         }
@@ -174,6 +180,16 @@ final class AddCardViewController: UIViewController {
     
     @objc private func selectLogoImage() {
         selectImageState = .Logo
+        presentFusumaViewController()
+    }
+    
+    @objc private func selectFrontImage() {
+        selectImageState = .Front
+        presentFusumaViewController()
+    }
+    
+    @objc private func selectBackImage() {
+        selectImageState = .Back
         presentFusumaViewController()
     }
     
@@ -202,6 +218,8 @@ extension AddCardViewController: FusumaDelegate {
     func fusumaImageSelected(image: UIImage) {
         switch selectImageState {
         case .Logo: logoImageView.image = image
+        case .Front: frontSelectView.imageView.image = image
+        case .Back: backSelectView.imageView.image = image
         default: break
         }
     }
