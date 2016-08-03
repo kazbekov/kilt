@@ -139,9 +139,8 @@ extension CardDetailViewController: ContactInfoViewDelegate {
 
 extension CardDetailViewController {
     
-    func setUpWithCard(card: Card2) {
-        titleLabel.text = card.title
-        contactInfoView.setUpWithAvatar(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
+    func setUpWithCard(card: Card) {
+        titleLabel.text = card.company?.name
         barcodeView.setUpWithBarcode(card.barcode)
     }
     

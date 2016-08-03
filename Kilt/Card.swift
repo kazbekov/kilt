@@ -9,14 +9,6 @@
 import UIKit
 import FirebaseDatabase
 
-struct Card2 {
-    var title: String?
-    var barcode: String?
-    var ownerName: String?
-    var phoneNumber: String?
-    var avatarImage: UIImage?
-}
-
 final class Card {
     
     static var ref = FIRDatabase.database().reference().child("cards")

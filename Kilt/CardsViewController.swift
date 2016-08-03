@@ -44,6 +44,13 @@ final class CardsViewController: UIViewController {
         setUpConstraints()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Card.fetchCards { _ in
+            dispatch { self.tableView.reloadData() }
+        }
+    }
+    
     // MARK: Set Up
     
     private func setUpViews() {
@@ -90,7 +97,7 @@ extension CardsViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return (tableView.dequeueReusableCellWithIdentifier(cardsCellIdentifier, forIndexPath: indexPath) as! CardsTableViewCell).then {
-            $0.setUpWithTitle(viewModel.cards[indexPath.row].title)
+            $0.setUpWithTitle(viewModel.cards[indexPath.row].company?.name)
         }
     }
     

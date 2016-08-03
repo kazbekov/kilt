@@ -10,16 +10,11 @@ import UIKit
 
 final class CardsViewModel {
     
-    var cards = [
-        Card2(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
-            avatarImage: Icon.profileIcon),
-        Card2(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
-            avatarImage: Icon.profileIcon),
-        Card2(title: "MEXX", barcode: "231231", ownerName: "АЛМАС ТУЯКБАЕВ", phoneNumber: "+77018085955",
-            avatarImage: Icon.profileIcon)]
+    var cards = [Card]()
     
     func fetchCards(completion: (card: Card) -> Void) {
         Card.fetchCards { (card) in
+            self.cards.append(card)
             completion(card: card)
         }
     }
