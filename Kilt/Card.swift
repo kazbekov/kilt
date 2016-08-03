@@ -80,9 +80,9 @@ final class Card {
     
     static func fetchCards(completion: (card: Card) -> Void) {
         User.fetchCards { (snapshot) in
-            ref.child(snapshot.key).observeSingleEventOfType(.Value, withBlock: { snapshot in
+            ref.child(snapshot.key).observeSingleEventOfType(.Value) { snapshot in
                 completion(card: Card(snapshot: snapshot))
-            })
+            }
         }
     }
 
