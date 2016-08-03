@@ -175,9 +175,10 @@ final class ProfileViewController: UIViewController {
         headerView.toggleInteraction()
         if !headerView.userInteractionEnabled {
             viewModel.saveUserWithName(headerView.name, address: headerView.address, icon: headerView.icon) { errorMessage in
-                if let errorMessage = errorMessage {
-                    Drop.down(errorMessage, state: .Error)
-                    return
+                dispatch {
+                    if let errorMessage = errorMessage {
+                        Drop.down(errorMessage, state: .Error)
+                    }
                 }
             }
         }
