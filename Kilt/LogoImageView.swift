@@ -30,6 +30,7 @@ final class LogoImageView: UIImageView {
         clipsToBounds = true
         backgroundColor = .appColor()
         contentMode = .ScaleAspectFill
+        userInteractionEnabled = true
         image = Icon.cardPlaceholderIcon
     }
     
