@@ -13,12 +13,12 @@ final class AddCardViewModel {
     
     func createCardWithName(name: String?, icon: UIImage?, barcode: String?, frontIcon: UIImage?,
                             backIcon: UIImage?, completion: (errorMessage: String?) -> Void) {
-        guard let userKey = FIRAuth.auth()?.currentUser?.uid else {
+        guard let userKey = FIRAuth.auth()?.currentUser?.uid, barcode = barcode else {
             completion(errorMessage: nil)
             return
         }
         
-        let company = Company(key: nil, name: name, icon: nil)
+        let company = Company(name: name, icon: nil)
         company.saveName { completion(errorMessage: $0?.localizedDescription) }
         guard let companyKey = company.ref?.key else {
             completion(errorMessage: nil)
@@ -35,7 +35,7 @@ final class AddCardViewModel {
             }
         }
         
-        let card = Card(user: userKey, company: companyKey, barcode: barcode, frontIcon: nil, backIcon: nil)
+        let card = Card(user: userKey, company: company, barcode: barcode, frontIcon: nil, backIcon: nil)
         card.saveUser { completion(errorMessage: $0?.localizedDescription) }
         card.saveCompany { completion(errorMessage: $0?.localizedDescription) }
         card.saveBarcode { completion(errorMessage: $0?.localizedDescription) }

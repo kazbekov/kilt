@@ -17,6 +17,8 @@ final class Contact {
 
 final class Company {
     
+    static let ref = FIRDatabase.database().reference().child("companies")
+    
     var ref: FIRDatabaseReference?
     
     var name: String?
@@ -56,6 +58,12 @@ final class Company {
     func saveContact(completion: (error: NSError?) -> Void) {
         ref?.child("contact").setValue(contact) { error, ref in
             completion(error: error)
+        }
+    }
+    
+    static func fetchCompany(key: String, completion: (company: Company) -> Void) {
+        ref.child(key).observeSingleEventOfType(.Value) { snapshot in
+            completion(company: Company(snapshot: snapshot))
         }
     }
     
