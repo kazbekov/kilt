@@ -194,7 +194,15 @@ final class AddCardViewController: UIViewController {
     }
     
     @objc private func saveCard() {
-        viewModel.saveWithName(name, icon: nil)
+        viewModel.createCompanyWithName(name, icon: logoImageView.selectedImage) { errorMessage in
+            dispatch {
+                if let errorMessage = errorMessage {
+                    Drop.down(errorMessage, state: .Error)
+                    return
+                }
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            }
+        }
     }
     
     @objc private func popViewController() {

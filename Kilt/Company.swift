@@ -17,13 +17,13 @@ struct Contact {
 
 struct Company {
     
-    let ref = FIRDatabase.database().reference().child("companies")
+    var ref: FIRDatabaseReference?
     
     var name: String?
     var icon: String?
     var contact: [String : AnyObject]?
     
-    init(name: String?, icon: String?, contact: Contact? = nil) {
+    init(key: String?, name: String?, icon: String?, contact: Contact? = nil) {
         self.name = name
         self.icon = icon
         self.contact = [
@@ -31,19 +31,28 @@ struct Company {
             "name": contact?.name ?? NSNull(),
             "phone": contact?.phone ?? NSNull()
         ]
+        if let key = key {
+            ref = FIRDatabase.database().reference().child("companies/\(key)")
+        } else {
+            ref = FIRDatabase.database().reference().child("companies").childByAutoId()
+        }
     }
     
-    var dictionaryValue: [String : AnyObject] {
-        return [
-            "name": name ?? NSNull(),
-            "icon": icon ?? NSNull(),
-            "contact": contact ?? NSNull()
-        ]
+    func saveName(completion: (error: NSError?) -> Void) {
+        ref?.child("name").setValue(name) { error, ref in
+            completion(error: error)
+        }
     }
     
-    func save() {
-        ref.updateChildValues([ref.childByAutoId().key : dictionaryValue]) { (error, ref) in
-            print("\(error?.localizedDescription)")
+    func saveIcon(completion: (error: NSError?) -> Void) {
+        ref?.child("icon").setValue(icon) { error, ref in
+            completion(error: error)
+        }
+    }
+    
+    func saveContact(completion: (error: NSError?) -> Void) {
+        ref?.child("contact").setValue(contact) { error, ref in
+            completion(error: error)
         }
     }
     
