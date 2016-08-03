@@ -16,7 +16,7 @@ struct Card2 {
     var avatarImage: UIImage?
 }
 
-struct Card {
+final class Card {
     var user: String?
     var company: String?
     var barcode: String?

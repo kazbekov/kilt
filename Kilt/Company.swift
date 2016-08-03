@@ -9,13 +9,13 @@
 import Foundation
 import FirebaseDatabase
 
-struct Contact {
+final class Contact {
     var icon: String?
     var name: String?
     var phone: String?
 }
 
-struct Company {
+final class Company {
     
     var ref: FIRDatabaseReference?
     
