@@ -9,10 +9,20 @@
 import UIKit
 import Sugar
 import Cartography
+import Fusuma
+
+private enum SelectImageState {
+    case Logo
+    case Front
+    case Back
+    case None
+}
 
 final class AddCardViewController: UIViewController {
     
     private let viewModel = AddCardViewModel()
+    
+    private var selectImageState: SelectImageState = .None
     
     private var name: String? {
         guard let text = titleTextField.text where !text.isEmpty else {
@@ -45,8 +55,12 @@ final class AddCardViewController: UIViewController {
         $0.backgroundColor = .whiteColor()
     }
     
-    private lazy var logoImageView = LogoImageView(frame: .zero)
-    
+    private lazy var logoImageView: LogoImageView = {
+        return LogoImageView(frame: .zero).then {
+            $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectLogoImage)))
+        }
+    }()
+
     private lazy var titleTextField: UITextField = {
         return UITextField().then {
             $0.tag = 1
@@ -151,6 +165,18 @@ final class AddCardViewController: UIViewController {
     
     // MARK: User Interaction
     
+    private func presentFusumaViewController() {
+        let fusuma = FusumaViewController()
+        fusuma.delegate = self
+        fusumaTintColor = .appColor()
+        self.presentViewController(fusuma, animated: true, completion: nil)
+    }
+    
+    @objc private func selectLogoImage() {
+        selectImageState = .Logo
+        presentFusumaViewController()
+    }
+    
     @objc private func saveCard() {
         viewModel.saveWithName(name, icon: nil)
     }
@@ -168,6 +194,28 @@ final class AddCardViewController: UIViewController {
     }
     
 }
+
+// MARK: FusumaDelegate
+
+extension AddCardViewController: FusumaDelegate {
+    
+    func fusumaImageSelected(image: UIImage) {
+        switch selectImageState {
+        case .Logo: logoImageView.image = image
+        default: break
+        }
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: NSURL) {
+    }
+    
+    func fusumaCameraRollUnauthorized() {
+        Drop.down("Разрешите доступ к вашим фотографиям в настройках", state: .Error)
+    }
+    
+}
+
+// MARK: Set Up
 
 extension AddCardViewController {
     
