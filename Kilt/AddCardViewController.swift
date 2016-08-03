@@ -36,6 +36,13 @@ final class AddCardViewController: UIViewController {
         return logoImageView.image
     }
     
+    private var barcode: String? {
+        guard let text = barcodeTextField.text where !text.isEmpty else {
+            return nil
+        }
+        return barcodeTextField.text
+    }
+    
     private lazy var leftBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
                                target: self, action: #selector(popViewController))
@@ -194,14 +201,14 @@ final class AddCardViewController: UIViewController {
     }
     
     @objc private func saveCard() {
-        viewModel.createCompanyWithName(name, icon: logoImageView.selectedImage) { errorMessage in
-            dispatch {
-                if let errorMessage = errorMessage {
-                    Drop.down(errorMessage, state: .Error)
-                    return
-                }
-                self.navigationController?.popToRootViewControllerAnimated(true)
-            }
+        dispatch { self.navigationController?.popToRootViewControllerAnimated(true) }
+        viewModel.createCardWithName(name, icon: icon, barcode: barcode, frontIcon: frontSelectView.imageView.image,
+                                     backIcon: backSelectView.imageView.image) { errorMessage in
+                                        dispatch {
+                                            if let errorMessage = errorMessage {
+                                                Drop.down(errorMessage, state: .Error)
+                                            }
+                                        }
         }
     }
     

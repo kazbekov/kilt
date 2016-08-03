@@ -27,4 +27,16 @@ struct StorageManager {
         }
     }
     
+    static func saveFrontIcon(key: String, data: NSData, completion: (url: NSURL?, error: NSError?) -> Void) {
+        ref.child("frontIcons/\(key).jpg").putData(data, metadata: nil) { metadata, error in
+            completion(url: metadata?.downloadURL(), error: error)
+        }
+    }
+    
+    static func saveBackIcon(key: String, data: NSData, completion: (url: NSURL?, error: NSError?) -> Void) {
+        ref.child("backIcons/\(key).jpg").putData(data, metadata: nil) { metadata, error in
+            completion(url: metadata?.downloadURL(), error: error)
+        }
+    }
+    
 }
