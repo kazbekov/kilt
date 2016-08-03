@@ -35,6 +35,12 @@ struct User {
         }
     }
     
+    static func addCard(key: String, completion: (error: NSError?) -> Void) {
+        ref?.child("cards/\(key)").setValue(true) { error, ref in
+            completion(error: error)
+        }
+    }
+    
     static func fetchName(completion: (String?) -> Void) {
         ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             completion(snapshot.value?["name"] as? String)

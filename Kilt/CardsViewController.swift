@@ -46,7 +46,7 @@ final class CardsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        Card.fetchCards { _ in
+        viewModel.fetchCards { _ in
             dispatch { self.tableView.reloadData() }
         }
     }

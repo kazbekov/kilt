@@ -43,6 +43,7 @@ final class AddCardViewModel {
             completion(errorMessage: nil)
             return
         }
+        User.addCard(cardKey) { completion(errorMessage: $0?.localizedDescription) }
         if let frontIcon = frontIcon, data = UIImageJPEGRepresentation(frontIcon, 1.0) {
             StorageManager.saveFrontIcon(cardKey, data: data) { (url, error) in
                 if let error = error {
