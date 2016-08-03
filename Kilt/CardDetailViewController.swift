@@ -35,11 +35,11 @@ final class CardDetailViewController: UIViewController {
         $0.font = .systemFontOfSize(18)
     }
     
-    private lazy var frontImageView = SelectCardImageView(frame: .zero).then {
+    private lazy var frontImageView = SelectCardView(frame: .zero).then {
         $0.setUpWithPlaceholderImage(Icon.frontPlaceholderIcon, placeholderText: "Лицевая часть карты")
     }
     
-    private lazy var backImageView = SelectCardImageView(frame: .zero).then {
+    private lazy var backImageView = SelectCardView(frame: .zero).then {
         $0.setUpWithPlaceholderImage(Icon.backPlaceholderIcon, placeholderText: "Обратная часть карты")
     }
     
@@ -142,8 +142,6 @@ extension CardDetailViewController {
     func setUpWithCard(card: Card2) {
         titleLabel.text = card.title
         contactInfoView.setUpWithAvatar(card.avatarImage, ownerName: card.ownerName, phoneNumber: card.phoneNumber)
-        frontImageView.setUpWithImage(nil)
-        backImageView.setUpWithImage(nil)
         barcodeView.setUpWithBarcode(card.barcode)
     }
     

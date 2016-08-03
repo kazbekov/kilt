@@ -1,5 +1,5 @@
 //
-//  SelectCardImageView.swift
+//  SelectCardView.swift
 //  Kilt
 //
 //  Created by Nurdaulet Bolatov on 7/27/16.
@@ -10,10 +10,20 @@ import UIKit
 import Sugar
 import Cartography
 
-final class SelectCardImageView: UIImageView {
+final class SelectCardView: UIView {
+    
+    private lazy var imageView = UIImageView().then {
+        $0.contentMode = .ScaleAspectFill
+    }
     
     private lazy var placeholderImageView = UIImageView().then {
         $0.contentMode = .Center
+    }
+    
+    private lazy var borderView = UIView().then {
+        $0.layer.borderColor = UIColor.frenchGrayColor().CGColor
+        $0.layer.borderWidth = 1
+        $0.layer.cornerRadius = 6
     }
     
     private lazy var placeholderLabel = UILabel().then {
@@ -32,46 +42,35 @@ final class SelectCardImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = 6
-    }
-    
     private func setUpViews() {
         backgroundColor = .whiteColor()
-        contentMode = .ScaleAspectFill
         clipsToBounds = true
-        layer.borderColor = UIColor.frenchGrayColor().CGColor
-        layer.borderWidth = 1
-        [placeholderImageView, placeholderLabel].forEach { addSubview($0) }
+        layer.cornerRadius = 6
+        [borderView, placeholderImageView, placeholderLabel, imageView].forEach { addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(placeholderImageView, placeholderLabel, self) {
-            placeholderImageView, placeholderLabel, view in
+        constrain(borderView, placeholderImageView, placeholderLabel, imageView, self) {
+            borderView, placeholderImageView, placeholderLabel, imageView, view in
+            borderView.edges == view.edges
+            
             placeholderImageView.centerX == view.centerX
             placeholderImageView.centerY == view.centerY - 10
             
             placeholderLabel.top == placeholderImageView.bottom + 15
             placeholderLabel.centerX == view.centerX
+            
+            imageView.edges == view.edges
         }
     }
     
 }
 
-extension SelectCardImageView {
+extension SelectCardView {
     
     func setUpWithPlaceholderImage(placeholderImage: UIImage?, placeholderText: String?) {
         placeholderImageView.image = placeholderImage
         placeholderLabel.text = placeholderText
-    }
-    
-    func setUpWithImage(image: UIImage?) {
-        guard let image = image else { return }
-        placeholderImageView.hidden = true
-        placeholderLabel.hidden = true
-        layer.borderWidth = 0
-        self.image = image
     }
     
 }
