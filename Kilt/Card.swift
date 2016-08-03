@@ -19,6 +19,8 @@ struct Card2 {
 
 final class Card {
     
+    static var ref = FIRDatabase.database().reference().child("cards")
+    
     var user: String?
     var company: String?
     var barcode: String?
@@ -27,18 +29,23 @@ final class Card {
     
     var ref: FIRDatabaseReference?
     
-    init(key: String?, user: String?, company: String?, barcode: String?,
+    init(user: String?, company: String?, barcode: String?,
          frontIcon: String?, backIcon: String?) {
         self.user = user
         self.company = company
         self.barcode = barcode
         self.frontIcon = frontIcon
         self.backIcon = backIcon
-        if let key = key {
-            ref = FIRDatabase.database().reference().child("cards/\(key)")
-        } else {
-            ref = FIRDatabase.database().reference().child("cards").childByAutoId()
-        }
+        ref = FIRDatabase.database().reference().child("cards").childByAutoId()
+    }
+    
+    init(snapshot: FIRDataSnapshot) {
+        ref = snapshot.ref
+        user = snapshot.value?.objectForKey("user") as? String
+        company = snapshot.value?.objectForKey("company") as? String
+        barcode = snapshot.value?.objectForKey("barcode") as? String
+        frontIcon = snapshot.value?.objectForKey("frontIcon") as? String
+        backIcon = snapshot.value?.objectForKey("backIcon") as? String
     }
     
     func saveUser(completion: (error: NSError?) -> Void) {
@@ -68,6 +75,14 @@ final class Card {
     func saveBackIcon(completion: (error: NSError?) -> Void) {
         ref?.child("backIcon").setValue(backIcon) { error, ref in
             completion(error: error)
+        }
+    }
+    
+    static func fetchCards(completion: (card: Card) -> Void) {
+        User.fetchCards { (snapshot) in
+            ref.child(snapshot.key).observeSingleEventOfType(.Value, withBlock: { snapshot in
+                completion(card: Card(snapshot: snapshot))
+            })
         }
     }
 

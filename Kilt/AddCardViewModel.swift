@@ -35,7 +35,7 @@ final class AddCardViewModel {
             }
         }
         
-        let card = Card(key: nil, user: userKey, company: companyKey, barcode: barcode, frontIcon: nil, backIcon: nil)
+        let card = Card(user: userKey, company: companyKey, barcode: barcode, frontIcon: nil, backIcon: nil)
         card.saveUser { completion(errorMessage: $0?.localizedDescription) }
         card.saveCompany { completion(errorMessage: $0?.localizedDescription) }
         card.saveBarcode { completion(errorMessage: $0?.localizedDescription) }

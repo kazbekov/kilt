@@ -53,4 +53,10 @@ struct User {
         })
     }
     
+    static func fetchCards(completion: (snapshot: FIRDataSnapshot) -> Void) {
+        ref?.child("cards").observeEventType(.ChildAdded) { snapshot in
+            completion(snapshot: snapshot)
+        }
+    }
+    
 }
