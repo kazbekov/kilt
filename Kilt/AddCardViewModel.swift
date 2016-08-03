@@ -11,7 +11,7 @@ import UIKit
 final class AddCardViewModel {
 
     func createCompanyWithName(name: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {
-        var company = Company(key: nil, name: name, icon: nil)
+        let company = Company(key: nil, name: name, icon: nil)
         company.saveName { completion(errorMessage: $0?.localizedDescription) }
         guard let key = company.ref?.key, icon = icon, data = UIImageJPEGRepresentation(icon, 1.0) else {
             completion(errorMessage: nil)
