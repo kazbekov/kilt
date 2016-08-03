@@ -139,8 +139,10 @@ final class ProfileViewController: UIViewController {
             viewModel.fetchAddress { headerView.address = $0 }
         }
         viewModel.reloadUser { errorMessage in
-            if errorMessage == nil {
-                self.tableView.reloadData()
+            dispatch {
+                if errorMessage == nil {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
