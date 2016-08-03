@@ -273,6 +273,8 @@ extension ProfileViewController: UITableViewDataSource {
     
 }
 
+// MARK: FusumaDelegate
+
 extension ProfileViewController: FusumaDelegate {
     
     func fusumaImageSelected(image: UIImage) {
