@@ -141,6 +141,20 @@ extension CardDetailViewController {
     
     func setUpWithCard(card: Card) {
         titleLabel.text = card.company?.name
+        
+        if let urlString = card.frontIcon, url = NSURL(string: urlString) {
+            frontView.imageView.kf_setImageWithURL(url)
+        }
+        
+        if let urlString = card.backIcon, url = NSURL(string: urlString) {
+            backView.imageView.kf_setImageWithURL(url)
+        }
+        
+        if let urlString = card.company?.icon, url = NSURL(string: urlString) {
+            logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.cardPlaceholderIcon,
+                                             optionsInfo: nil, progressBlock: nil, completionHandler: nil)
+        }
+        
         barcodeView.setUpWithBarcode(card.barcode)
     }
     
