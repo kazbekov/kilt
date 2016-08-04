@@ -415,6 +415,7 @@
 				933D5D141D45CB5500E01464 /* Resources */,
 				AD59F6ADF9914033A23B1826 /* 📦 Embed Pods Frameworks */,
 				C8ED36792CB4C5F08307DEE8 /* 📦 Copy Pods Resources */,
+				933E8E5E1D53190400701623 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -555,6 +556,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiltTests/Pods-KiltTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		933E8E5E1D53190400701623 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" e4979675aff2c8b9f42b58aee641b7ce7391ba1e bf36a8c6b18cb47032379b8ee3d3cb986bcdc3e48770c90f9563f81910eee5d2\n";
 		};
 		9C6DC7E4D9030E22FCD2C4A6 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -847,6 +861,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				INFOPLIST_FILE = Kilt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

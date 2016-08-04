@@ -12,6 +12,8 @@ import GoogleMaps
 import Firebase
 import FirebaseAuth
 import FBSDKCoreKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -93,6 +95,7 @@ extension AppDelegate {
         FIRApp.configure()
         GMSServices.provideAPIKey("AIzaSyDZOGyRuy1hgxhGM6KAaGRN0l0Po8m7wys")
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        Fabric.with([Crashlytics.self])
     }
     
     private func setUpTabBarAppearance() {

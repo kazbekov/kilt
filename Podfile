@@ -7,6 +7,8 @@ target 'Kilt' do
 
   # Pods for Kilt
   pod 'Cartography', '~> 0.6'
+  pod 'Crashlytics', '~> 3.7'
+  pod 'Fabric', '~> 1.6'
   pod 'Firebase', '~> 3.3'
   pod 'Firebase/Auth', '~> 3.0'
   pod 'Firebase/Database', '~> 3.0'
