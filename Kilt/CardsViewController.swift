@@ -40,7 +40,7 @@ final class CardsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.fetchCards { _ in
+        viewModel.fetchCards {
             dispatch { self.tableView.reloadData() }
         }
         setUpViews()

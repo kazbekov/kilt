@@ -12,10 +12,12 @@ final class CardsViewModel {
     
     var cards = [Card]()
     
-    func fetchCards(completion: (card: Card) -> Void) {
-        Card.fetchCards { card in
-            self.cards.append(card)
-            completion(card: card)
+    func fetchCards(completion: () -> Void) {
+        Card.fetchCards({ 
+            completion()
+            }) { (card) in
+                self.cards.append(card)
+                completion()
         }
     }
     

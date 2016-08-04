@@ -36,7 +36,15 @@ final class Company {
         ref = FIRDatabase.database().reference().child("companies").childByAutoId()
     }
     
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: FIRDataSnapshot, childChanged: () -> Void) {
+        updateFromSnapshot(snapshot)
+        snapshot.ref.observeEventType(.Value, withBlock: { snapshot in
+            self.updateFromSnapshot(snapshot)
+            childChanged()
+        })
+    }
+    
+    func updateFromSnapshot(snapshot: FIRDataSnapshot) {
         ref = snapshot.ref
         name = snapshot.value?.objectForKey("name") as? String
         icon = snapshot.value?.objectForKey("icon") as? String
@@ -61,9 +69,9 @@ final class Company {
         }
     }
     
-    static func fetchCompany(key: String, completion: (company: Company) -> Void) {
+    static func fetchCompany(key: String, childChanged: () -> Void, completion: (company: Company) -> Void) {
         ref.child(key).observeSingleEventOfType(.Value) { snapshot in
-            completion(company: Company(snapshot: snapshot))
+            completion(company: Company(snapshot: snapshot, childChanged: childChanged))
         }
     }
     

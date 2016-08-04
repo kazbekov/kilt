@@ -31,7 +31,7 @@ final class Card {
         ref = FIRDatabase.database().reference().child("cards").childByAutoId()
     }
     
-    init(snapshot: FIRDataSnapshot, completion: (card: Card) -> Void) {
+    init(snapshot: FIRDataSnapshot, childChanged: () -> Void, completion: (card: Card) -> Void) {
         ref = snapshot.ref
         user = snapshot.value?.objectForKey("user") as? String
         barcode = snapshot.value?.objectForKey("barcode") as? String
@@ -39,7 +39,7 @@ final class Card {
         backIcon = snapshot.value?.objectForKey("backIcon") as? String
         
         if let companyKey = snapshot.value?.objectForKey("company") as? String {
-            Company.fetchCompany(companyKey) { company in
+            Company.fetchCompany(companyKey, childChanged: childChanged) { company in
                 self.company = company
                 completion(card: self)
             }
@@ -76,17 +76,17 @@ final class Card {
         }
     }
     
-    static func fetchCard(key: String, completion: (card: Card) -> Void) {
+    static func fetchCard(key: String, childChanged: () -> Void, completion: (card: Card) -> Void) {
         ref.child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            let _ = Card(snapshot: snapshot) { card in
+            let _ = Card(snapshot: snapshot, childChanged: childChanged) { card in
                 completion(card: card)
             }
         })
     }
     
-    static func fetchCards(completion: (card: Card) -> Void) {
+    static func fetchCards(childChanged: () -> Void, completion: (card: Card) -> Void) {
         User.fetchCards { (snapshot) in
-            fetchCard(snapshot.key) { card in
+            fetchCard(snapshot.key, childChanged: childChanged) { card in
                 completion(card: card)
             }
         }
