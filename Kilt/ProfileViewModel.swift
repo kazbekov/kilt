@@ -141,7 +141,13 @@ final class ProfileViewModel {
     }
     
     func fetchIcon(completion: (NSURL?) -> Void) {
-        User.fetchIcon { completion(NSURL(string: $0 ?? "")) }
+        User.fetchIcon { urlString in
+            guard let urlString = urlString else {
+                completion(nil)
+                return
+            }
+            completion(NSURL(string: urlString))
+        }
     }
     
     func reloadUser(completion: (errorMessage: String?) -> Void) {

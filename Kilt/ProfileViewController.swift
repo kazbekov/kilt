@@ -132,8 +132,11 @@ final class ProfileViewController: UIViewController {
         super.viewDidAppear(animated)
         if let headerView = tableView.tableHeaderView as? ProfileTableHeaderView {
             viewModel.fetchIcon {
-                headerView.avatarImageView.kf_setImageWithURL($0, placeholderImage: Icon.profilePlaceholderIcon,
-                    optionsInfo: nil, progressBlock: nil, completionHandler: nil)
+                if let url = $0 {
+                    print(url)
+                    headerView.avatarImageView.kf_setImageWithURL(url, placeholderImage: Icon.profilePlaceholderIcon,
+                        optionsInfo: nil, progressBlock: nil, completionHandler: nil)
+                }
             }
             viewModel.fetchName { headerView.name = $0 }
             viewModel.fetchAddress { headerView.address = $0 }
