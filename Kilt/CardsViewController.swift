@@ -93,7 +93,12 @@ extension CardsViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return (tableView.dequeueReusableCellWithIdentifier(cardsCellIdentifier, forIndexPath: indexPath) as! CardsTableViewCell).then {
-            $0.setUpWithTitle(viewModel.cards[indexPath.row].company?.name)
+            let card = viewModel.cards[indexPath.row]
+            if let urlString = card.company?.icon, url = NSURL(string: urlString) {
+                $0.logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.cardPlaceholderIcon,
+                                                    optionsInfo: nil, progressBlock: nil, completionHandler: nil)
+            }
+            $0.setUpWithTitle(card.company?.name)
         }
     }
     
