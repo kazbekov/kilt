@@ -32,18 +32,23 @@ final class Card {
     }
     
     init(snapshot: FIRDataSnapshot, childChanged: () -> Void, completion: (card: Card) -> Void) {
-        ref = snapshot.ref
-        user = snapshot.value?.objectForKey("user") as? String
-        barcode = snapshot.value?.objectForKey("barcode") as? String
-        frontIcon = snapshot.value?.objectForKey("frontIcon") as? String
-        backIcon = snapshot.value?.objectForKey("backIcon") as? String
-        
+        snapshot.ref.observeEventType(.Value) { snapshot in
+            self.updateFromSnapshot(snapshot)
+        }
         if let companyKey = snapshot.value?.objectForKey("company") as? String {
             Company.fetchCompany(companyKey, childChanged: childChanged) { company in
                 self.company = company
                 completion(card: self)
             }
         }
+    }
+    
+    func updateFromSnapshot(snapshot: FIRDataSnapshot) {
+        ref = snapshot.ref
+        user = snapshot.value?.objectForKey("user") as? String
+        barcode = snapshot.value?.objectForKey("barcode") as? String
+        frontIcon = snapshot.value?.objectForKey("frontIcon") as? String
+        backIcon = snapshot.value?.objectForKey("backIcon") as? String
     }
     
     func saveUser(completion: (error: NSError?) -> Void) {
