@@ -124,12 +124,6 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
-        setUpConstraints()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         if let headerView = tableView.tableHeaderView as? ProfileTableHeaderView {
             viewModel.fetchIcon {
                 if let url = $0 {
@@ -147,6 +141,8 @@ final class ProfileViewController: UIViewController {
                 }
             }
         }
+        setUpViews()
+        setUpConstraints()
     }
     
     // MARK: Set Up
@@ -283,7 +279,8 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: FusumaDelegate {
     
     func fusumaImageSelected(image: UIImage) {
-        (tableView.tableHeaderView as? ProfileTableHeaderView)?.avatarImageView.image = image
+        guard let headerView = tableView.tableHeaderView as? ProfileTableHeaderView else { return }
+        headerView.avatarImageView.image = image
     }
     
     func fusumaVideoCompleted(withFileURL fileURL: NSURL) {
