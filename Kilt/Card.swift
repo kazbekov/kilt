@@ -32,6 +32,7 @@ final class Card {
     }
     
     init(snapshot: FIRDataSnapshot, childChanged: () -> Void, completion: (card: Card) -> Void) {
+        // TODO: make childChanged closure as variable!!!
         snapshot.ref.observeEventType(.Value) { snapshot in
             self.updateFromSnapshot(snapshot)
         }
