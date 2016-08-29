@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		23471E096F33A3B0C6C39510 /* Pods_Kilt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */; };
+		710FFC891D6B371300FEF1D2 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */; };
+		710FFC8E1D6C077C00FEF1D2 /* MessageDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */; };
 		7AB332B514227626D2B4D465 /* Pods_KiltTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A8AED0823E860CC7D3477C /* Pods_KiltTests.framework */; };
 		933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D191D45CB5500E01464 /* AppDelegate.swift */; };
 		933D5D211D45CB5500E01464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933D5D201D45CB5500E01464 /* Assets.xcassets */; };
@@ -82,6 +84,8 @@
 		4457728E1EEA8A979B0E4E49 /* Pods-KiltUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiltUITests/Pods-KiltUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4B8270DB7D8700DE59DFB7E8 /* Pods_KiltUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiltUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C67B54A2204204E9208245F /* Pods-KiltTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiltTests/Pods-KiltTests.debug.xcconfig"; sourceTree = "<group>"; };
+		710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDialogViewController.swift; sourceTree = "<group>"; };
 		7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kilt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		933D5D161D45CB5500E01464 /* Kilt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kilt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		933D5D191D45CB5500E01464 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +194,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		710FFC8C1D6C05C000FEF1D2 /* Messaging */ = {
+			isa = PBXGroup;
+			children = (
+				933D5D561D45DC2500E01464 /* MessagesViewController.swift */,
+				710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */,
+			);
+			name = Messaging;
+			sourceTree = "<group>";
+		};
 		933D5D0D1D45CB5500E01464 = {
 			isa = PBXGroup;
 			children = (
@@ -266,6 +279,7 @@
 				933D5D7E1D48CEB400E01464 /* Discounts */,
 				933D5D761D48A1A500E01464 /* Profile */,
 				933D5D751D48A19800E01464 /* Cards */,
+				710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -319,7 +333,7 @@
 				933D5D541D45DB8B00E01464 /* MainTabBarController.swift */,
 				933D5D7D1D48CAAF00E01464 /* Discounts */,
 				933D5D6C1D475A1000E01464 /* Cards */,
-				933D5D561D45DC2500E01464 /* MessagesViewController.swift */,
+				710FFC8C1D6C05C000FEF1D2 /* Messaging */,
 				933D5D5A1D45DC5800E01464 /* ProfileViewController.swift */,
 			);
 			name = MainPages;
@@ -409,12 +423,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 933D5D3E1D45CB5500E01464 /* Build configuration list for PBXNativeTarget "Kilt" */;
 			buildPhases = (
-				9C6DC7E4D9030E22FCD2C4A6 /* 📦 Check Pods Manifest.lock */,
+				9C6DC7E4D9030E22FCD2C4A6 /* [CP] Check Pods Manifest.lock */,
 				933D5D121D45CB5500E01464 /* Sources */,
 				933D5D131D45CB5500E01464 /* Frameworks */,
 				933D5D141D45CB5500E01464 /* Resources */,
-				AD59F6ADF9914033A23B1826 /* 📦 Embed Pods Frameworks */,
-				C8ED36792CB4C5F08307DEE8 /* 📦 Copy Pods Resources */,
+				AD59F6ADF9914033A23B1826 /* [CP] Embed Pods Frameworks */,
+				C8ED36792CB4C5F08307DEE8 /* [CP] Copy Pods Resources */,
 				933E8E5E1D53190400701623 /* ShellScript */,
 			);
 			buildRules = (
@@ -430,12 +444,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 933D5D411D45CB5500E01464 /* Build configuration list for PBXNativeTarget "KiltTests" */;
 			buildPhases = (
-				CAD690EC12071BA1ADB674E7 /* 📦 Check Pods Manifest.lock */,
+				CAD690EC12071BA1ADB674E7 /* [CP] Check Pods Manifest.lock */,
 				933D5D261D45CB5500E01464 /* Sources */,
 				933D5D271D45CB5500E01464 /* Frameworks */,
 				933D5D281D45CB5500E01464 /* Resources */,
-				F3AC32E3170D7F06CEEB984B /* 📦 Embed Pods Frameworks */,
-				69DC24AF94EE9F8C4A6D148B /* 📦 Copy Pods Resources */,
+				F3AC32E3170D7F06CEEB984B /* [CP] Embed Pods Frameworks */,
+				69DC24AF94EE9F8C4A6D148B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -451,11 +465,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 933D5D441D45CB5500E01464 /* Build configuration list for PBXNativeTarget "KiltUITests" */;
 			buildPhases = (
-				B957AD52A4463D5BC1E79794 /* 📦 Check Pods Manifest.lock */,
+				B957AD52A4463D5BC1E79794 /* [CP] Check Pods Manifest.lock */,
 				933D5D311D45CB5500E01464 /* Sources */,
 				933D5D321D45CB5500E01464 /* Frameworks */,
 				933D5D331D45CB5500E01464 /* Resources */,
-				EE3CF6C52AA012EF9372A9DC /* 📦 Copy Pods Resources */,
+				EE3CF6C52AA012EF9372A9DC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -479,7 +493,7 @@
 				TargetAttributes = {
 					933D5D151D45CB5500E01464 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = P993BJWE94;
+						DevelopmentTeam = 363Q9473UR;
 						LastSwiftMigration = 0800;
 					};
 					933D5D291D45CB5500E01464 = {
@@ -542,14 +556,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		69DC24AF94EE9F8C4A6D148B /* 📦 Copy Pods Resources */ = {
+		69DC24AF94EE9F8C4A6D148B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -570,14 +584,14 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" e4979675aff2c8b9f42b58aee641b7ce7391ba1e bf36a8c6b18cb47032379b8ee3d3cb986bcdc3e48770c90f9563f81910eee5d2\n";
 		};
-		9C6DC7E4D9030E22FCD2C4A6 /* 📦 Check Pods Manifest.lock */ = {
+		9C6DC7E4D9030E22FCD2C4A6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,14 +599,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		AD59F6ADF9914033A23B1826 /* 📦 Embed Pods Frameworks */ = {
+		AD59F6ADF9914033A23B1826 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,14 +614,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kilt/Pods-Kilt-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B957AD52A4463D5BC1E79794 /* 📦 Check Pods Manifest.lock */ = {
+		B957AD52A4463D5BC1E79794 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -615,14 +629,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		C8ED36792CB4C5F08307DEE8 /* 📦 Copy Pods Resources */ = {
+		C8ED36792CB4C5F08307DEE8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,14 +644,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kilt/Pods-Kilt-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CAD690EC12071BA1ADB674E7 /* 📦 Check Pods Manifest.lock */ = {
+		CAD690EC12071BA1ADB674E7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -645,14 +659,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EE3CF6C52AA012EF9372A9DC /* 📦 Copy Pods Resources */ = {
+		EE3CF6C52AA012EF9372A9DC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -660,14 +674,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiltUITests/Pods-KiltUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F3AC32E3170D7F06CEEB984B /* 📦 Embed Pods Frameworks */ = {
+		F3AC32E3170D7F06CEEB984B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -682,6 +696,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				710FFC8E1D6C077C00FEF1D2 /* MessageDialogViewController.swift in Sources */,
 				933D5D571D45DC2500E01464 /* MessagesViewController.swift in Sources */,
 				933D5D4F1D45D45B00E01464 /* CardsViewController.swift in Sources */,
 				933D5D6E1D47799300E01464 /* ScanViewController.swift in Sources */,
@@ -717,6 +732,7 @@
 				933D5D5B1D45DC5800E01464 /* ProfileViewController.swift in Sources */,
 				933D5D611D45E75C00E01464 /* Icon.swift in Sources */,
 				93E635891D4C99D000F84199 /* MapViewController.swift in Sources */,
+				710FFC891D6B371300FEF1D2 /* MessageTableViewCell.swift in Sources */,
 				93430B771D5059A600992C09 /* AlertController.swift in Sources */,
 				93E635871D4B738800F84199 /* DiscountDetailCollectionViewCell.swift in Sources */,
 				933D5D531D45D8A800E01464 /* CardsTableViewCell.swift in Sources */,
@@ -865,7 +881,7 @@
 				INFOPLIST_FILE = Kilt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Kilt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kilt2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;
@@ -882,7 +898,7 @@
 				INFOPLIST_FILE = Kilt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Kilt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kilt2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;

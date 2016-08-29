@@ -21,6 +21,7 @@ target 'Kilt' do
   pod 'RSBarcodes_Swift', '~> 0.1.9'
   pod 'Sugar', '1.0'
   pod 'SwipeBack', '~> 1.1'
+  pod 'JSQMessagesViewController'
 
   target 'KiltTests' do
     inherit! :search_paths

@@ -176,7 +176,7 @@ extension DiscountDetailViewController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         return (collectionView.dequeueReusableCellWithReuseIdentifier(discountDetailCellIdentifier,
             forIndexPath: indexPath) as! DiscountDetailCollectionViewCell).then {
-            $0.setUpWithImage(Icon.profileIcon)
+            $0.setUpWithImage(Icon.placeholderIcon)
         }
     }
     

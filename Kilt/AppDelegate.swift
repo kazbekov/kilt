@@ -22,6 +22,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        GMSServices.provideAPIKey("AIzaSyANMkNsU3NBYjg-d4WGZafLeJcvmj1hD1M")
         setUpThirdParties(application, launchOptions: launchOptions)
         setUpTabBarAppearance()
         setUpNavigationBarAppearance()
