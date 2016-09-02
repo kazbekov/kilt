@@ -11,9 +11,22 @@ import Sugar
 import Cartography
 import GoogleMaps
 
+struct BonusLocation {
+    var latitude: Double?
+    var longitude: Double?
+    var title: String?
+    var percent: String?
+}
 final class MapViewController: UIViewController {
     var mapView: GMSMapView?
+    var lat: Double?
+    var lon: Double?
     let locationManager = CLLocationManager()
+    var didFindMyLocation = false
+    private let viewModel = DiscountsViewModel()
+    private var discounts = [Discount]()
+    var locations = [BonusLocation]()
+    
     private lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.listIcon, style: UIBarButtonItemStyle.Plain,
                                target: self, action: #selector(popViewController))
@@ -29,7 +42,16 @@ final class MapViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         loadView()
+        loadBonuses()
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
     }
+    
     
     // MARK: Set Up
     
@@ -44,26 +66,50 @@ final class MapViewController: UIViewController {
     }
     
     // MARK: GoogleMap
+    func loadBonuses(){
+        viewModel.fetchDiscounts(){
+            self.loadLocations()
+        }
+    }
+    func loadLocations(){
+        locations.removeAll()
+        for obj in viewModel.discounts {
+            var bonusL = BonusLocation()
+            bonusL.latitude = obj.location?.latitude
+            bonusL.longitude = obj.location?.longitude
+            bonusL.title = obj.title
+            bonusL.percent = obj.percent
+            locations.append(bonusL)
+        }
+        loadLocationsIcon()
+    }
+    
+    func loadLocationsIcon() {
+        mapView?.clear()
+        for obj in locations {
+            let markerView = UIImageView(image: Icon.markerIcon)
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: obj.latitude!, longitude: obj.longitude!)
+            let bonusTitle = obj.percent
+            marker.title = bonusTitle
+            marker.snippet = obj.title
+            marker.iconView = markerView
+            marker.map = mapView
+        }
+    }
     
     override func loadView() {
-        let camera = GMSCameraPosition.cameraWithLatitude(43.255892, longitude: 76.943108, zoom: 13.0)
+        if lat == nil && lon == nil {
+            lat = 43.218763
+            lon = 76.850950
+        }
+        let camera = GMSCameraPosition.cameraWithLatitude(lat!, longitude: lon!, zoom: 13.0)
         mapView = GMSMapView.mapWithFrame(CGRect.zero, camera: camera)
         if let mapView = mapView {
             mapView.myLocationEnabled = true
             view = mapView
             mapView.settings.myLocationButton = true
         }
-
-
-        let markerView = UIImageView(image: Icon.markerIcon)
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: 43.255892, longitude: 76.943108)
-        marker.title = "Almaty"
-        marker.snippet = "KBTU"
-        marker.iconView = markerView
-
-
-        marker.map = mapView
     }
     
     // MARK: User Interaction
@@ -82,7 +128,7 @@ extension MapViewController {
 }
 // MARK: - CLLocationManagerDelegate
 extension MapViewController: CLLocationManagerDelegate {
-
+    
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedWhenInUse {
             locationManager.startUpdatingLocation()
@@ -99,9 +145,13 @@ extension MapViewController: CLLocationManagerDelegate {
             let circle = GMSCircle(position: circleCenter, radius: 50)
             circle.fillColor = UIColor.appColor()
             circle.strokeColor = UIColor.appColor()
-
+            
             circle.map = mapView
             locationManager.stopUpdatingLocation()
+            guard let locValue = manager.location?.coordinate else { return }
+            self.lat = locValue.latitude
+            self.lon = locValue.longitude
+            print("locations = \(locValue.latitude) \(locValue.longitude)")
         }
     }
 }

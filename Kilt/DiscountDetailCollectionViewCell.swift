@@ -12,7 +12,8 @@ import Cartography
 
 final class DiscountDetailCollectionViewCell: UICollectionViewCell {
     
-    private lazy var imageView = UIImageView().then {
+    lazy var imageView = UIImageView().then {
+        $0.clipsToBounds = true
         $0.contentMode = .ScaleAspectFill
     }
     
@@ -43,8 +44,3 @@ final class DiscountDetailCollectionViewCell: UICollectionViewCell {
     
 }
 
-extension DiscountDetailCollectionViewCell {
-    func setUpWithImage(image: UIImage?) {
-        imageView.image = image
-    }
-}

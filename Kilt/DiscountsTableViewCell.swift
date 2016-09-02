@@ -85,10 +85,14 @@ final class DiscountsTableViewCell: UITableViewCell {
 
 extension DiscountsTableViewCell {
     
-    func setUpWithTitle(title: String?, subtitle: String?, percent: String?) {
+    func setUpWithTitle(title: String?, subtitle: String?, percent: String?, logoImageUrl: String?) {
         titleLabel.text = title
         subtitleLabel.text = subtitle
         percentLabel.text = percent
+        logoImageView.contentMode = .ScaleAspectFill
+        if let urlString = logoImageUrl, url = NSURL(string: urlString) {
+            logoImageView.kf_setImageWithURL(url)
+        }
     }
     
 }

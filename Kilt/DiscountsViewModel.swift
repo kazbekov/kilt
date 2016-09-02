@@ -9,12 +9,11 @@
 import UIKit
 
 final class DiscountsViewModel {
-    var discounts = [
-        Discount(title: "MEXX", percent: "15%", avatarImage: Icon.profileIcon,
-            subtitle: "Работает вместе с дисконтной картой Mexx.", address: "г. Алматы, пр. Абылай-хана 45"),
-        Discount(title: "MEXX", percent: "15%", avatarImage: Icon.profileIcon,
-            subtitle: "Работает вместе с дисконтной картой Mexx.", address: "г. Алматы, пр. Абылай-хана 45"),
-        Discount(title: "MEXX", percent: "15%", avatarImage: Icon.profileIcon,
-            subtitle: "Работает вместе с дисконтной картой Mexx.", address: "г. Алматы, пр. Абылай-хана 45")
-    ]
+    var discounts = [Discount]()
+    func fetchDiscounts(completion: ()-> Void) {
+        Discount.fetchDiscounts { (snapshot) in
+            self.discounts.append(Discount(snapshot: snapshot, childChanged: completion))
+            completion()
+        }
+    }
 }

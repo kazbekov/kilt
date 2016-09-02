@@ -12,6 +12,14 @@ import Cartography
 
 final class DiscountDetailViewController: UIViewController {
     
+    private let viewModel = DiscountsViewModel()
+    private var  keyDiscount = ""
+    var images = [String]() {
+        didSet {
+            numberOfPages = images.count
+            collectionView.reloadData()
+        }
+    }
     private lazy var leftBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.backIcon, style: UIBarButtonItemStyle.Plain,
                                target: self, action: #selector(popViewController))
@@ -56,7 +64,7 @@ final class DiscountDetailViewController: UIViewController {
         $0.font = .systemFontOfSize(15)
     }
     
-    private var numberOfPages = 3 {
+    private var numberOfPages = 0 {
         didSet {
             pageControl.numberOfPages = numberOfPages
         }
@@ -77,7 +85,7 @@ final class DiscountDetailViewController: UIViewController {
             $0.minimumInteritemSpacing = 0
             $0.minimumLineSpacing = 0
         }
-
+        
         return UICollectionView(frame: .zero, collectionViewLayout: layout).then {
             $0.showsHorizontalScrollIndicator = false
             $0.pagingEnabled = true
@@ -106,7 +114,7 @@ final class DiscountDetailViewController: UIViewController {
         [logoImageView, titleLabel, subtitleLabel, addressTitleLabel,
             addressLabel, percentLabel, collectionView, pageControl]
             .forEach {
-            view.addSubview($0)
+                view.addSubview($0)
         }
     }
     
@@ -176,7 +184,8 @@ extension DiscountDetailViewController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         return (collectionView.dequeueReusableCellWithReuseIdentifier(discountDetailCellIdentifier,
             forIndexPath: indexPath) as! DiscountDetailCollectionViewCell).then {
-            $0.setUpWithImage(Icon.placeholderIcon)
+                guard let url = NSURL(string: images[indexPath.row]) else { return }
+                $0.imageView.kf_setImageWithURL(url, placeholderImage: Icon.placeholderIcon, optionsInfo: nil, progressBlock: nil, completionHandler: nil)
         }
     }
     
@@ -202,11 +211,23 @@ extension DiscountDetailViewController: UICollectionViewDelegate {
 extension DiscountDetailViewController {
     
     func setUpWithDiscount(discount: Discount) {
+        keyDiscount = (discount.ref?.key)!
         navigationItem.title = discount.title
         titleLabel.text = discount.title
         subtitleLabel.text = discount.subtitle
         percentLabel.text = discount.percent
         addressLabel.text = discount.address
+        
+        if let logoUrl = NSURL(string: discount.logo!) {
+            logoImageView.kf_setImageWithURL(logoUrl, placeholderImage: Icon.placeholderIcon, optionsInfo: nil, progressBlock: nil, completionHandler: nil)
+        }
+        logoImageView.contentMode = .ScaleAspectFill
+        images.removeAll()
+        guard let imagesDict = discount.images else { return }
+        for (_, value) in imagesDict {
+            guard let urlString = value as? String else { continue }
+            self.images.append(urlString)
+        }
     }
     
 }

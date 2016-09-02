@@ -9,10 +9,13 @@
 import UIKit
 import Sugar
 import Cartography
+import FirebaseDatabase
 
 final class DiscountsViewController: UIViewController {
     
     private let viewModel = DiscountsViewModel()
+    private var discounts = [Discount]()
+    var dbRef: FIRDatabaseReference!
     
     private lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.locationIcon, style: UIBarButtonItemStyle.Plain,
@@ -42,7 +45,16 @@ final class DiscountsViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         setUpConstraints()
+        dbRef = FIRDatabase.database().reference().child("bonuses")
+        loadBonuses()
     }
+    
+    func loadBonuses() {
+        viewModel.fetchDiscounts() {
+            self.tableView.reloadData()
+        }
+    }
+    
     
     // MARK: Set Up
     
@@ -92,7 +104,8 @@ extension DiscountsViewController: UITableViewDataSource {
         return (tableView.dequeueReusableCellWithIdentifier(discountsCellIdentifier, forIndexPath: indexPath) as! DiscountsTableViewCell).then {
             $0.setUpWithTitle(viewModel.discounts[indexPath.row].title,
                 subtitle: viewModel.discounts[indexPath.row].subtitle,
-                percent: viewModel.discounts[indexPath.row].percent)
+                percent: viewModel.discounts[indexPath.row].percent,
+                logoImageUrl: viewModel.discounts[indexPath.row].logo)
         }
     }
     
