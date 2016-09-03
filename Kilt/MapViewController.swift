@@ -43,6 +43,7 @@ final class MapViewController: UIViewController {
         setUpViews()
         loadView()
         loadBonuses()
+        mapView?.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
@@ -51,6 +52,7 @@ final class MapViewController: UIViewController {
             locationManager.startUpdatingLocation()
         }
     }
+    
     
     
     // MARK: Set Up
@@ -98,6 +100,15 @@ final class MapViewController: UIViewController {
         }
     }
     
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if !didFindMyLocation {
+            let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
+            mapView!.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 10.0)
+            mapView!.settings.myLocationButton = true
+            
+            didFindMyLocation = true
+        }
+    }
     override func loadView() {
         if lat == nil && lon == nil {
             lat = 43.218763
