@@ -24,10 +24,12 @@ final class Company {
     var name: String?
     var icon: String?
     var contact: [String : AnyObject]?
+    var admin: String?
     
-    init(name: String?, icon: String?, contact: Contact? = nil) {
+    init(name: String?, icon: String?, contact: Contact? = nil, admin: String?) {
         self.name = name
         self.icon = icon
+        self.admin = admin
         self.contact = [
             "icon": contact?.icon ?? NSNull(),
             "name": contact?.name ?? NSNull(),
@@ -49,6 +51,7 @@ final class Company {
         name = snapshot.value?.objectForKey("name") as? String
         icon = snapshot.value?.objectForKey("icon") as? String
         contact = snapshot.value?.objectForKey("contact") as? [String : String]
+        admin = snapshot.value?.objectForKey("admin") as? String
     }
     
     func saveName(completion: (error: NSError?) -> Void) {
@@ -72,6 +75,12 @@ final class Company {
     static func fetchCompany(key: String, childChanged: () -> Void, completion: (company: Company) -> Void) {
         ref.child(key).observeSingleEventOfType(.Value) { snapshot in
             completion(company: Company(snapshot: snapshot, childChanged: childChanged))
+        }
+    }
+    
+    static func fetchCompanies(completion: (snapshot: FIRDataSnapshot) -> Void) {
+        ref.observeEventType(.ChildAdded) { snapshot in
+            completion(snapshot: snapshot)
         }
     }
     

@@ -18,7 +18,7 @@ final class AddCardViewModel {
             return
         }
         
-        let company = Company(name: name, icon: nil)
+        let company = Company(name: name, icon: nil, admin: "")
         company.saveName { completion(errorMessage: $0?.localizedDescription) }
         guard let companyKey = company.ref?.key else {
             completion(errorMessage: nil)

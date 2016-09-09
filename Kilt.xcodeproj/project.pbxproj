@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22933E021D7EB08600023FA2 /* AddChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E011D7EB08600023FA2 /* AddChatViewController.swift */; };
+		22933E041D7EB7BD00023FA2 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E031D7EB7BD00023FA2 /* Chat.swift */; };
+		22933E061D7EC4DD00023FA2 /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E051D7EC4DD00023FA2 /* ChatsViewModel.swift */; };
+		22933E081D7ECB2100023FA2 /* AddChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E071D7ECB2100023FA2 /* AddChatViewModel.swift */; };
+		22933E0E1D7FEEEA00023FA2 /* ChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E0D1D7FEEEA00023FA2 /* ChatsTableViewCell.swift */; };
+		22933E101D80024900023FA2 /* CompaniesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E0F1D80024900023FA2 /* CompaniesViewModel.swift */; };
+		22933E121D80080100023FA2 /* CompanyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E111D80080100023FA2 /* CompanyTableViewCell.swift */; };
 		23471E096F33A3B0C6C39510 /* Pods_Kilt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */; };
 		710FFC891D6B371300FEF1D2 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */; };
 		710FFC8E1D6C077C00FEF1D2 /* MessageDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */; };
@@ -81,6 +88,13 @@
 		0942ECE8BDCA4DF9CD785CE2 /* Pods-Kilt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kilt.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kilt/Pods-Kilt.release.xcconfig"; sourceTree = "<group>"; };
 		1D6C5474E51848501C37620B /* Pods-KiltTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiltTests/Pods-KiltTests.release.xcconfig"; sourceTree = "<group>"; };
 		213061BB93D27B3DD0402E09 /* Pods-Kilt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kilt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kilt/Pods-Kilt.debug.xcconfig"; sourceTree = "<group>"; };
+		22933E011D7EB08600023FA2 /* AddChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChatViewController.swift; sourceTree = "<group>"; };
+		22933E031D7EB7BD00023FA2 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		22933E051D7EC4DD00023FA2 /* ChatsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
+		22933E071D7ECB2100023FA2 /* AddChatViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChatViewModel.swift; sourceTree = "<group>"; };
+		22933E0D1D7FEEEA00023FA2 /* ChatsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsTableViewCell.swift; sourceTree = "<group>"; };
+		22933E0F1D80024900023FA2 /* CompaniesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompaniesViewModel.swift; sourceTree = "<group>"; };
+		22933E111D80080100023FA2 /* CompanyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableViewCell.swift; sourceTree = "<group>"; };
 		4457728E1EEA8A979B0E4E49 /* Pods-KiltUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiltUITests/Pods-KiltUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4B8270DB7D8700DE59DFB7E8 /* Pods_KiltUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiltUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C67B54A2204204E9208245F /* Pods-KiltTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiltTests/Pods-KiltTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -199,6 +213,7 @@
 			children = (
 				933D5D561D45DC2500E01464 /* MessagesViewController.swift */,
 				710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */,
+				22933E011D7EB08600023FA2 /* AddChatViewController.swift */,
 			);
 			name = Messaging;
 			sourceTree = "<group>";
@@ -266,6 +281,7 @@
 				93430B741D50539600992C09 /* ProfileCellItem.swift */,
 				93430B7A1D50939A00992C09 /* User.swift */,
 				93430B7C1D50A6F400992C09 /* StorageManager.swift */,
+				22933E031D7EB7BD00023FA2 /* Chat.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -280,6 +296,8 @@
 				933D5D761D48A1A500E01464 /* Profile */,
 				933D5D751D48A19800E01464 /* Cards */,
 				710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */,
+				22933E0D1D7FEEEA00023FA2 /* ChatsTableViewCell.swift */,
+				22933E111D80080100023FA2 /* CompanyTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -304,6 +322,9 @@
 				93430B701D4FCAB400992C09 /* SignUpViewModel.swift */,
 				93430B721D4FCBBD00992C09 /* ProfileViewModel.swift */,
 				938E325C1D511EA8002DFD05 /* AddCardViewModel.swift */,
+				22933E051D7EC4DD00023FA2 /* ChatsViewModel.swift */,
+				22933E071D7ECB2100023FA2 /* AddChatViewModel.swift */,
+				22933E0F1D80024900023FA2 /* CompaniesViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -494,7 +515,7 @@
 				TargetAttributes = {
 					933D5D151D45CB5500E01464 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 363Q9473UR;
+						DevelopmentTeam = AB65P3C5XF;
 						LastSwiftMigration = 0800;
 					};
 					933D5D291D45CB5500E01464 = {
@@ -725,6 +746,8 @@
 				93430B6F1D4FC91C00992C09 /* SignInViewModel.swift in Sources */,
 				938E325D1D511EA8002DFD05 /* AddCardViewModel.swift in Sources */,
 				939860CB1D4F421200F477E1 /* Drop.swift in Sources */,
+				22933E121D80080100023FA2 /* CompanyTableViewCell.swift in Sources */,
+				22933E041D7EB7BD00023FA2 /* Chat.swift in Sources */,
 				93430B6B1D4FC2AF00992C09 /* WelcomeViewModel.swift in Sources */,
 				93430B7D1D50A6F400992C09 /* StorageManager.swift in Sources */,
 				933D5D6B1D47423800E01464 /* LogoImageView.swift in Sources */,
@@ -733,8 +756,11 @@
 				933D5D691D473C5C00E01464 /* Card.swift in Sources */,
 				933D5D781D48A1B600E01464 /* ProfileTableViewCell.swift in Sources */,
 				93E635851D4B576D00F84199 /* DiscountDetailViewController.swift in Sources */,
+				22933E101D80024900023FA2 /* CompaniesViewModel.swift in Sources */,
+				22933E021D7EB08600023FA2 /* AddChatViewController.swift in Sources */,
 				93430B7B1D50939A00992C09 /* User.swift in Sources */,
 				939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */,
+				22933E0E1D7FEEEA00023FA2 /* ChatsTableViewCell.swift in Sources */,
 				93430B711D4FCAB400992C09 /* SignUpViewModel.swift in Sources */,
 				939860D01D4F490900F477E1 /* SignUpViewController.swift in Sources */,
 				938E325B1D5115D0002DFD05 /* Company.swift in Sources */,
@@ -750,8 +776,10 @@
 				93E635891D4C99D000F84199 /* MapViewController.swift in Sources */,
 				710FFC891D6B371300FEF1D2 /* MessageTableViewCell.swift in Sources */,
 				93430B771D5059A600992C09 /* AlertController.swift in Sources */,
+				22933E061D7EC4DD00023FA2 /* ChatsViewModel.swift in Sources */,
 				93E635871D4B738800F84199 /* DiscountDetailCollectionViewCell.swift in Sources */,
 				933D5D531D45D8A800E01464 /* CardsTableViewCell.swift in Sources */,
+				22933E081D7ECB2100023FA2 /* AddChatViewModel.swift in Sources */,
 				933D5D671D47324B00E01464 /* ContactInfoView.swift in Sources */,
 				93E635831D4B2F4F00F84199 /* BarcodeView.swift in Sources */,
 				93430B731D4FCBBD00992C09 /* ProfileViewModel.swift in Sources */,

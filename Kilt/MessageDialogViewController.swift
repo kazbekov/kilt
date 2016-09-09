@@ -1,6 +1,6 @@
 //
 //  MessageDialogViewController.swift
-//  
+//
 //
 //  Created by Dias Dosymbaev on 8/23/16.
 //
@@ -15,8 +15,13 @@ import Firebase
 import FirebaseDatabase
 
 class MessageDialogViewController: JSQMessagesViewController {
-
+    
     // MARK: Properties
+    var chat : Chat?
+    var viewModel = AddChatViewModel()
+    var times = [Double]()
+    var timeDifferences = [Double]()
+    var utcTimeStrings = [String]()
     var titleText: String?
     var outgoingBubbleImageView: JSQMessagesBubbleImage!
     var incomingBubbleImageView: JSQMessagesBubbleImage!
@@ -43,10 +48,15 @@ class MessageDialogViewController: JSQMessagesViewController {
         }
     }
     var usersTypingQuery: FIRDatabaseQuery!
-
+    
     //MARK: -Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        senderDisplayName = FIRAuth.auth()?.currentUser?.displayName
+        if senderDisplayName == nil {
+            senderDisplayName = FIRAuth.auth()?.currentUser?.email
+        }
+        
         setUpViews()
         setUpConstraints()
         setUpRightBarButton()
@@ -59,7 +69,7 @@ class MessageDialogViewController: JSQMessagesViewController {
         observeTyping()
     }
     //MARK: - Actions
-
+    
     func setUpViews() {
         collectionView.backgroundColor = UIColor.athensGrayColor()
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
@@ -68,6 +78,7 @@ class MessageDialogViewController: JSQMessagesViewController {
         if let titleText = titleText {
             self.navigationItem.titleView = setTitle(titleText, subtitle: "Online")
         }
+        inputToolbar.contentView.leftBarButtonItem = nil
         inputToolbar.contentView.rightBarButtonItem.setTitle("Отпр", forState: .Normal)
         inputToolbar.contentView.textView.placeHolder = "Отправить сообщение"
     }
@@ -96,7 +107,7 @@ class MessageDialogViewController: JSQMessagesViewController {
         }
         self.presentViewController(optionMenu, animated: true, completion: nil)
     }
-
+    
     private func setupBubbles() {
         let factory = JSQMessagesBubbleImageFactory()
         outgoingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(
@@ -104,35 +115,55 @@ class MessageDialogViewController: JSQMessagesViewController {
         incomingBubbleImageView = factory.incomingMessagesBubbleImageWithColor(
             UIColor.whiteColor())
     }
-
+    
     func setUpConstraints() {
     }
     override func textViewDidChange(textView: UITextView) {
         super.textViewDidChange(textView)
         isTyping = textView.text != ""
     }
-
+    
     //MARK: -FireBase
-
+    
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!,
                                      senderDisplayName: String!, date: NSDate!) {
+        let timestamp = date.timeIntervalSince1970
+        
         let itemRef = messageRef.childByAutoId()
+        
         let messageItem = [
             "text": text,
-            "senderId": senderId
+            "senderId": senderId,
+            "senderName": senderDisplayName,
+            "date": timestamp
         ]
         itemRef.setValue(messageItem)
+        viewModel.addMessage(chat!, messageKey: itemRef.key) { errorMessage in
+            dispatch {
+                if let errorMessage = errorMessage {
+                    Drop.down(errorMessage, state: .Error)
+                }
+            }
+        }
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         finishSendingMessage()
         isTyping = false
     }
     private func observeMessages() {
-        let messagesQuery = messageRef.queryLimitedToLast(25)
-        messagesQuery.observeEventType(.ChildAdded) { (snapshot: FIRDataSnapshot!) in
-            let id = snapshot.value!["senderId"] as! String
-            let text = snapshot.value!["text"] as! String
-            self.addMessage(id, text: text)
+        guard let messagesQuery = chat?.ref?.child("messages").queryLimitedToLast(25) else {
+            return
+        }
+        messagesQuery.observeEventType(.ChildAdded) { (snapshot: FIRDataSnapshot!) in self.messageRef.child(snapshot.key).observeEventType(.Value, withBlock: { snapshot in
+            
+            guard let id = snapshot.value?["senderId"] as? String, text = snapshot.value?["text"] as? String,
+                username = snapshot.value?["senderName"] as? String, date = snapshot.value?["date"] as? NSTimeInterval else {
+                    return
+            }
+            let date1 = NSDate(timeIntervalSince1970: date)
+            self.addMessage(id, senderName: username, date: date1, text: text)
             self.finishReceivingMessage()
+        })
+            
         }
     }
     private func observeTyping() {
@@ -148,21 +179,18 @@ class MessageDialogViewController: JSQMessagesViewController {
             self.scrollToBottomAnimated(true)
         }
     }
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        // messages from someone else
-//        addMessage("foo", text: "Добрый день Жандос, мы очень рады, что вы с нами! Можем вам предложить новую карту и плюс три новых гостевых посящений. ")
-//        addMessage("foo", text: "Yoooo!")
-//        // messages sent from local sender
-//        addMessage(senderId, text: "Отлично, буду очень рад. Хотел бы узнать, когда вы сможете отправить мне новую майку от Головкина?")
-//        addMessage(senderId, text: "Hello!")
-//        addMessage(senderId, text: "How are ya?")
-//        // animates the receiving of a new message on the view
-//        finishReceivingMessage()
-//    }
-
-    func addMessage(id: String, text: String) {
-        let message = JSQMessage(senderId: id, displayName: "", text: text)
+    
+    func setLogoImage(chat: Chat){
+        let nameCompany = chat.company?.name
+        
+        setTitle(nameCompany!, subtitle: "offline")
+        if let urlString = chat.company?.icon, url = NSURL(string: urlString) {
+            print("url: \(url)")
+            logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.placeholderIcon)
+        }
+    }
+    func addMessage(id: String, senderName: String, date: NSDate, text: String) {
+        let message = JSQMessage(senderId: id, senderDisplayName: senderName, date: date, text: text)
         messages.append(message)
     }
     func setUpRightBarButton() {
@@ -197,9 +225,17 @@ class MessageDialogViewController: JSQMessagesViewController {
         }
         return titleView
     }
-
+    
     //MARK: - Delegate & Data Source
-
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return 24
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellBottomLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return 14
+    }
+    
     override func collectionView(collectionView: JSQMessagesCollectionView!,
                                  avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
@@ -208,7 +244,7 @@ class MessageDialogViewController: JSQMessagesViewController {
                                  messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
         return messages[indexPath.item]
     }
-
+    
     override func collectionView(collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
         return messages.count
@@ -227,23 +263,38 @@ class MessageDialogViewController: JSQMessagesViewController {
         let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
             as! JSQMessagesCollectionViewCell
         cell.textView.font = cell.textView.font!.fontWithSize(15)
-
-//        cell.layer.cornerRadius = 10
-//        cell.layer.shouldRasterize = false
-//        cell.layer.shadowColor = UIColor.blackColor().CGColor
-//        cell.layer.shadowRadius = 5.0
-//        cell.layer.shadowOffset = CGSizeMake(2, 2)
-//        cell.layer.shadowOpacity = 0.17
-//        cell.layer.masksToBounds = false
-//        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.messageBubbleImageView.bounds, cornerRadius: cell.contentView.layer.cornerRadius).CGPath
+        
         let message = messages[indexPath.item]
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+        let dataString = dateFormatter.stringFromDate(message.date)
+        cell.textView.text = message.text
+        cell.cellBottomLabel.text = dataString
+        
+        var isAdmin = false
+        
+        var ref: FIRDatabaseReference? {
+            guard let currentUserId = FIRAuth.auth()?.currentUser?.uid else { return nil }
+            return FIRDatabase.database().reference().child("users/\(currentUserId)")
+        }
+        
+        ref?.observeEventType(.Value, withBlock: { (snapshot) in
+            
+            if snapshot.value!["isAdmin"] as? Int  == 1 {
+                isAdmin = true
+            } else {
+                isAdmin = false
+            }
+        })
+        
+//        let adminsRef = chat?.ref?.child("admins")
+//        print("key: \(adminsRef.)")
         if message.senderId == senderId {
             cell.textView!.textColor = UIColor.whiteColor()
-            cell.messageBubbleTopLabel.text = ""
-
         } else {
-            cell.textView!.textColor = UIColor.blackColor()
-            cell.messageBubbleTopLabel.text = "Fidelity"
+           cell.textView!.textColor = UIColor.blackColor()
         }
         
         return cell
@@ -251,12 +302,14 @@ class MessageDialogViewController: JSQMessagesViewController {
     // View  usernames above bubbles
     override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.item];
-
+        
+        //        return NSAttributedString(string: message.senderDisplayName, attributes: [NSForegroundColorAttributeName: UIColor.redColor()])
+        
         //Sent by me, skip
         if message.senderId == senderId {
             return nil;
         }
-
+        
         //Same as previous sender, skip
         if indexPath.item > 0 {
             let previousMessage = messages[indexPath.item - 1];
@@ -264,18 +317,18 @@ class MessageDialogViewController: JSQMessagesViewController {
                 return nil;
             }
         }
-
-        return NSAttributedString(string: "Fidelity")//message.sender())
+        
+        return NSAttributedString(string: "")//message.sender())
     }
-
+    
     override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         let message = messages[indexPath.item]
-
+        
         // Sent by me, skip
         if message.senderId == senderId {
             return CGFloat(0.0);
         }
-
+        
         // Same as previous sender, skip
         if indexPath.item > 0 {
             let previousMessage = messages[indexPath.item - 1];
@@ -283,7 +336,19 @@ class MessageDialogViewController: JSQMessagesViewController {
                 return CGFloat(0.0);
             }
         }
-
+        
         return kJSQMessagesCollectionViewCellLabelHeightDefault
+    }
+    
+}
+
+extension MessageDialogViewController {
+    func setUpwithCompany(com: Company) {
+        let nameCompany = com.name
+        setTitle(nameCompany!, subtitle: "here")
+        if let urlString = com.icon, url = NSURL(string: urlString) {
+            print("url: \(url)")
+            logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.placeholderIcon)
+        }
     }
 }

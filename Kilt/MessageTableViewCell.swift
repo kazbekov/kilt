@@ -12,28 +12,27 @@ import Cartography
 
 class MessageTableViewCell: UITableViewCell {
     lazy var titleLabel = UILabel().then {
-        $0.text = "Fidelity"
         $0.font = $0.font.fontWithSize(15)
     }
-    private lazy var senderNameLabel = UILabel().then {
-        $0.text = "Арман:"
+    lazy var senderNameLabel = UILabel().then {
+        //$0.text = "Арман:"
         $0.font = $0.font.fontWithSize(15)
         $0.textColor = UIColor.tundoraColor()
     }
-    private lazy var logoImageView = UIImageView().then {
+     lazy var logoImageView = UIImageView().then {
         $0.image = Icon.placeholderIcon
         $0.layer.cornerRadius = 6
         $0.clipsToBounds = true
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.frenchGrayColor().CGColor
     }
-    private lazy var lastMessageLabel = UILabel().then {
-        $0.text = "Мы очень благодарны за ваш совет"
+     lazy var lastMessageLabel = UILabel().then {
+        //$0.text = "Мы очень благодарны за ваш совет"
         $0.font = $0.font.fontWithSize(15)
         $0.textColor = UIColor.mountainMistColor()
     }
     private lazy var timeStampLabel = UILabel().then {
-        $0.text = "Вчера"
+       // $0.text = "Вчера"
         $0.font = $0.font.fontWithSize(15)
         $0.textColor = UIColor.mountainMistColor()
     }

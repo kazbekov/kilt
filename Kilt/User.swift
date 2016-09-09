@@ -41,6 +41,14 @@ struct User {
         }
     }
     
+    static func addChat(key: String, completion: (error: NSError?) -> Void) {
+        ref?.child("chats/\(key)").setValue(true) { error, ref in
+            completion(error: error)
+            
+        }
+    }
+    
+    
     static func fetchName(completion: (String?) -> Void) {
         ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             completion(snapshot.value?["name"] as? String)
@@ -59,10 +67,17 @@ struct User {
         })
     }
     
+    
     static func fetchCards(completion: (snapshot: FIRDataSnapshot) -> Void) {
         ref?.child("cards").observeEventType(.ChildAdded) { snapshot in
             completion(snapshot: snapshot)
         }
-    }
+}
     
+    static func fetchChats(completion: (snapshot: FIRDataSnapshot) -> Void) {
+        ref?.child("chats").observeEventType(.ChildAdded) {
+            snapshot in
+            completion(snapshot: snapshot)
+        }
+    }
 }

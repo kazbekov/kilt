@@ -13,7 +13,6 @@ import Cartography
 final class CardsViewController: UIViewController {
     
     private let viewModel = CardsViewModel()
-    
     private lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.addCardIcon, style: UIBarButtonItemStyle.Plain,
                         target: self, action: #selector(pushScanViewController))
