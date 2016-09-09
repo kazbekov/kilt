@@ -107,12 +107,12 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
             
         }
         //if indexPath.row < viewModel.chatMessages.count
-        cell.lastMessageLabel.text = viewModel.chatMessages[indexPath.row].text
-        if viewModel.chatMessages[indexPath.row].adminId == viewModel.chatMessages[indexPath.row].senderId {
+        cell.lastMessageLabel.text = viewModel.chats[indexPath.row].lastMessage
+        if viewModel.chats[indexPath.row].adminId == viewModel.chats[indexPath.row].senderId {
             cell.senderNameLabel.text = viewModel.chats[indexPath.row].company?.name
             
         } else {
-            cell.senderNameLabel.text = viewModel.chatMessages[indexPath.row].senderName
+            cell.senderNameLabel.text = viewModel.chats[indexPath.row].senderName
             
         }
         cell.titleLabel.text = viewModel.chats[indexPath.row].company?.name

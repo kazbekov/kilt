@@ -16,6 +16,11 @@ final class Chat {
     var company: Company?
     var ref: FIRDatabaseReference?
     
+    var lastMessage: String?
+    var senderId: String?
+    var senderName: String?
+    var adminId: String?
+    
     init(company: Company) {
         self.company = company
         ref = FIRDatabase.database().reference().child("chats").childByAutoId()

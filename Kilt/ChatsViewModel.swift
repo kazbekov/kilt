@@ -11,8 +11,6 @@ import FirebaseDatabase
 
 final class ChatsViewModel {
     var chats = [Chat]()
-    
-    lazy var chatMessages = [ChatMessages]()
     var adminKey = ""
     
     func fetchChats(completion: () -> Void) {
@@ -38,13 +36,10 @@ final class ChatsViewModel {
         if let lastMessageKey = (snapshot.value as? [String: AnyObject])?.keys.maxElement() {
             FIRDatabase.database().reference().child("messages/\(lastMessageKey)").observeEventType(.Value, withBlock: { snapshot in
                 if let lastMessageText = snapshot.value?["text"] as? String, senderName = snapshot.value?["senderName"] as? String, senderId = snapshot.value?["senderId"] as? String {
-                    let ch = ChatMessages()
-                    ch.chat = chat1
-                    ch.senderId = senderId
-                    ch.senderName = senderName
-                    ch.text = lastMessageText
-                    ch.adminId = self.adminKey
-                    self.chatMessages.append(ch)
+                    chat1.lastMessage = lastMessageText
+                    chat1.senderId = senderId
+                    chat1.senderName = senderName
+                    chat1.adminId = self.adminKey
                     completion()
                 }
             })
