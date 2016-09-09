@@ -76,7 +76,7 @@ class MessageDialogViewController: JSQMessagesViewController {
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
         tabBarController?.tabBar.hidden = true
         if let titleText = titleText {
-            self.navigationItem.titleView = setTitle(titleText, subtitle: "Online")
+            self.navigationItem.titleView = setTitle(titleText, subtitle: "")
         }
         inputToolbar.contentView.leftBarButtonItem = nil
         inputToolbar.contentView.rightBarButtonItem.setTitle("Отпр", forState: .Normal)
@@ -265,33 +265,28 @@ class MessageDialogViewController: JSQMessagesViewController {
         cell.textView.font = cell.textView.font!.fontWithSize(15)
         
         let message = messages[indexPath.item]
-        
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.doesRelativeDateFormatting = true
         
-        let dataString = dateFormatter.stringFromDate(message.date)
+        let timeFormatter = NSDateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        
+        let time = "\(dateFormatter.stringFromDate(message.date)) в \(timeFormatter.stringFromDate(message.date))"
         cell.textView.text = message.text
-        cell.cellBottomLabel.text = dataString
+        cell.cellBottomLabel.text = time
         
-        var isAdmin = false
         
-        var ref: FIRDatabaseReference? {
-            guard let currentUserId = FIRAuth.auth()?.currentUser?.uid else { return nil }
-            return FIRDatabase.database().reference().child("users/\(currentUserId)")
-        }
-        
-        ref?.observeEventType(.Value, withBlock: { (snapshot) in
-            
-            if snapshot.value!["isAdmin"] as? Int  == 1 {
-                isAdmin = true
+        chat!.ref?.child("/admins/").observeEventType(.ChildAdded) {(snapshot: FIRDataSnapshot!) in FIRDatabase.database().reference().child("users/\(snapshot.key)").observeEventType(.Value, withBlock: { snapshot in
+            if message.senderId == snapshot.key
+            {
+                cell.messageBubbleTopLabel.text = self.chat?.company?.name
             } else {
-                isAdmin = false
+                cell.messageBubbleTopLabel.text = message.senderDisplayName
             }
         })
-        
-//        let adminsRef = chat?.ref?.child("admins")
-//        print("key: \(adminsRef.)")
-        if message.senderId == senderId {
+        }
+                if message.senderId == senderId {
             cell.textView!.textColor = UIColor.whiteColor()
         } else {
            cell.textView!.textColor = UIColor.blackColor()
@@ -339,7 +334,6 @@ class MessageDialogViewController: JSQMessagesViewController {
         
         return kJSQMessagesCollectionViewCellLabelHeightDefault
     }
-    
 }
 
 extension MessageDialogViewController {

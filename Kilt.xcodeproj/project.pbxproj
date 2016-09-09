@@ -14,6 +14,7 @@
 		22933E0E1D7FEEEA00023FA2 /* ChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E0D1D7FEEEA00023FA2 /* ChatsTableViewCell.swift */; };
 		22933E101D80024900023FA2 /* CompaniesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E0F1D80024900023FA2 /* CompaniesViewModel.swift */; };
 		22933E121D80080100023FA2 /* CompanyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E111D80080100023FA2 /* CompanyTableViewCell.swift */; };
+		22933E141D82B7F200023FA2 /* ChatMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22933E131D82B7F200023FA2 /* ChatMessages.swift */; };
 		23471E096F33A3B0C6C39510 /* Pods_Kilt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */; };
 		710FFC891D6B371300FEF1D2 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */; };
 		710FFC8E1D6C077C00FEF1D2 /* MessageDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */; };
@@ -95,6 +96,7 @@
 		22933E0D1D7FEEEA00023FA2 /* ChatsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsTableViewCell.swift; sourceTree = "<group>"; };
 		22933E0F1D80024900023FA2 /* CompaniesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompaniesViewModel.swift; sourceTree = "<group>"; };
 		22933E111D80080100023FA2 /* CompanyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableViewCell.swift; sourceTree = "<group>"; };
+		22933E131D82B7F200023FA2 /* ChatMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessages.swift; sourceTree = "<group>"; };
 		4457728E1EEA8A979B0E4E49 /* Pods-KiltUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiltUITests/Pods-KiltUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4B8270DB7D8700DE59DFB7E8 /* Pods_KiltUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiltUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C67B54A2204204E9208245F /* Pods-KiltTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiltTests/Pods-KiltTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				93430B7A1D50939A00992C09 /* User.swift */,
 				93430B7C1D50A6F400992C09 /* StorageManager.swift */,
 				22933E031D7EB7BD00023FA2 /* Chat.swift */,
+				22933E131D82B7F200023FA2 /* ChatMessages.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 				939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */,
 				22933E0E1D7FEEEA00023FA2 /* ChatsTableViewCell.swift in Sources */,
 				93430B711D4FCAB400992C09 /* SignUpViewModel.swift in Sources */,
+				22933E141D82B7F200023FA2 /* ChatMessages.swift in Sources */,
 				939860D01D4F490900F477E1 /* SignUpViewController.swift in Sources */,
 				938E325B1D5115D0002DFD05 /* Company.swift in Sources */,
 				933D5D631D4609C100E01464 /* UIColor+Tints.swift in Sources */,

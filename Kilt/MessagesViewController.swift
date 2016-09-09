@@ -10,12 +10,14 @@ import UIKit
 import Sugar
 import Cartography
 import FirebaseAuth
+import Firebase
+import FirebaseAuth
 import JSQMessagesViewController
 
 class MessagesViewController: UIViewController {
     private let viewModel = ChatsViewModel()
     private var messages = [JSQMessage]()
-    
+    var messageRef: FIRDatabaseReference!
     let messageCellIdentifier = "messageCellIdentifier"
     private lazy var tableView: UITableView = {
         return UITableView().then {
@@ -31,18 +33,20 @@ class MessagesViewController: UIViewController {
     //MARK: - Life Cycle
     override func viewDidAppear(animated: Bool) {
         tabBarController?.tabBar.hidden = false
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchChats {
-            dispatch {
-                self.tableView.reloadData()
-            }
+            dispatch { self.tableView.reloadData() }
         }
         setUpViews()
         setUpConstraints()
-        
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidLoad()
+        }
     
     func setUpViews() {
         title = "Сообщения"
@@ -64,6 +68,7 @@ class MessagesViewController: UIViewController {
     @objc private func pushAddChatViewController(){
         navigationController?.pushViewController(AddChatViewController(), animated: true)
     }
+    
 }
 extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,20 +100,49 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier, forIndexPath: indexPath) as! MessageTableViewCell
-        let chat = viewModel.chats[indexPath.row]
-        
-        if let urlString = chat.company?.icon, url = NSURL(string: urlString)
+        if let urlString = viewModel.chats[indexPath.row].company?.icon, url = NSURL(string: urlString)
         {
             cell.logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.cardPlaceholderIcon,
                                                    optionsInfo: nil, progressBlock: nil, completionHandler: nil)
             
         }
-//        cell.lastMessageLabel.text = "dsda"
-//        cell.senderNameLabel.text = "Я" 
-        cell.titleLabel.text = chat.company?.name
+        //if indexPath.row < viewModel.chatMessages.count
+        cell.lastMessageLabel.text = viewModel.chatMessages[indexPath.row].text
+        if viewModel.chatMessages[indexPath.row].adminId == viewModel.chatMessages[indexPath.row].senderId {
+            cell.senderNameLabel.text = viewModel.chats[indexPath.row].company?.name
+            
+        } else {
+            cell.senderNameLabel.text = viewModel.chatMessages[indexPath.row].senderName
+            
+        }
+        cell.titleLabel.text = viewModel.chats[indexPath.row].company?.name
         cell.accessoryType = .DisclosureIndicator
         cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         cell.layoutMargins = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
+        //
+        //        chat.ref?.child("/messages/").observeEventType(.Value) {
+        //            snapshot in
+        //            self.fetchLastMessage(snapshot)
+        //        }
+        
+        //        FIRDatabase.database().reference().child("messages/\(lastMessageKey)").observeEventType(.Value, withBlock: { snapshot in
+        //            if let lastMessageText = snapshot.value?["text"] as? String, senderName = snapshot.value?["senderName"] as? String, senderId = snapshot.value?["senderId"] as? String {
+        //                adminKey = senderId
+        //                print(lastMessageText)
+        //                print(senderName)
+        //                cell.lastMessageLabel.text = lastMessageText
+        //                cell.senderNameLabel.text = "\(senderName): "
+        //            }
+        //        })
+        
+        
+        //        chat.ref?.child("/admins/").observeEventType(.ChildAdded) {(snapshot: FIRDataSnapshot!) in FIRDatabase.database().reference().child("users/\(snapshot.key)").observeEventType(.Value, withBlock: { snapshot in
+        //            if adminKey == snapshot.key {
+        //                 cell.senderNameLabel.text = chat.company?.name
+        //            }
+        //        })
+        //        }
+
         return cell
     }
 }
