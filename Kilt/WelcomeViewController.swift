@@ -88,8 +88,8 @@ final class WelcomeViewController: UIViewController {
             
             logoImageView.top == logoImageView.superview!.top + 100
             logoImageView.centerX == logoImageView.superview!.centerX
-            logoImageView.height == 150
-            logoImageView.width == 150
+            logoImageView.height == 128
+            logoImageView.width == 128
             
             signUpButton.bottom == logoImageView.superview!.bottom - 15
             signUpButton.leading == logoImageView.superview!.leading + 20

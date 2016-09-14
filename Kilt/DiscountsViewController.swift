@@ -78,7 +78,7 @@ final class DiscountsViewController: UIViewController {
     private func setUpViews() {
         edgesForExtendedLayout = .None
         view.backgroundColor = .whiteColor()
-        navigationItem.title = "Бонусы"
+        navigationItem.title = "Go!Бонусы"
         navigationItem.rightBarButtonItems = [negativeSpace, rightBarButtonItem]
         view.addSubview(tableView)
     }

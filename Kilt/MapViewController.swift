@@ -60,7 +60,7 @@ final class MapViewController: UIViewController {
     private func setUpViews() {
         edgesForExtendedLayout = .None
         view.backgroundColor = .athensGrayColor()
-        navigationItem.title = "Бонусы"
+        navigationItem.title = "Go!Бонусы"
         navigationItem.hidesBackButton = true
         navigationItem.rightBarButtonItems = [negativeSpace, rightBarButtonItem]
         locationManager.delegate = self
