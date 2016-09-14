@@ -119,29 +119,6 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.accessoryType = .DisclosureIndicator
         cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         cell.layoutMargins = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
-        //
-        //        chat.ref?.child("/messages/").observeEventType(.Value) {
-        //            snapshot in
-        //            self.fetchLastMessage(snapshot)
-        //        }
-        
-        //        FIRDatabase.database().reference().child("messages/\(lastMessageKey)").observeEventType(.Value, withBlock: { snapshot in
-        //            if let lastMessageText = snapshot.value?["text"] as? String, senderName = snapshot.value?["senderName"] as? String, senderId = snapshot.value?["senderId"] as? String {
-        //                adminKey = senderId
-        //                print(lastMessageText)
-        //                print(senderName)
-        //                cell.lastMessageLabel.text = lastMessageText
-        //                cell.senderNameLabel.text = "\(senderName): "
-        //            }
-        //        })
-        
-        
-        //        chat.ref?.child("/admins/").observeEventType(.ChildAdded) {(snapshot: FIRDataSnapshot!) in FIRDatabase.database().reference().child("users/\(snapshot.key)").observeEventType(.Value, withBlock: { snapshot in
-        //            if adminKey == snapshot.key {
-        //                 cell.senderNameLabel.text = chat.company?.name
-        //            }
-        //        })
-        //        }
 
         return cell
     }

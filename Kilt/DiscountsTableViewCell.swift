@@ -26,7 +26,7 @@ final class DiscountsTableViewCell: UITableViewCell {
     }
     
     private lazy var percentLabel = UILabel().then {
-        $0.setContentHuggingPriority(1000, forAxis: .Horizontal)
+        $0.setContentCompressionResistancePriority(1000, forAxis: .Horizontal)
         $0.textColor = .appColor()
         $0.font = .systemFontOfSize(17, weight: UIFontWeightSemibold)
     }

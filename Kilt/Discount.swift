@@ -22,6 +22,7 @@ struct Location {
     var latitude: Double?
     var longitude: Double?
 }
+
 final class Discount {
     
     static var ref = FIRDatabase.database().reference().child("bonuses")
@@ -33,9 +34,9 @@ final class Discount {
     var address: String?
     var logo: String?
     var location: Location?
-    var images: [String: AnyObject]?
+    var images: [String: String]?
     
-    init (title: String?, subtitle: String?, percent: String?, address: String?, logo: String, location: Location? = nil, images: [String: AnyObject]? = nil
+    init (title: String?, subtitle: String?, percent: String?, address: String?, logo: String, location: Location? = nil, images: [String: String]? = nil
         ){
         self.title  = title
         self.address = address
@@ -57,6 +58,16 @@ final class Discount {
         ref = snapshot.ref
     }
     
+    func save(completion: (error: NSError?) -> Void) {
+        saveTitle(completion)
+        saveSubtitle(completion)
+        savePercent(completion)
+        saveAddress(completion)
+        saveLogo(completion)
+        saveLocation(completion)
+        saveImages(completion)
+    }
+    
     func updateFromSnapshot(snapshot: FIRDataSnapshot){
         ref = snapshot.ref
         title = snapshot.value?.objectForKey("title") as? String
@@ -67,7 +78,7 @@ final class Discount {
         if let locationDict = snapshot.value?.objectForKey("location") as? [String : Double] {
             location = Location(latitude: locationDict["latitude"], longitude: locationDict["longitude"])
         }
-        if let imagesDict = snapshot.value?.objectForKey("images") as? [String: AnyObject] {
+        if let imagesDict = snapshot.value?.objectForKey("images") as? [String: String] {
             images = imagesDict
         }
         //images = snapshot.value?.objectForKey("images") as? [String: String]
@@ -85,9 +96,9 @@ final class Discount {
         }
     }
     
-    func saveDiscount(completion: (error: NSError?) -> Void){
-        ref?.child("percent").setValue(percent) {
-            error, ref in completion(error: error)
+    func savePercent(completion: (error: NSError?) -> Void){
+        ref?.child("percent").setValue(percent) { error, ref in completion(error: error)
+            
         }
     }
     

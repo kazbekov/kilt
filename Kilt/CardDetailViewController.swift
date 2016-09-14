@@ -21,9 +21,9 @@ final class CardDetailViewController: UIViewController {
         $0.width = -7
     }
     
-    private lazy var contactInfoView: ContactInfoView = ContactInfoView().then {
-        $0.delegate = self
-    }
+//    private lazy var contactInfoView: ContactInfoView = ContactInfoView().then {
+//        $0.delegate = self
+//    }
     
     private lazy var logoImageView = LogoImageView(frame: .zero)
     
@@ -68,22 +68,18 @@ final class CardDetailViewController: UIViewController {
         navigationItem.title = "Карточки"
         navigationItem.leftBarButtonItems = [negativeSpace, leftBarButtonItem]
         [logoImageView, titleLabel].forEach { logoWrapper.addSubview($0) }
-        [contactInfoView, logoWrapper, frontView, backView, barcodeView].forEach {
+        [logoWrapper, frontView, backView, barcodeView].forEach {
             view.addSubview($0)
         }
     }
     
     private func setUpConstraints() {
-        constrain(contactInfoView, logoWrapper, view) {
-            contactInfoView, logoWrapper, view in
-            contactInfoView.top == view.top + 20
-            contactInfoView.trailing == view.trailing - 10
-            contactInfoView.width == 220
-            contactInfoView.height == 75
+        constrain( logoWrapper, view) {
+            logoWrapper, view in
             
-            logoWrapper.top == contactInfoView.top
-            logoWrapper.leading == view.leading
-            logoWrapper.trailing == contactInfoView.leading
+            logoWrapper.top == view.top + 20
+            logoWrapper.leading == view.leading + 50
+            logoWrapper.trailing == view.leading
             logoWrapper.height == 90
         }
         

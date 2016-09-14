@@ -33,6 +33,13 @@ final class WelcomeViewController: UIViewController {
         }
     }()
     
+    private lazy var logoImageView: UIImageView = {
+        return UIImageView().then {
+            $0.contentMode = .ScaleAspectFill
+            $0.image = UIImage(named: "logo")
+        }
+    }()
+    
     private lazy var signInButton: UIButton = {
         return UIButton().then {
             $0.layer.masksToBounds = true
@@ -70,18 +77,23 @@ final class WelcomeViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.translucent = true
         view.backgroundColor = .appColor()
-        [titleLabel, fbButton, signInButton, signUpButton].forEach { view.addSubview($0) }
+        [titleLabel, logoImageView, fbButton, signInButton, signUpButton].forEach { view.addSubview($0) }
     }
     
     private func setUpConstraints() {
-        constrain(titleLabel, fbButton, signInButton, signUpButton, view) {
-            titleLabel, fbButton, signInButton, signUpButton, view in
-            titleLabel.top == view.top + 50
-            titleLabel.centerX == view.centerX
+        constrain(titleLabel, logoImageView,fbButton, signInButton, signUpButton) {
+            titleLabel, logoImageView, fbButton, signInButton, signUpButton in
+            titleLabel.top == titleLabel.superview!.top + 50
+            titleLabel.centerX == titleLabel.superview!.centerX
             
-            signUpButton.bottom == view.bottom - 15
-            signUpButton.leading == view.leading + 20
-            signUpButton.trailing == view.trailing - 20
+            logoImageView.top == logoImageView.superview!.top + 100
+            logoImageView.centerX == logoImageView.superview!.centerX
+            logoImageView.height == 150
+            logoImageView.width == 150
+            
+            signUpButton.bottom == logoImageView.superview!.bottom - 15
+            signUpButton.leading == logoImageView.superview!.leading + 20
+            signUpButton.trailing == logoImageView.superview!.trailing - 20
             signUpButton.height == 50
             
             signInButton.bottom == signUpButton.top - 15
