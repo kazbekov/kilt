@@ -79,34 +79,34 @@ final class ProfileViewController: UIViewController {
     
     private lazy var linkRequestAlertController: UIAlertController = {
         return UIAlertController(title: "Запрос режима компании", message: "Напишите свой email и телефон. Мы с вами свяжемся в течение 24 часов.", preferredStyle: .Alert).then  { alertController in
-            alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { _ in
-                self.viewModel.linkEmail(alertController.textFields?[0].text,
-                password: alertController.textFields?[1].text) { errorMessage in
-                    dispatch {
-                        if let errorMessage = errorMessage {
-                            Drop.down(errorMessage, state: .Error)
-                            self.linkEmail()
-                            return
-                        }
-                        alertController.textFields?[0].text = nil
-                        alertController.textFields?[1].text = nil
-                        self.tableView.reloadSection(0, animation: .Fade)
-                    }
-                }
-                })
-            alertController.addAction(UIAlertAction(title: "Отмена", style: .Default, handler: nil))
             alertController.addTextFieldWithConfigurationHandler {
                 $0.keyboardType = .EmailAddress
                 $0.autocapitalizationType = .None
                 $0.placeholder = "Email"
             }
             alertController.addTextFieldWithConfigurationHandler {
-                $0.placeholder = "Пароль"
+                $0.placeholder = "Телефон"
                 $0.secureTextEntry = true
             }
+            alertController.addAction(UIAlertAction(title: "Отправить", style: .Default) { _ in
+                self.viewModel.linkRequest(alertController.textFields?[0].text,
+                number: alertController.textFields?[1].text) { errorMessage in
+                    dispatch {
+                        if let errorMessage = errorMessage {
+                            Drop.down(errorMessage, state: .Error)
+                            self.linkRequest()
+                            return
+                        }
+                        alertController.textFields?[0].text = nil
+                        alertController.textFields?[1].text = nil
+                        self.tableView.reloadSection(1, animation: .Fade)
+                    }
+                }
+                })
+            alertController.addAction(UIAlertAction(title: "Отмена", style: .Default, handler: nil))
         }
-
     }()
+
     private lazy var linkEmailAlertController: UIAlertController = {
         return UIAlertController(title: "Привязка email", message: "Напишите свой email и придумайте пароль",
             preferredStyle: .Alert).then { alertController in
@@ -137,7 +137,7 @@ final class ProfileViewController: UIViewController {
             }
         }
     }()
-    
+
     private lazy var signOutAlertController: UIAlertController = {
         return UIAlertController(title: "Выйти",
             message: "Уверены в ответе? Мы будем скучать :(", preferredStyle: .Alert).then {
@@ -226,7 +226,11 @@ final class ProfileViewController: UIViewController {
     }
     
     private func linkRequest() {
-        //dispatch { self.presentedViewController( self.)}
+//        if viewModel.isLinkedWithEmail {
+//            unlinkEmail()
+//            return
+//        }
+        dispatch { self.presentViewController(self.linkRequestAlertController, animated: true, completion: nil) }
     }
     private func linkFacebook() {
         if viewModel.isLinkedWithFacebook {
@@ -276,7 +280,7 @@ extension ProfileViewController: UITableViewDelegate {
         case (0, 0): linkFacebook()
         case (0, 1): linkEmail()
         case (1, 0): linkRequest()
-        case (1, 1): signOut()
+        case (2, 0): signOut()
         default: break
         }
     }

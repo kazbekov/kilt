@@ -117,6 +117,18 @@ final class ProfileViewModel {
             self.reloadUser(completion)
         }
     }
+
+    func linkRequest(email: String?, number: String?, completion : (errorMessage: String?) -> Void) {
+        guard let email = email where !email.isEmpty else {
+            completion(errorMessage: "Введите email")
+            return
+        }
+
+        guard let number = number where !number.isEmpty else {
+            completion(errorMessage: "Введите номер телефона")
+            return
+        }
+    }
     
     func saveUserWithName(name: String?, address: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {
         User.saveName(name) { completion(errorMessage: $0?.localizedDescription) }
@@ -161,6 +173,10 @@ final class ProfileViewModel {
             }
             completion(errorMessage: nil)
         })
+    }
+
+    func sendRequest(user: User,completion: (errorMessage: String?) -> Void){
+        
     }
     
 }
