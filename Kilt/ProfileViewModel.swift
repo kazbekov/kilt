@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import FirebaseDatabase
 
 final class ProfileViewModel {
     
@@ -128,6 +129,10 @@ final class ProfileViewModel {
             completion(errorMessage: "Введите номер телефона")
             return
         }
+//        let ref = FIRDatabase.database().reference().child("users")
+//        let userKey = FIRAuth.auth()?.currentUser?.uid
+
+//        ref.child("").setValue(false)
     }
     
     func saveUserWithName(name: String?, address: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {

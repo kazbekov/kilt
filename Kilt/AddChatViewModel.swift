@@ -35,7 +35,7 @@ final  class AddChatViewModel {
         }
         // function adding adminkEY like User.addChat
         chat.addAdmin(adminKey){
-                completion(errorMessage: $0?.localizedDescription)
+            completion(errorMessage: $0?.localizedDescription)
         }
         
         let ref = FIRDatabase.database().reference().child("users")
@@ -45,7 +45,6 @@ final  class AddChatViewModel {
     func addMessage(chat: Chat, messageKey: String?,completion: (errorMessage: String?) -> Void){
         chat.addMessage(messageKey!) {
             completion(errorMessage: $0?.localizedDescription)
-   
         }
         
     }
