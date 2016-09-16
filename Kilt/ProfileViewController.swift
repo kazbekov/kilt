@@ -56,13 +56,13 @@ final class ProfileViewController: UIViewController {
             }
         }
     }()
-    
+
     private lazy var changeModeAlertController: UIAlertController = {
-        return AlertController.unlinkAlertControllerWithTitle("Компания", vc: self) {
-            
-}
+        return AlertController.changeModeAlertController("asd", vc: self) {
+
+        }
     }()
-    
+
     private lazy var unlinkEmailAlertController: UIAlertController = {
         return AlertController.unlinkAlertControllerWithTitle("Удалить Email", vc: self) {
             self.viewModel.unlinkEmail() { errorMessage in
@@ -160,6 +160,9 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        User.fetchIsVerified { (isVerified) in
+            self.viewModel.isVerified = isVerified ?? false
+        }
         if let headerView = tableView.tableHeaderView as? ProfileTableHeaderView {
             viewModel.fetchIcon {
                 if let url = $0 {
@@ -224,12 +227,16 @@ final class ProfileViewController: UIViewController {
     private func unlinkFacebook() {
         dispatch { self.presentViewController( self.unlinkFacebookAlertController, animated: true, completion: nil) }
     }
+
+    private func changeMode() {
+        dispatch { self.presentViewController( self.changeModeAlertController, animated: true, completion: nil) }
+    }
     
     private func linkRequest() {
-//        if viewModel.isLinkedWithEmail {
-//            unlinkEmail()
-//            return
-//        }
+        if viewModel.isVerified {
+            changeMode()
+            return
+        }
         dispatch { self.presentViewController(self.linkRequestAlertController, animated: true, completion: nil) }
     }
     private func linkFacebook() {

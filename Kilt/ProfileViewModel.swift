@@ -31,6 +31,8 @@ final class ProfileViewModel {
     var isLinkedWithEmail: Bool {
         return FIRAuth.auth()?.currentUser?.providerData.filter({ $0.providerID == passwordProviderId }).count != 0
     }
+
+    var isVerified = false
     
     var cellItems: [[ProfileCellItem]] {
         return [
