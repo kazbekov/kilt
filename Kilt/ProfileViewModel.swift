@@ -129,8 +129,8 @@ final class ProfileViewModel {
             completion(errorMessage: "Введите номер телефона")
             return
         }
-//        let ref = FIRDatabase.database().reference().child("users")
-//        let userKey = FIRAuth.auth()?.currentUser?.uid
+        let ref = FIRDatabase.database().reference().child("users")
+        let userKey = FIRAuth.auth()?.currentUser?.uid
 
 //        ref.child("").setValue(false)
     }
