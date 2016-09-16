@@ -96,6 +96,8 @@ final class ProfileViewController: UIViewController {
                             Drop.down(errorMessage, state: .Error)
                             self.linkRequest()
                             return
+                        } else {
+                            Drop.down("Успешно отправлено", state: .Success)
                         }
                         alertController.textFields?[0].text = nil
                         alertController.textFields?[1].text = nil
