@@ -58,7 +58,7 @@ final class ProfileViewController: UIViewController {
     }()
 
     private lazy var changeModeAlertController: UIAlertController = {
-        return AlertController.changeModeAlertController("asd", vc: self) {
+        return AlertController.changeModeAlertController("Выберите режим", vc: self) {
 
         }
     }()

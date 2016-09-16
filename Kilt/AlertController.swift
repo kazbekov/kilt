@@ -32,9 +32,12 @@ final class AlertController {
     static func changeModeAlertController(title: String?, vc: UIViewController,
                                                removeActionClosure: () -> Void) -> UIAlertController {
         let alertController = UIAlertController(title: title,
-            message: "Уверены в ответе?", preferredStyle: .ActionSheet).then {
+            message: nil, preferredStyle: .ActionSheet).then {
                 $0.modalPresentationStyle = .Popover
-                $0.addAction(UIAlertAction(title: "Удалить", style: .Destructive) { _ in
+                $0.addAction(UIAlertAction(title: "Клиент", style: .Default) { _ in
+                    removeActionClosure()
+                    })
+                $0.addAction(UIAlertAction(title: "Компания", style: .Default) { _ in
                     removeActionClosure()
                     })
                 $0.addAction(UIAlertAction(title: "Отмена", style: .Cancel, handler: nil))
