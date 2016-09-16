@@ -129,10 +129,18 @@ final class ProfileViewModel {
             completion(errorMessage: "Введите номер телефона")
             return
         }
-        let ref = FIRDatabase.database().reference().child("users")
-        let userKey = FIRAuth.auth()?.currentUser?.uid
 
-//        ref.child("").setValue(false)
+        let usersRef = FIRDatabase.database().reference().child("users")
+
+        guard let userKey = FIRAuth.auth()?.currentUser?.uid else {
+            return
+        }
+        usersRef.child(userKey+"/isVerified").setValue(false)
+
+        let request = Request(uid: userKey, email: email, number: number)
+        request.saveRequest(userKey) {completion(errorMessage: $0?.localizedDescription) }
+        request.saveEmail(email) {completion(errorMessage: $0?.localizedDescription) }
+        request.saveNumber(number) {completion(errorMessage: $0?.localizedDescription) }
     }
     
     func saveUserWithName(name: String?, address: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {

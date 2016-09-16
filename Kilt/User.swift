@@ -47,8 +47,7 @@ struct User {
             
         }
     }
-    
-    
+
     static func fetchName(completion: (String?) -> Void) {
         ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             completion(snapshot.value?["name"] as? String)
