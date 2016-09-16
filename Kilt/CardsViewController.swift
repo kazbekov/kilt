@@ -53,7 +53,7 @@ final class CardsViewController: UIViewController {
         
         if viewModel.cards.count == 0 {
             viewModel.noDataLabel.text             = "Нет карточек"
-            viewModel.noDataLabel.textColor        = UIColor.grayColor()
+            viewModel.noDataLabel.textColor        = UIColor.blackColor()
             viewModel.noDataLabel.textAlignment    = .Center
             tableView.backgroundView = viewModel.noDataLabel
             tableView.separatorStyle = .None

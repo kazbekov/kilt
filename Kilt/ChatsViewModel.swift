@@ -13,12 +13,10 @@ final class ChatsViewModel {
     var chats = [Chat]() {
         didSet {
             noDataLabel.hidden = true
-            messageIconImageView.hidden = true
         }
     }
     var adminKey = ""
     var noDataLabel: UILabel = UILabel()
-    var messageIconImageView: UIImageView = UIImageView()
     func fetchChats(completion: () -> Void) {
         Chat.fetchChats({
             completion()
