@@ -51,10 +51,13 @@ class MessagesViewController: UIViewController {
         
         if viewModel.chats.count == 0 {
             viewModel.noDataLabel.text             = "Нет сообщений"
-            viewModel.noDataLabel.textColor        = UIColor.blackColor()
+            viewModel.noDataLabel.textColor        = UIColor.grayColor()
             viewModel.noDataLabel.textAlignment    = .Center
             tableView.backgroundView = viewModel.noDataLabel
             tableView.separatorStyle = .None
+            
+            viewModel.messageIconImageView.image = Icon.messagesIcon
+            viewModel.messageIconImageView.contentMode = .ScaleAspectFit
         }
         }
     
