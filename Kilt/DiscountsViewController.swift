@@ -57,19 +57,25 @@ final class DiscountsViewController: UIViewController {
     }
     
     func addBonuses() {
-        var images = [String: String]()
-        let image1 = ""
-        let image2 = ""
-        let image3 = ""
-        images = [
-            "image1": image1, "image2": image2, "image3": image3
-        ]
-        let title = "Автомойка 'Car Wash'"
-        let subtitle = "Бонусы для держателей карт The American Express Platinum и The American Express Gold - 5%"
-        let logo = ""
-        let address = "пр. Абая, 48 (Рахат Фитнес)"
-        let bonus = Discount(title: title, subtitle: subtitle, percent: "3%", address: address, logo: logo, location: Location(latitude: 43.240324, longitude:  76.922207), images: images)
-        bonus.save { (error) in }
+      /*  for i in 0...5 {
+            var images = [String: String]()
+            let image1 = ""
+            let image2 = ""
+            let image3 = ""
+            images = [
+                "image1": image1, "image2": image2, "image3": image3
+            ]
+            let title = ""
+            let subtitle = ""
+            let logo = ""
+            let address = ""
+            let bonus = Discount(title: title, subtitle: subtitle, percent: "5%", address: address, logo: logo, location: Location(latitude: 43.192671, longitude:  76.835355), images: images)
+            
+            bonus.save { (error) in }
+        }
+ 
+        */
+        
     }
     
     
@@ -121,6 +127,7 @@ extension DiscountsViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return (tableView.dequeueReusableCellWithIdentifier(discountsCellIdentifier, forIndexPath: indexPath) as! DiscountsTableViewCell).then {
+            
             $0.setUpWithTitle(viewModel.discounts[indexPath.row].title,
                 subtitle: viewModel.discounts[indexPath.row].subtitle,
                 percent: viewModel.discounts[indexPath.row].percent,

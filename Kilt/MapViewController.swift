@@ -91,6 +91,10 @@ final class MapViewController: UIViewController {
         for obj in locations {
             let markerView = UIImageView(image: Icon.markerIcon)
             let marker = GMSMarker()
+            guard obj.latitude != nil && obj.longitude != nil else {
+                print("found nil: \(obj)")
+                return
+            }
             marker.position = CLLocationCoordinate2D(latitude: obj.latitude!, longitude: obj.longitude!)
             let bonusTitle = obj.percent
             marker.title = bonusTitle
