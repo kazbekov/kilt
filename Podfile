@@ -18,7 +18,7 @@ target 'Kilt' do
   pod 'Fusuma', '~> 0.5'
   pod 'GoogleMaps', '~> 2.0.1'
   pod 'Kingfisher', '~> 2.4'
-  pod 'RSBarcodes_Swift', :git => 'https://github.com/Gerst20051/RSBarcodes_Swift.git'
+  pod 'RSBarcodes_Swift', '~> 0.1.9'
   pod 'Sugar', '1.0'
   pod 'SwipeBack', '~> 1.1'
   pod 'JSQMessagesViewController'

@@ -91,9 +91,7 @@ extension DiscountsTableViewCell {
         percentLabel.text = percent
         logoImageView.contentMode = .ScaleAspectFill
         if let urlString = logoImageUrl, url = NSURL(string: urlString) {
-            logoImageView.kf_setImageWithURL(url,placeholderImage: Icon.discountsIcon)
-        } else {
-            print("no url")
+            logoImageView.kf_setImageWithURL(url)
         }
     }
     

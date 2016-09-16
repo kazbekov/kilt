@@ -10,13 +10,9 @@ import UIKit
 import FirebaseDatabase
 
 final class ChatsViewModel {
-    var chats = [Chat]() {
-        didSet {
-            noDataLabel.hidden = true
-        }
-    }
+    var chats = [Chat]()
     var adminKey = ""
-    var noDataLabel: UILabel = UILabel()
+    
     func fetchChats(completion: () -> Void) {
         Chat.fetchChats({
             completion()

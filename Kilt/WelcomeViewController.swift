@@ -21,14 +21,6 @@ final class WelcomeViewController: UIViewController {
         $0.text = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as? String
     }
     
-    private lazy var subtitleLabel = UILabel().then {
-        $0.textAlignment = .Center
-        $0.textColor = .whiteColor()
-        $0.font = .boldSystemFontOfSize(17)
-        $0.text = "Кошелек для клубных карт лояльности"
-        $0.numberOfLines = 0
-    }
-    
     private lazy var fbButton: UIButton = {
         return UIButton().then {
             $0.layer.masksToBounds = true
@@ -85,11 +77,10 @@ final class WelcomeViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.translucent = true
         view.backgroundColor = .appColor()
-        [titleLabel, subtitleLabel, logoImageView, fbButton, signInButton, signUpButton].forEach { view.addSubview($0) }
+        [titleLabel, logoImageView, fbButton, signInButton, signUpButton].forEach { view.addSubview($0) }
     }
     
     private func setUpConstraints() {
-        
         constrain(titleLabel, logoImageView,fbButton, signInButton, signUpButton) {
             titleLabel, logoImageView, fbButton, signInButton, signUpButton in
             titleLabel.top == titleLabel.superview!.top + 50
@@ -114,15 +105,6 @@ final class WelcomeViewController: UIViewController {
             fbButton.leading == signInButton.leading
             fbButton.trailing == signInButton.trailing
             fbButton.height == signInButton.height
-        }
-        constrain(titleLabel,subtitleLabel) {
-            titleLabel, subtitleLabel in
-            
-            subtitleLabel.top == titleLabel.bottom + 200
-            subtitleLabel.centerX == subtitleLabel.superview!.centerX
-            subtitleLabel.leading == subtitleLabel.superview!.leading + 20
-            subtitleLabel.trailing == subtitleLabel.superview!.trailing - 20
-            
         }
     }
     
