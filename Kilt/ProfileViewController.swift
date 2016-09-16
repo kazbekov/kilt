@@ -101,7 +101,7 @@ final class ProfileViewController: UIViewController {
                 }
         }
     }()
-    
+
     private lazy var signOutAlertController: UIAlertController = {
         return UIAlertController(title: "Выйти",
             message: "Уверены в ответе? Мы будем скучать :(", preferredStyle: .Alert).then {
@@ -124,6 +124,9 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        User.fetchIsVerified { (isVerified) in
+            self.viewModel.isVerified = isVerified ?? false
+        }
         if let headerView = tableView.tableHeaderView as? ProfileTableHeaderView {
             viewModel.fetchIcon {
                 if let url = $0 {
@@ -187,6 +190,10 @@ final class ProfileViewController: UIViewController {
     
     private func unlinkFacebook() {
         dispatch { self.presentViewController( self.unlinkFacebookAlertController, animated: true, completion: nil) }
+    }
+
+    private func changeMode() {
+        dispatch { self.presentViewController( self.changeModeAlertController, animated: true, completion: nil) }
     }
     
     private func linkFacebook() {
