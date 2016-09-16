@@ -17,6 +17,7 @@
 		23471E096F33A3B0C6C39510 /* Pods_Kilt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */; };
 		710FFC891D6B371300FEF1D2 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */; };
 		710FFC8E1D6C077C00FEF1D2 /* MessageDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */; };
+		71F08C9A1D8C1DF1001B8720 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F08C991D8C1DF1001B8720 /* Request.swift */; };
 		7AB332B514227626D2B4D465 /* Pods_KiltTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A8AED0823E860CC7D3477C /* Pods_KiltTests.framework */; };
 		933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D191D45CB5500E01464 /* AppDelegate.swift */; };
 		933D5D211D45CB5500E01464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933D5D201D45CB5500E01464 /* Assets.xcassets */; };
@@ -100,6 +101,7 @@
 		5C67B54A2204204E9208245F /* Pods-KiltTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiltTests/Pods-KiltTests.debug.xcconfig"; sourceTree = "<group>"; };
 		710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDialogViewController.swift; sourceTree = "<group>"; };
+		71F08C991D8C1DF1001B8720 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kilt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		933D5D161D45CB5500E01464 /* Kilt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kilt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		933D5D191D45CB5500E01464 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				933D5D831D48D28A00E01464 /* Discount.swift */,
 				93430B741D50539600992C09 /* ProfileCellItem.swift */,
 				93430B7A1D50939A00992C09 /* User.swift */,
+				71F08C991D8C1DF1001B8720 /* Request.swift */,
 				93430B7C1D50A6F400992C09 /* StorageManager.swift */,
 				22933E031D7EB7BD00023FA2 /* Chat.swift */,
 			);
@@ -740,6 +743,7 @@
 				933D5D821D48D17E00E01464 /* DiscountsViewModel.swift in Sources */,
 				933D5D841D48D28A00E01464 /* Discount.swift in Sources */,
 				933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */,
+				71F08C9A1D8C1DF1001B8720 /* Request.swift in Sources */,
 				933D5D7C1D48BCE100E01464 /* ProfileTableHeaderView.swift in Sources */,
 				933D5D801D48CEDF00E01464 /* DiscountsTableViewCell.swift in Sources */,
 				93430B751D50539600992C09 /* ProfileCellItem.swift in Sources */,

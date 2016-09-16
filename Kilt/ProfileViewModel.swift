@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import FirebaseDatabase
 
 final class ProfileViewModel {
     
@@ -117,6 +118,30 @@ final class ProfileViewModel {
             self.reloadUser(completion)
         }
     }
+
+    func linkRequest(email: String?, number: String?, completion : (errorMessage: String?) -> Void) {
+        guard let email = email where !email.isEmpty else {
+            completion(errorMessage: "Введите email")
+            return
+        }
+
+        guard let number = number where !number.isEmpty else {
+            completion(errorMessage: "Введите номер телефона")
+            return
+        }
+
+        let usersRef = FIRDatabase.database().reference().child("users")
+
+        guard let userKey = FIRAuth.auth()?.currentUser?.uid else {
+            return
+        }
+        usersRef.child(userKey+"/isVerified").setValue(false)
+
+        let request = Request(uid: userKey, email: email, number: number)
+        request.saveRequest(userKey) {completion(errorMessage: $0?.localizedDescription) }
+        request.saveEmail(email) {completion(errorMessage: $0?.localizedDescription) }
+        request.saveNumber(number) {completion(errorMessage: $0?.localizedDescription) }
+    }
     
     func saveUserWithName(name: String?, address: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {
         User.saveName(name) { completion(errorMessage: $0?.localizedDescription) }
@@ -161,6 +186,10 @@ final class ProfileViewModel {
             }
             completion(errorMessage: nil)
         })
+    }
+
+    func sendRequest(user: User,completion: (errorMessage: String?) -> Void){
+        
     }
     
 }
