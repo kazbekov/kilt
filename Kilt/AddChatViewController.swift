@@ -60,7 +60,7 @@ class AddChatViewController: UIViewController {
 
 extension AddChatViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewModelChat.createChat(viewModelRequest.requests[indexPath.row]) { errorMessage in
+        viewModelChat.createChat(viewModel.companies[indexPath.row]) { errorMessage in
                                     dispatch {
                                         if let errorMessage = errorMessage {
                                             Drop.down(errorMessage, state: .Error)
