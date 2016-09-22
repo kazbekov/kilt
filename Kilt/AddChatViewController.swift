@@ -13,6 +13,7 @@ import Sugar
 class AddChatViewController: UIViewController {
 
     private let viewModel = CompaniesViewModel()
+    private let viewModelRequest = RequestsViewModel()
     private let viewModelChat = AddChatViewModel()
     private let companiesCellIdentifier = "companiesCellIdentifier"
 
@@ -36,6 +37,11 @@ class AddChatViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }
+        viewModelRequest.fetchRequests {
+            dispatch {
+                self.tableView.reloadData()
+            }
+        }
     }
 
     private func setupViews(){
@@ -54,7 +60,7 @@ class AddChatViewController: UIViewController {
 
 extension AddChatViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewModelChat.createChat(viewModel.companies[indexPath.row]) { errorMessage in
+        viewModelChat.createChat(viewModelRequest.requests[indexPath.row]) { errorMessage in
                                     dispatch {
                                         if let errorMessage = errorMessage {
                                             Drop.down(errorMessage, state: .Error)
@@ -69,18 +75,18 @@ extension AddChatViewController: UITableViewDelegate {
 extension AddChatViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.companies.count
+        return viewModelRequest.requests.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return (tableView.dequeueReusableCellWithIdentifier(companiesCellIdentifier, forIndexPath: indexPath) as! CompanyTableViewCell).then {
-             let com = viewModel.companies[indexPath.row]
+             let com = viewModelRequest.requests[indexPath.row]
             if let urlString = com.icon, url = NSURL(string: urlString) {
                 $0.logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.placeholderIcon,
                     optionsInfo: nil, progressBlock: nil, completionHandler: nil)
             }
-            $0.setUpWithTitle(com.name)
-            print("name: \(com.name) all: \(viewModel.companies.count)")
+            $0.setUpWithTitle(com.companyName)
+            print("name: \(com.companyName) all: \(viewModelRequest.requests.count)")
         }
     }
     

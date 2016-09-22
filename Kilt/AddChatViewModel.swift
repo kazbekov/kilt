@@ -14,13 +14,13 @@ final  class AddChatViewModel {
     
     let viewModel = ChatsViewModel()
     var chats = [Chat]()
-    func createChat(company: Company,completion: (errorMessage: String?) -> Void){
-        guard let userKey = FIRAuth.auth()?.currentUser?.uid, let adminKey = company.admin else {
+    func createChat(request: Request,completion: (errorMessage: String?) -> Void){
+        guard let userKey = FIRAuth.auth()?.currentUser?.uid, let adminKey = request.uid else {
             completion(errorMessage: nil)
             return
         }
         
-        let chat = Chat(company: company )
+        let chat = Chat(request: request )
         chat.saveCompany { completion(errorMessage: $0?.localizedDescription) }
         
         guard let chatKey = chat.ref?.key else {
