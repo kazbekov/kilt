@@ -43,9 +43,6 @@ final class ProfileViewModel {
                     icon: Icon.mailIcon)
             ],
             [
-                ProfileCellItem(title: "Режим", subtitle: "Клиент", icon: Icon.facebookIcon)
-            ],
-            [
                 ProfileCellItem(title: "Выйти", subtitle: nil,
                     icon: Icon.exitIcon, titleColor: .crimsonColor())
             ]

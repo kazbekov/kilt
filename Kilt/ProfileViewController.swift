@@ -16,7 +16,7 @@ import FirebaseDatabase
 final class ProfileViewController: UIViewController {
     
     private let viewModel = ProfileViewModel()
-
+    
     private let profileCellIdentifier = "profileCellIdentifier"
     
     private var heightForHeaders: [CGFloat] = [20, 20, 84]
@@ -59,13 +59,7 @@ final class ProfileViewController: UIViewController {
             }
         }
     }()
-
-    private lazy var changeModeAlertController: UIAlertController = {
-        return AlertController.changeModeAlertController("Выберите режим", vc: self) {
-
-        }
-    }()
-
+    
     private lazy var unlinkEmailAlertController: UIAlertController = {
         return AlertController.unlinkAlertControllerWithTitle("Удалить Email", vc: self) {
             self.viewModel.unlinkEmail() { errorMessage in
@@ -129,49 +123,49 @@ final class ProfileViewController: UIViewController {
     private lazy var linkEmailAlertController: UIAlertController = {
         return UIAlertController(title: "Привязка email", message: "Напишите свой email и придумайте пароль",
             preferredStyle: .Alert).then { alertController in
-            alertController.addAction(UIAlertAction(title: "Привязать", style: .Default) { _ in
-                self.viewModel.linkEmail(alertController.textFields?[0].text,
-                password: alertController.textFields?[1].text) { errorMessage in
-                    dispatch {
-                        if let errorMessage = errorMessage {
-                            Drop.down(errorMessage, state: .Error)
-                            self.linkEmail()
-                            return
+                alertController.addAction(UIAlertAction(title: "Привязать", style: .Default) { _ in
+                    self.viewModel.linkEmail(alertController.textFields?[0].text,
+                    password: alertController.textFields?[1].text) { errorMessage in
+                        dispatch {
+                            if let errorMessage = errorMessage {
+                                Drop.down(errorMessage, state: .Error)
+                                self.linkEmail()
+                                return
+                            }
+                            alertController.textFields?[0].text = nil
+                            alertController.textFields?[1].text = nil
+                            self.tableView.reloadSection(0, animation: .Fade)
                         }
-                        alertController.textFields?[0].text = nil
-                        alertController.textFields?[1].text = nil
-                        self.tableView.reloadSection(0, animation: .Fade)
                     }
+                    })
+                alertController.addAction(UIAlertAction(title: "Отмена", style: .Default, handler: nil))
+                alertController.addTextFieldWithConfigurationHandler {
+                    $0.keyboardType = .EmailAddress
+                    $0.autocapitalizationType = .None
+                    $0.placeholder = "Email"
                 }
-                })
-            alertController.addAction(UIAlertAction(title: "Отмена", style: .Default, handler: nil))
-            alertController.addTextFieldWithConfigurationHandler {
-                $0.keyboardType = .EmailAddress
-                $0.autocapitalizationType = .None
-                $0.placeholder = "Email"
-            }
-            alertController.addTextFieldWithConfigurationHandler {
-                $0.placeholder = "Пароль"
-                $0.secureTextEntry = true
-            }
+                alertController.addTextFieldWithConfigurationHandler {
+                    $0.placeholder = "Пароль"
+                    $0.secureTextEntry = true
+                }
         }
     }()
 
     private lazy var signOutAlertController: UIAlertController = {
         return UIAlertController(title: "Выйти",
             message: "Уверены в ответе? Мы будем скучать :(", preferredStyle: .Alert).then {
-            $0.addAction(UIAlertAction(title: "Да", style: .Default) { _ in
-                self.viewModel.signOut() { errorMessage in
-                    dispatch {
-                        if let errorMessage = errorMessage {
-                            Drop.down(errorMessage, state: .Error)
-                            return
+                $0.addAction(UIAlertAction(title: "Да", style: .Default) { _ in
+                    self.viewModel.signOut() { errorMessage in
+                        dispatch {
+                            if let errorMessage = errorMessage {
+                                Drop.down(errorMessage, state: .Error)
+                                return
+                            }
+                            (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadLoginPages()
                         }
-                        (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadLoginPages()
                     }
-                }
-            })
-            $0.addAction(UIAlertAction(title: "Нет", style: .Default, handler: nil))
+                    })
+                $0.addAction(UIAlertAction(title: "Нет", style: .Default, handler: nil))
         }
     }()
     
@@ -308,8 +302,7 @@ extension ProfileViewController: UITableViewDelegate {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): linkFacebook()
         case (0, 1): linkEmail()
-        case (1, 0): linkRequest()
-        case (2, 0): signOut()
+        case (1, _): signOut()
         default: break
         }
     }

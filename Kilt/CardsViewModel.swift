@@ -10,15 +10,24 @@ import UIKit
 
 final class CardsViewModel {
     
-    var cards = [Card]()
+    var cards = [Card]() {
+        didSet{
+            noDataLabel.hidden = true
+        }
+    }
+    
+    var noDataLabel: UILabel = UILabel()
+    
+    
     
     func fetchCards(completion: () -> Void) {
-        Card.fetchCards({ 
+        Card.fetchCards({
             completion()
-            }) { (card) in
-                self.cards.append(card)
-                completion()
+        }) { (card) in
+            self.cards.append(card)
+            completion()
         }
+        
     }
     
 }
