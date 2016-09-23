@@ -50,7 +50,9 @@ final class CardsViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidLoad()
-        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), forControlEvents: .ValueChanged)
+        tableView.addSubview(refreshControl)
         if viewModel.cards.count == 0 {
             viewModel.noDataLabel.text             = "Нет карточек"
             viewModel.noDataLabel.textColor        = UIColor.grayColor()
@@ -81,7 +83,10 @@ final class CardsViewController: UIViewController {
     @objc private func pushScanViewController() {
         navigationController?.pushViewController(ScanViewController(), animated: true)
     }
-    
+    func refresh(refreshControl: UIRefreshControl) {
+        // Do your job, when done:
+        refreshControl.endRefreshing()
+    }
 }
 
 // MARK: UITableViewDelegate
@@ -115,7 +120,6 @@ extension CardsViewController: UITableViewDataSource {
             var reversedArray = [Card]()
             for index in (viewModel.cards.count - 1).stride(through: 0, by: -1) {
                 reversedArray.append(viewModel.cards[index])
-                print(viewModel.cards[index].company?.name)
             }
             
             

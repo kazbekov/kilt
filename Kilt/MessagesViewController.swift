@@ -37,6 +37,9 @@ class MessagesViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), forControlEvents: .ValueChanged)
+        tableView.addSubview(refreshControl)
         viewModel.fetchChats {
             dispatch { self.tableView.reloadData() }
         }
@@ -70,12 +73,19 @@ class MessagesViewController: UIViewController {
         navigationItem.rightBarButtonItem = add
     }
     func setUpConstraints() {
-        constrain(tableView, view) { tableView, view in
-            tableView.edges == view.edges
+        constrain(tableView, view) {
+            $0.edges == $1.edges
+            $0.height == view.frame.height - 64
         }
+        
     }
     func setUpTableView() {
         view.addSubview(tableView)
+    }
+    
+    func refresh(refreshControl: UIRefreshControl) {
+        // Do your job, when done:
+        refreshControl.endRefreshing()
     }
     
     @objc private func pushAddChatViewController(){
