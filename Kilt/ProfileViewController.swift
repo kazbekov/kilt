@@ -11,6 +11,7 @@ import Sugar
 import Cartography
 import Fusuma
 import Kingfisher
+import FirebaseDatabase
 
 final class ProfileViewController: UIViewController {
     
@@ -18,7 +19,9 @@ final class ProfileViewController: UIViewController {
     
     private let profileCellIdentifier = "profileCellIdentifier"
     
-    private var heightForHeaders: [CGFloat] = [20, 84]
+    private var heightForHeaders: [CGFloat] = [20, 20, 84]
+
+    var requestIcon: UIImage?
     
     private lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(title: "Изменить", style: UIBarButtonItemStyle.Plain,
@@ -70,7 +73,53 @@ final class ProfileViewController: UIViewController {
             }
         }
     }()
-    
+
+    var shouldSelectAvatar = true
+    private lazy var linkRequestAlertController: UIAlertController = {
+        return UIAlertController(title: "Запрос режима компании", message: "Напишите свой email и телефон. Мы с вами свяжемся в течение 24 часов.", preferredStyle: .Alert).then  { alertController in
+            alertController.addTextFieldWithConfigurationHandler {
+                $0.autocapitalizationType = .Words
+                $0.placeholder = "Название компаний"
+            }
+
+            alertController.addTextFieldWithConfigurationHandler {
+                $0.keyboardType = .EmailAddress
+                $0.autocapitalizationType = .None
+                $0.placeholder = "Email"
+            }
+
+            alertController.addTextFieldWithConfigurationHandler {
+                $0.placeholder = "Телефон"
+            }
+            alertController.addAction(UIAlertAction(title: "Добавить иконку", style: .Default) { _ in
+                self.shouldSelectAvatar = false
+                self.selectImage()
+                })
+
+            alertController.addAction(UIAlertAction(title: "Отправить", style: .Default) { _ in
+                self.viewModel.linkRequest(alertController.textFields?[0].text, email: alertController.textFields?[1].text,
+                number: alertController.textFields?[2].text, icon: self.requestIcon) { errorMessage in
+                    dispatch {
+                        if let errorMessage = errorMessage {
+                            Drop.down(errorMessage, state: .Error)
+                            self.linkRequest()
+                            return
+                        } else {
+                            Drop.down("Запрос успешно отправлен", state: .Success)
+                        }
+                        alertController.textFields?[0].text = nil
+                        alertController.textFields?[1].text = nil
+                        alertController.textFields?[2].text = nil
+                        self.tableView.reloadSection(1, animation: .Fade)
+                    }
+                }
+                })
+
+
+            alertController.addAction(UIAlertAction(title: "Отмена", style: .Destructive, handler: nil))
+        }
+    }()
+
     private lazy var linkEmailAlertController: UIAlertController = {
         return UIAlertController(title: "Привязка email", message: "Напишите свой email и придумайте пароль",
             preferredStyle: .Alert).then { alertController in
@@ -196,6 +245,16 @@ final class ProfileViewController: UIViewController {
 //        dispatch { self.presentViewController( self.changeModeAlertController, animated: true, completion: nil) }
 //    }
     
+    private func linkRequest() {
+        if viewModel.isVerified {
+            changeMode()
+            return
+        }
+        dispatch {
+            self.navigationController?.pushViewController(RequestViewController(), animated: true)
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        }
+    }
     private func linkFacebook() {
         if viewModel.isLinkedWithFacebook {
             unlinkFacebook()
@@ -266,6 +325,9 @@ extension ProfileViewController: UITableViewDataSource {
         return (tableView.dequeueReusableCellWithIdentifier(profileCellIdentifier, forIndexPath: indexPath) as! ProfileTableViewCell).then {
             let item = viewModel.cellItems[indexPath.section][indexPath.row]
             $0.setUpWithTitle(item.title, subtitle: item.subtitle, icon: item.icon, titleColor: item.titleColor)
+            if indexPath.section == 1{
+                $0.accessoryType = .DisclosureIndicator
+            }
         }
     }
     
@@ -286,14 +348,24 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: FusumaDelegate {
     
     func fusumaImageSelected(image: UIImage) {
-        guard let headerView = tableView.tableHeaderView as? ProfileTableHeaderView else { return }
+        guard let headerView = tableView.tableHeaderView as? ProfileTableHeaderView where shouldSelectAvatar == true else {
+            requestIcon = image
+            linkRequest()
+            shouldSelectAvatar = true
+            return
+        }
         headerView.avatarImageView.image = image
     }
     
     func fusumaVideoCompleted(withFileURL fileURL: NSURL) {
     }
+
+    func fusumaClosed() {
+        shouldSelectAvatar = true
+    }
     
     func fusumaCameraRollUnauthorized() {
+        shouldSelectAvatar = true
         Drop.down("Разрешите доступ к вашим фотографиям в настройках", state: .Error)
     }
     

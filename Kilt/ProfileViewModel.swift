@@ -15,7 +15,7 @@ final class ProfileViewModel {
     
     private let facebookProviderId = "facebook.com"
     private let passwordProviderId = "password"
-    
+    var iconD: String?
     private var facebookDisplayName: String? {
         return FIRAuth.auth()?.currentUser?.providerData.filter { $0.providerID == facebookProviderId }.first?.displayName
     }
@@ -33,7 +33,7 @@ final class ProfileViewModel {
     }
 
     var isVerified = false
-    
+
     var cellItems: [[ProfileCellItem]] {
         return [
             [
@@ -118,7 +118,12 @@ final class ProfileViewModel {
         }
     }
 
-    func linkRequest(email: String?, number: String?, completion : (errorMessage: String?) -> Void) {
+    func linkRequest(companyName: String?, email: String?, number: String?, icon: UIImage?, completion : (errorMessage: String?) -> Void) {
+        guard let companyName = companyName where !companyName.isEmpty else {
+            completion(errorMessage: "Введите название компаний")
+            return
+        }
+
         guard let email = email where !email.isEmpty else {
             completion(errorMessage: "Введите email")
             return
@@ -136,12 +141,29 @@ final class ProfileViewModel {
         }
         usersRef.child(userKey+"/isVerified").setValue(false)
 
-        let request = Request(uid: userKey, email: email, number: number)
-        request.saveRequest(userKey) {completion(errorMessage: $0?.localizedDescription) }
-        request.saveEmail(email) {completion(errorMessage: $0?.localizedDescription) }
-        request.saveNumber(number) {completion(errorMessage: $0?.localizedDescription) }
+        let request = Request(companyName: companyName ,uid: userKey, email: email, number: number, companyIsVerified: false, icon: self.iconD)
+        request.saveIsVerified(false) { completion(errorMessage:  $0?.localizedDescription) }
+        request.saveCompanyName(companyName) { completion(errorMessage: $0?.localizedDescription) }
+        request.saveRequest(userKey) { completion(errorMessage: $0?.localizedDescription) }
+        request.saveEmail(email) { completion(errorMessage: $0?.localizedDescription) }
+        request.saveNumber(number) { completion(errorMessage: $0?.localizedDescription) }
+
+        guard let icon = icon, data = UIImageJPEGRepresentation(icon, 0.7) else {
+            completion(errorMessage: nil)
+            return
+        }
+        
+        StorageManager.saveRequestAvatar(companyName, data: data) {
+            downloadURL, error in
+            if let error = error {
+                completion(errorMessage: error.localizedDescription)
+                return
+            }
+            request.saveIcon((downloadURL?.absoluteString)!) { completion(errorMessage: $0?.localizedDescription) }
+        }
+
     }
-    
+
     func saveUserWithName(name: String?, address: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {
         User.saveName(name) { completion(errorMessage: $0?.localizedDescription) }
         User.saveAddress(address) { completion(errorMessage: $0?.localizedDescription) }

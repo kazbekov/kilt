@@ -89,6 +89,10 @@ extension UIColor {
     public static func facebookColor(alpha: CGFloat = 1.0) -> UIColor {
         return self.colorFromHexCode(ColorCodes.azure + alphaHEX(alpha))
     }
+
+    public static func riverBedColor(alpha: CGFloat = 1.0) -> UIColor {
+        return self.colorFromHexCode(ColorCodes.riverBedColor + alphaHEX(alpha))
+    }
     
     public struct ColorCodes {
         public static let app = "0198D7"
@@ -99,6 +103,7 @@ extension UIColor {
         public static let frenchGray = "C8C7CC"
         public static let crimson = "E01424"
         public static let azure = "3b5998"
+        public static let riverBedColor = "49555E"
     }
 }
 

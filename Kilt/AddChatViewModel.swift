@@ -20,7 +20,7 @@ final  class AddChatViewModel {
             return
         }
         
-        let chat = Chat(company: company )
+        let chat = Chat(company: company)
         chat.saveCompany { completion(errorMessage: $0?.localizedDescription) }
         
         guard let chatKey = chat.ref?.key else {

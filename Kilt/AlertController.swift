@@ -36,9 +36,11 @@ final class AlertController {
                 $0.modalPresentationStyle = .Popover
                 $0.addAction(UIAlertAction(title: "Клиент", style: .Default) { _ in
                     removeActionClosure()
+
                     })
                 $0.addAction(UIAlertAction(title: "Компания", style: .Default) { _ in
                     removeActionClosure()
+                    
                     })
                 $0.addAction(UIAlertAction(title: "Отмена", style: .Cancel, handler: nil))
         }
