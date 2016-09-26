@@ -24,6 +24,7 @@ target 'Kilt' do
   pod 'JSQMessagesViewController'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
+  pod 'OneSignal', '~> 1.13'
 
   target 'KiltTests' do
     inherit! :search_paths
