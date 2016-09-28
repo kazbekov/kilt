@@ -101,12 +101,12 @@ struct User {
         }
     }
     
-    static func fetchPushId(completion: (snapshot: FIRDataSnapshot) -> Void) {
-        ref?.child("pushId").observeEventType(.Value) {
-            snapshot in
-            completion(snapshot: snapshot)
+    static func fetchCurrentUserPushId(userUID: String, completion: (String?) -> Void) {
+        if userUID == FIRAuth.auth()?.currentUser?.uid {
+            ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                completion(snapshot.value?["pushId"] as? String)
+            })
         }
     }
-    
     
 }

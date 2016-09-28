@@ -67,6 +67,7 @@ class MessageDialogViewController: JSQMessagesViewController {
         super.viewDidAppear(true)
         observeMessages()
         observeTyping()
+        
     }
     //MARK: - Actions
     
@@ -127,12 +128,30 @@ class MessageDialogViewController: JSQMessagesViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!,
                                      senderDisplayName: String!, date: NSDate!) {
-      (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
-      .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["7c1f7802-71ef-476e-9838-c175175c0f70"]])
+        print(senderId)
+        chat?.fetchUserIds({ userIds in
+            userIds.forEach{
+                if $0 != senderId{
+                    User.fetchCurrentUserPushId($0, completion: {pushId in
+                        (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
+                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId!)"]])
+                    })
+                }
+            }
+        })
+        
+        chat?.fetchAdminIds({ adminIds in
+            adminIds.forEach{
+                if $0 != senderId{
+                    User.fetchCurrentUserPushId($0, completion: {pushId in
+                        (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
+                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId!)"]])
+                    })
+                }
+            }
+        })
         
         let timestamp = date.timeIntervalSince1970
-        print("SENDER_ID: \(senderId)")
-        print("SENDER_ID!@! \(chat?.adminUID)")
         let itemRef = messageRef.childByAutoId()
         
         let messageItem = [

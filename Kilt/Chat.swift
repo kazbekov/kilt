@@ -28,7 +28,7 @@ final class Chat {
         ref = FIRDatabase.database().reference().child("chats").childByAutoId()
     }
     
-    init(snapshot: FIRDataSnapshot, childChanged: () -> Void, completion: (chat: Chat) -> Void) {
+    init(key: String, snapshot: FIRDataSnapshot, childChanged: () -> Void, completion: (chat: Chat) -> Void) {
         snapshot.ref.observeEventType(.Value) { snapshot in
             self.updateFromSnapshot(snapshot)
         }
@@ -40,12 +40,28 @@ final class Chat {
                 completion(chat: self)
             }
         }
-        senderId = snapshot.value?.objectForKey("users/userUID") as? String
+        
+//        senderId = snapshot.value?.objectForKey("users") as? String
         if let senderId = senderId {
             User.fetchCurrentUserName(senderId) { name in
                 self.senderName = name
             }
         }
+    }
+    
+    func fetchUserIds(completion: ([String]) -> Void) {
+        ref?.child("users").observeSingleEventOfType(.Value, withBlock: { snapshot in
+            guard let dictionary = snapshot.value as? [String: Bool] else {return}
+            completion(Array(dictionary.keys))
+        })
+    }
+    
+    func fetchAdminIds(completion: ([String]) -> Void) {
+        ref?.child("admins").observeSingleEventOfType(.Value, withBlock: { snapshot in
+            guard let dictionary = snapshot.value as? [String: Bool] else {return}
+            completion(Array(dictionary.keys))
+        
+        })
     }
 
     func updateFromSnapshot(snapshot: FIRDataSnapshot) {
@@ -81,7 +97,7 @@ final class Chat {
     
     static func fetchChat(key: String, childChanged: () -> Void, completion: (chat: Chat) -> Void) {
         ref.child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            let _ = Chat(snapshot: snapshot, childChanged: childChanged) { chat in
+            let _ = Chat(key: key, snapshot: snapshot, childChanged: childChanged) { chat in
                 completion(chat: chat)
             }
         })
