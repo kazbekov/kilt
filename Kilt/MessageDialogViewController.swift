@@ -56,7 +56,6 @@ class MessageDialogViewController: JSQMessagesViewController {
         if senderDisplayName == nil {
             senderDisplayName = FIRAuth.auth()?.currentUser?.email
         }
-        
         setUpViews()
         setUpConstraints()
         setUpRightBarButton()
@@ -249,12 +248,13 @@ class MessageDialogViewController: JSQMessagesViewController {
                                  numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
+    
     override func collectionView(collectionView: JSQMessagesCollectionView!,
                                  messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         let message = messages[indexPath.item]
         if message.senderId == senderId {
             return outgoingBubbleImageView
-        } else { // 3
+        } else {
             return incomingBubbleImageView
         }
     }
@@ -280,13 +280,13 @@ class MessageDialogViewController: JSQMessagesViewController {
         chat!.ref?.child("/admins/").observeEventType(.ChildAdded) {(snapshot: FIRDataSnapshot!) in FIRDatabase.database().reference().child("users/\(snapshot.key)").observeEventType(.Value, withBlock: { snapshot in
             if message.senderId == snapshot.key
             {
-//                cell.messageBubbleTopLabel.text = self.chat?.company?.name
+                cell.messageBubbleTopLabel.text = self.chat?.adminName
             } else {
                 cell.messageBubbleTopLabel.text = message.senderDisplayName
             }
         })
         }
-                if message.senderId == senderId {
+        if message.senderId == senderId {
             cell.textView!.textColor = UIColor.whiteColor()
         } else {
            cell.textView!.textColor = UIColor.blackColor()

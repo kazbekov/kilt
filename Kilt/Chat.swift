@@ -66,14 +66,14 @@ final class Chat {
     }
     
     func addUser(key: String, completion: (error: NSError?) -> Void){
-        ref?.child("users/userUID").setValue(key) { error, ref in
+        ref?.child("users/\(key)").setValue(true) { error, ref in
             completion(error: error)
             
         }
     }
     
     func addAdmin(key: String, completion: (error: NSError?) -> Void){
-        ref?.child("admins/adminUID").setValue(key) { error, ref in
+        ref?.child("admins/\(key)").setValue(true) { error, ref in
             completion(error: error)
             
         }
