@@ -128,25 +128,26 @@ class MessageDialogViewController: JSQMessagesViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!,
                                      senderDisplayName: String!, date: NSDate!) {
+        
         chat?.fetchUserIds({ userIds in
             userIds.forEach{
-                if $0 != senderId{
-                    User.fetchCurrentUserPushId($0, completion: {pushId in
+                    User.fetchCurrentUserPushId($0, completion: { pushId in
+                        print(pushId)
                         (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
                             .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId!)"]])
+                        
                     })
-                }
             }
         })
         
         chat?.fetchAdminIds({ adminIds in
             adminIds.forEach{
-                if $0 != senderId{
-                    User.fetchCurrentUserPushId($0, completion: {pushId in
+                    User.fetchCurrentUserPushId($0, completion: { pushId in
                         (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
-                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId!)"]])
+                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["310c472c-72ae-4261-a67d-6700326e7136"]])
+                        print(pushId)
+                        
                     })
-                }
             }
         })
         

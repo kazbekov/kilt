@@ -103,7 +103,7 @@ struct User {
     
     static func fetchCurrentUserPushId(userUID: String, completion: (String?) -> Void) {
         if userUID == FIRAuth.auth()?.currentUser?.uid {
-            ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            ref?.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 completion(snapshot.value?["pushId"] as? String)
             })
         }
