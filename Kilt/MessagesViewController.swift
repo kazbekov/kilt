@@ -37,16 +37,32 @@ class MessagesViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), forControlEvents: .ValueChanged)
+        tableView.addSubview(refreshControl)
         viewModel.fetchChats {
             dispatch { self.tableView.reloadData() }
         }
         setUpViews()
         setUpConstraints()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidLoad()
+        //let noDataLabel: UILabel     = UILabel(frame: CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height))
+        
+        if viewModel.chats.count == 0 {
+            viewModel.noDataLabel.text             = "Нет сообщений"
+            viewModel.noDataLabel.textColor        = UIColor.grayColor()
+            viewModel.noDataLabel.textAlignment    = .Center
+            tableView.backgroundView = viewModel.noDataLabel
+            tableView.separatorStyle = .None
+            
+            viewModel.messageIconImageView.image = Icon.messagesIcon
+            viewModel.messageIconImageView.contentMode = .ScaleAspectFit
         }
+    }
     
     func setUpViews() {
         title = "Сообщения"
@@ -57,12 +73,19 @@ class MessagesViewController: UIViewController {
         navigationItem.rightBarButtonItem = add
     }
     func setUpConstraints() {
-        constrain(tableView, view) { tableView, view in
-            tableView.edges == view.edges
+        constrain(tableView, view) {
+            $0.edges == $1.edges
+            $0.height == view.frame.height - 64
         }
+        
     }
     func setUpTableView() {
         view.addSubview(tableView)
+    }
+    
+    func refresh(refreshControl: UIRefreshControl) {
+        // Do your job, when done:
+        refreshControl.endRefreshing()
     }
     
     @objc private func pushAddChatViewController(){
@@ -72,13 +95,14 @@ class MessagesViewController: UIViewController {
 }
 extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return viewModel.chats.count
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let userKey = FIRAuth.auth()?.currentUser?.uid else {
             return
         }
-      
+        
         var username = FIRAuth.auth()?.currentUser?.displayName
         if username == nil {
             username = FIRAuth.auth()?.currentUser?.email
@@ -100,10 +124,10 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier, forIndexPath: indexPath) as! MessageTableViewCell
-        if let urlString = viewModel.chats[indexPath.row].company?.icon, url = NSURL(string: urlString)
+        if let urlString = viewModel.chats[indexPath.row].company?.icon, let url = NSURL(string: urlString)
         {
             cell.logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.cardPlaceholderIcon,
-                                                   optionsInfo: nil, progressBlock: nil, completionHandler: nil)
+                                                  optionsInfo: nil, progressBlock: nil, completionHandler: nil)
             
         }
         //if indexPath.row < viewModel.chatMessages.count
@@ -119,7 +143,9 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.accessoryType = .DisclosureIndicator
         cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         cell.layoutMargins = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
-
+        
+        
+        
         return cell
     }
 }

@@ -18,6 +18,10 @@
 		23471E096F33A3B0C6C39510 /* Pods_Kilt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */; };
 		710FFC891D6B371300FEF1D2 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */; };
 		710FFC8E1D6C077C00FEF1D2 /* MessageDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */; };
+		71EF52491D90C1B500C74774 /* RequestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF52481D90C1B500C74774 /* RequestsViewModel.swift */; };
+		71EF524B1D928A8E00C74774 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF524A1D928A8E00C74774 /* RequestViewController.swift */; };
+		71EF524E1D928F0C00C74774 /* RequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF524D1D928F0C00C74774 /* RequestTableViewCell.swift */; };
+		71EF52521D92A2FD00C74774 /* RequestTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF52511D92A2FD00C74774 /* RequestTableHeaderView.swift */; };
 		71F08C9A1D8C1DF1001B8720 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F08C991D8C1DF1001B8720 /* Request.swift */; };
 		7AB332B514227626D2B4D465 /* Pods_KiltTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5A8AED0823E860CC7D3477C /* Pods_KiltTests.framework */; };
 		933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D5D191D45CB5500E01464 /* AppDelegate.swift */; };
@@ -103,6 +107,10 @@
 		5C67B54A2204204E9208245F /* Pods-KiltTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiltTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiltTests/Pods-KiltTests.debug.xcconfig"; sourceTree = "<group>"; };
 		710FFC881D6B371300FEF1D2 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		710FFC8D1D6C077C00FEF1D2 /* MessageDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDialogViewController.swift; sourceTree = "<group>"; };
+		71EF52481D90C1B500C74774 /* RequestsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsViewModel.swift; sourceTree = "<group>"; };
+		71EF524A1D928A8E00C74774 /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
+		71EF524D1D928F0C00C74774 /* RequestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestTableViewCell.swift; sourceTree = "<group>"; };
+		71EF52511D92A2FD00C74774 /* RequestTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestTableHeaderView.swift; sourceTree = "<group>"; };
 		71F08C991D8C1DF1001B8720 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		7750FEC91023EF9CB15312A0 /* Pods_Kilt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kilt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		933D5D161D45CB5500E01464 /* Kilt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kilt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,6 +229,15 @@
 			name = Messaging;
 			sourceTree = "<group>";
 		};
+		71EF524C1D928A9200C74774 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				933D5D5A1D45DC5800E01464 /* ProfileViewController.swift */,
+				71EF524A1D928A8E00C74774 /* RequestViewController.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
 		933D5D0D1D45CB5500E01464 = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +346,7 @@
 				22933E051D7EC4DD00023FA2 /* ChatsViewModel.swift */,
 				22933E071D7ECB2100023FA2 /* AddChatViewModel.swift */,
 				22933E0F1D80024900023FA2 /* CompaniesViewModel.swift */,
+				71EF52481D90C1B500C74774 /* RequestsViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -360,7 +378,7 @@
 				933D5D7D1D48CAAF00E01464 /* Discounts */,
 				933D5D6C1D475A1000E01464 /* Cards */,
 				710FFC8C1D6C05C000FEF1D2 /* Messaging */,
-				933D5D5A1D45DC5800E01464 /* ProfileViewController.swift */,
+				71EF524C1D928A9200C74774 /* Profile */,
 			);
 			name = MainPages;
 			sourceTree = "<group>";
@@ -401,6 +419,8 @@
 			children = (
 				933D5D771D48A1B600E01464 /* ProfileTableViewCell.swift */,
 				933D5D7B1D48BCE100E01464 /* ProfileTableHeaderView.swift */,
+				71EF524D1D928F0C00C74774 /* RequestTableViewCell.swift */,
+				71EF52511D92A2FD00C74774 /* RequestTableHeaderView.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -750,6 +770,7 @@
 				933D5D571D45DC2500E01464 /* MessagesViewController.swift in Sources */,
 				933D5D4F1D45D45B00E01464 /* CardsViewController.swift in Sources */,
 				933D5D6E1D47799300E01464 /* ScanViewController.swift in Sources */,
+				71EF52521D92A2FD00C74774 /* RequestTableHeaderView.swift in Sources */,
 				933D5D821D48D17E00E01464 /* DiscountsViewModel.swift in Sources */,
 				933D5D841D48D28A00E01464 /* Discount.swift in Sources */,
 				933D5D1A1D45CB5500E01464 /* AppDelegate.swift in Sources */,
@@ -769,12 +790,14 @@
 				939860C91D4F3DBE00F477E1 /* SignInViewController.swift in Sources */,
 				933D5D691D473C5C00E01464 /* Card.swift in Sources */,
 				933D5D781D48A1B600E01464 /* ProfileTableViewCell.swift in Sources */,
+				71EF524E1D928F0C00C74774 /* RequestTableViewCell.swift in Sources */,
 				93E635851D4B576D00F84199 /* DiscountDetailViewController.swift in Sources */,
 				22933E101D80024900023FA2 /* CompaniesViewModel.swift in Sources */,
 				22933E021D7EB08600023FA2 /* AddChatViewController.swift in Sources */,
 				93430B7B1D50939A00992C09 /* User.swift in Sources */,
 				939860C71D4F33D800F477E1 /* WelcomeViewController.swift in Sources */,
 				22933E0E1D7FEEEA00023FA2 /* ChatsTableViewCell.swift in Sources */,
+				71EF52491D90C1B500C74774 /* RequestsViewModel.swift in Sources */,
 				93430B711D4FCAB400992C09 /* SignUpViewModel.swift in Sources */,
 				939860D01D4F490900F477E1 /* SignUpViewController.swift in Sources */,
 				938E325B1D5115D0002DFD05 /* Company.swift in Sources */,
@@ -783,6 +806,7 @@
 				933D5D511D45D78800E01464 /* CardsViewModel.swift in Sources */,
 				933D5D741D48827F00E01464 /* SelectCardView.swift in Sources */,
 				933D5D721D487DEF00E01464 /* PaddingTextField.swift in Sources */,
+				71EF524B1D928A8E00C74774 /* RequestViewController.swift in Sources */,
 				933D5D651D47295300E01464 /* CardDetailViewController.swift in Sources */,
 				933D5D591D45DC4600E01464 /* DiscountsViewController.swift in Sources */,
 				933D5D5B1D45DC5800E01464 /* ProfileViewController.swift in Sources */,

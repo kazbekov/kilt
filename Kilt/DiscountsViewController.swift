@@ -43,6 +43,9 @@ final class DiscountsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), forControlEvents: .ValueChanged)
+        tableView.addSubview(refreshControl)
         setUpViews()
         setUpConstraints()
         dbRef = FIRDatabase.database().reference().child("bonuses")
@@ -56,6 +59,10 @@ final class DiscountsViewController: UIViewController {
         }
     }
     
+    func refresh(refreshControl: UIRefreshControl) {
+        // Do your job, when done:
+        refreshControl.endRefreshing()
+    }
     func addBonuses() {
         var images = [String: String]()
         let image1 = ""

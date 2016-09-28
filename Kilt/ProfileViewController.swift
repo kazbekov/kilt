@@ -11,14 +11,17 @@ import Sugar
 import Cartography
 import Fusuma
 import Kingfisher
+import FirebaseDatabase
 
 final class ProfileViewController: UIViewController {
     
     private let viewModel = ProfileViewModel()
-
+    
     private let profileCellIdentifier = "profileCellIdentifier"
     
     private var heightForHeaders: [CGFloat] = [20, 20, 84]
+
+    var requestIcon: UIImage?
     
     private lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(title: "Изменить", style: UIBarButtonItemStyle.Plain,
@@ -57,12 +60,6 @@ final class ProfileViewController: UIViewController {
         }
     }()
     
-    private lazy var changeModeAlertController: UIAlertController = {
-        return AlertController.unlinkAlertControllerWithTitle("Компания", vc: self) {
-            
-}
-    }()
-    
     private lazy var unlinkEmailAlertController: UIAlertController = {
         return AlertController.unlinkAlertControllerWithTitle("Удалить Email", vc: self) {
             self.viewModel.unlinkEmail() { errorMessage in
@@ -76,83 +73,99 @@ final class ProfileViewController: UIViewController {
             }
         }
     }()
-    
+
+    var shouldSelectAvatar = true
     private lazy var linkRequestAlertController: UIAlertController = {
         return UIAlertController(title: "Запрос режима компании", message: "Напишите свой email и телефон. Мы с вами свяжемся в течение 24 часов.", preferredStyle: .Alert).then  { alertController in
+            alertController.addTextFieldWithConfigurationHandler {
+                $0.autocapitalizationType = .Words
+                $0.placeholder = "Название компаний"
+            }
+
             alertController.addTextFieldWithConfigurationHandler {
                 $0.keyboardType = .EmailAddress
                 $0.autocapitalizationType = .None
                 $0.placeholder = "Email"
             }
+
             alertController.addTextFieldWithConfigurationHandler {
                 $0.placeholder = "Телефон"
-                $0.secureTextEntry = true
             }
+            alertController.addAction(UIAlertAction(title: "Добавить иконку", style: .Default) { _ in
+                self.shouldSelectAvatar = false
+                self.selectImage()
+                })
+
             alertController.addAction(UIAlertAction(title: "Отправить", style: .Default) { _ in
-                self.viewModel.linkRequest(alertController.textFields?[0].text,
-                number: alertController.textFields?[1].text) { errorMessage in
+                self.viewModel.linkRequest(alertController.textFields?[0].text, email: alertController.textFields?[1].text,
+                number: alertController.textFields?[2].text, icon: self.requestIcon) { errorMessage in
                     dispatch {
                         if let errorMessage = errorMessage {
                             Drop.down(errorMessage, state: .Error)
                             self.linkRequest()
                             return
+                        } else {
+                            Drop.down("Запрос успешно отправлен", state: .Success)
                         }
                         alertController.textFields?[0].text = nil
                         alertController.textFields?[1].text = nil
+                        alertController.textFields?[2].text = nil
                         self.tableView.reloadSection(1, animation: .Fade)
                     }
                 }
                 })
-            alertController.addAction(UIAlertAction(title: "Отмена", style: .Default, handler: nil))
+
+
+            alertController.addAction(UIAlertAction(title: "Отмена", style: .Destructive, handler: nil))
         }
     }()
 
     private lazy var linkEmailAlertController: UIAlertController = {
         return UIAlertController(title: "Привязка email", message: "Напишите свой email и придумайте пароль",
             preferredStyle: .Alert).then { alertController in
-            alertController.addAction(UIAlertAction(title: "Привязать", style: .Default) { _ in
-                self.viewModel.linkEmail(alertController.textFields?[0].text,
-                password: alertController.textFields?[1].text) { errorMessage in
-                    dispatch {
-                        if let errorMessage = errorMessage {
-                            Drop.down(errorMessage, state: .Error)
-                            self.linkEmail()
-                            return
+                alertController.addAction(UIAlertAction(title: "Привязать", style: .Default) { _ in
+                    self.viewModel.linkEmail(alertController.textFields?[0].text,
+                    password: alertController.textFields?[1].text) { errorMessage in
+                        dispatch {
+                            if let errorMessage = errorMessage {
+                                Drop.down(errorMessage, state: .Error)
+                                self.linkEmail()
+                                return
+                            }
+                            alertController.textFields?[0].text = nil
+                            alertController.textFields?[1].text = nil
+                            self.tableView.reloadSection(0, animation: .Fade)
                         }
-                        alertController.textFields?[0].text = nil
-                        alertController.textFields?[1].text = nil
-                        self.tableView.reloadSection(0, animation: .Fade)
                     }
+                    })
+                alertController.addAction(UIAlertAction(title: "Отмена", style: .Default, handler: nil))
+                alertController.addTextFieldWithConfigurationHandler {
+                    $0.keyboardType = .EmailAddress
+                    $0.autocapitalizationType = .None
+                    $0.placeholder = "Email"
                 }
-                })
-            alertController.addAction(UIAlertAction(title: "Отмена", style: .Default, handler: nil))
-            alertController.addTextFieldWithConfigurationHandler {
-                $0.keyboardType = .EmailAddress
-                $0.autocapitalizationType = .None
-                $0.placeholder = "Email"
-            }
-            alertController.addTextFieldWithConfigurationHandler {
-                $0.placeholder = "Пароль"
-                $0.secureTextEntry = true
-            }
+                alertController.addTextFieldWithConfigurationHandler {
+                    $0.placeholder = "Пароль"
+                    $0.secureTextEntry = true
+                }
         }
     }()
 
     private lazy var signOutAlertController: UIAlertController = {
         return UIAlertController(title: "Выйти",
             message: "Уверены в ответе? Мы будем скучать :(", preferredStyle: .Alert).then {
-            $0.addAction(UIAlertAction(title: "Да", style: .Default) { _ in
-                self.viewModel.signOut() { errorMessage in
-                    dispatch {
-                        if let errorMessage = errorMessage {
-                            Drop.down(errorMessage, state: .Error)
-                            return
+                $0.addAction(UIAlertAction(title: "Да", style: .Default) { _ in
+                    self.viewModel.signOut() { errorMessage in
+                        dispatch {
+                            if let errorMessage = errorMessage {
+                                Drop.down(errorMessage, state: .Error)
+                                return
+                            }
+                            (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadLoginPages()
                         }
-                        (UIApplication.sharedApplication().delegate as? AppDelegate)?.loadLoginPages()
                     }
-                }
-            })
-            $0.addAction(UIAlertAction(title: "Нет", style: .Default, handler: nil))
+                    })
+                $0.addAction(UIAlertAction(title: "Нет", style: .Default, handler: nil))
         }
     }()
     
@@ -160,6 +173,9 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        User.fetchIsVerified { (isVerified) in
+            self.viewModel.isVerified = isVerified ?? false
+        }
         if let headerView = tableView.tableHeaderView as? ProfileTableHeaderView {
             viewModel.fetchIcon {
                 if let url = $0 {
@@ -224,13 +240,20 @@ final class ProfileViewController: UIViewController {
     private func unlinkFacebook() {
         dispatch { self.presentViewController( self.unlinkFacebookAlertController, animated: true, completion: nil) }
     }
+
+//    private func changeMode() {
+//        dispatch { self.presentViewController( self.changeModeAlertController, animated: true, completion: nil) }
+//    }
     
     private func linkRequest() {
-//        if viewModel.isLinkedWithEmail {
-//            unlinkEmail()
-//            return
-//        }
-        dispatch { self.presentViewController(self.linkRequestAlertController, animated: true, completion: nil) }
+        if viewModel.isVerified {
+            changeMode()
+            return
+        }
+        dispatch {
+            self.navigationController?.pushViewController(RequestViewController(), animated: true)
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        }
     }
     private func linkFacebook() {
         if viewModel.isLinkedWithFacebook {
@@ -279,8 +302,7 @@ extension ProfileViewController: UITableViewDelegate {
         switch (indexPath.section, indexPath.row) {
         case (0, 0): linkFacebook()
         case (0, 1): linkEmail()
-        case (1, 0): linkRequest()
-        case (2, 0): signOut()
+        case (1, _): signOut()
         default: break
         }
     }
@@ -303,6 +325,9 @@ extension ProfileViewController: UITableViewDataSource {
         return (tableView.dequeueReusableCellWithIdentifier(profileCellIdentifier, forIndexPath: indexPath) as! ProfileTableViewCell).then {
             let item = viewModel.cellItems[indexPath.section][indexPath.row]
             $0.setUpWithTitle(item.title, subtitle: item.subtitle, icon: item.icon, titleColor: item.titleColor)
+            if indexPath.section == 1{
+                $0.accessoryType = .DisclosureIndicator
+            }
         }
     }
     
@@ -323,14 +348,24 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: FusumaDelegate {
     
     func fusumaImageSelected(image: UIImage) {
-        guard let headerView = tableView.tableHeaderView as? ProfileTableHeaderView else { return }
+        guard let headerView = tableView.tableHeaderView as? ProfileTableHeaderView where shouldSelectAvatar == true else {
+            requestIcon = image
+            linkRequest()
+            shouldSelectAvatar = true
+            return
+        }
         headerView.avatarImageView.image = image
     }
     
     func fusumaVideoCompleted(withFileURL fileURL: NSURL) {
     }
+
+    func fusumaClosed() {
+        shouldSelectAvatar = true
+    }
     
     func fusumaCameraRollUnauthorized() {
+        shouldSelectAvatar = true
         Drop.down("Разрешите доступ к вашим фотографиям в настройках", state: .Error)
     }
     

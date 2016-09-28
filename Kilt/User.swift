@@ -54,6 +54,13 @@ struct User {
         }
     }
 
+    static func fetchIsVerified(completion: (Bool?) -> Void) {
+        ref?.observeEventType(.Value, withBlock: { (snapshot) in
+            completion(snapshot.value?["isVerified"] as? Bool)
+        })
+
+    }
+
     static func fetchName(completion: (String?) -> Void) {
         ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             completion(snapshot.value?["name"] as? String)
