@@ -130,9 +130,10 @@ class MessageDialogViewController: JSQMessagesViewController {
                                      senderDisplayName: String!, date: NSDate!) {
       (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
       .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["7c1f7802-71ef-476e-9838-c175175c0f70"]])
-      
-        let timestamp = date.timeIntervalSince1970
         
+        let timestamp = date.timeIntervalSince1970
+        print("SENDER_ID: \(senderId)")
+        print("SENDER_ID!@! \(chat?.adminUID)")
         let itemRef = messageRef.childByAutoId()
         
         let messageItem = [
