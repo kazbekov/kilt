@@ -50,15 +50,17 @@ final class CardsViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidLoad()
-        
-//        if viewModel.cards.count == 0 {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), forControlEvents: .ValueChanged)
+        tableView.addSubview(refreshControl)
+        if viewModel.cards.count == 0 {
 //            viewModel.noDataLabel.text             = "Нет карточек"
 //            viewModel.noDataLabel.textColor        = UIColor.grayColor()
 //            viewModel.noDataLabel.textAlignment    = .Center
 //            tableView.backgroundView = viewModel.noDataLabel
-//            tableView.separatorStyle = .None
-//            
-//        }
+            tableView.separatorStyle = .None
+            
+        }
     }
     // MARK: Set Up
     

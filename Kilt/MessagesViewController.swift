@@ -49,6 +49,7 @@ class MessagesViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidLoad()
+        //let noDataLabel: UILabel     = UILabel(frame: CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height))
         
         if viewModel.chats.count == 0 {
             viewModel.noDataLabel.text             = "Нет сообщений"
@@ -74,11 +75,12 @@ class MessagesViewController: UIViewController {
             $0.edges == $1.edges
             $0.height == view.frame.height - 64
         }
-        
     }
     
     func refresh(refreshControl: UIRefreshControl) {
-        // Do your job, when done:
+//        viewModel.fetchChats {
+//            dispatch { self.tableView.reloadData() }
+//        }
         refreshControl.endRefreshing()
     }
     
