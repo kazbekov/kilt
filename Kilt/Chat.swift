@@ -8,44 +8,52 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 final class Chat {
     static var ref = FIRDatabase.database().reference().child("chats")
     
-    
-    var company: Company?
+
+    var request: Request?
     var ref: FIRDatabaseReference?
     
     var lastMessage: String?
     var senderId: String?
     var senderName: String?
     var adminId: String?
+    var adminName: String?
     
-    init(company: Company) {
-        self.company = company
+    init(request: Request) {
+        self.request = request
         ref = FIRDatabase.database().reference().child("chats").childByAutoId()
     }
     
     init(snapshot: FIRDataSnapshot, childChanged: () -> Void, completion: (chat: Chat) -> Void) {
-        // TODO: make childChanged closure as variable!!!
         snapshot.ref.observeEventType(.Value) { snapshot in
             self.updateFromSnapshot(snapshot)
         }
-        if let companyKey = snapshot.value?.objectForKey("company") as? String {
-            Company.fetchCompany(companyKey, childChanged: childChanged) { company in
-                self.company = company
+        if let companyKey = snapshot.value?.objectForKey("request") as? String {
+            Request.fetchRequest(companyKey, childChanged: childChanged) { request in
+                self.request = request
+                self.adminId = request.uid
+                self.adminName = request.companyName
                 completion(chat: self)
             }
         }
-    
-    
-}
+        senderId = snapshot.value?.objectForKey("users/userUID") as? String
+        if let senderId = senderId {
+            User.fetchCurrentUserName(senderId) { name in
+                self.senderName = name
+            }
+        }
+    }
+
     func updateFromSnapshot(snapshot: FIRDataSnapshot) {
         ref = snapshot.ref
     }
     
     func saveCompany(completion: (error: NSError?) -> Void) {
-        ref?.child("company").setValue(company?.ref?.key) { error, ref in
+        ref?.child("request").setValue(request?.ref?.key) { error, ref in
             completion(error: error)
         }
     }
@@ -58,14 +66,14 @@ final class Chat {
     }
     
     func addUser(key: String, completion: (error: NSError?) -> Void){
-        ref?.child("users/\(key)").setValue(true) { error, ref in
+        ref?.child("users/userUID").setValue(key) { error, ref in
             completion(error: error)
             
         }
     }
     
     func addAdmin(key: String, completion: (error: NSError?) -> Void){
-        ref?.child("admins/\(key)").setValue(true) { error, ref in
+        ref?.child("admins/adminUID").setValue(key) { error, ref in
             completion(error: error)
             
         }

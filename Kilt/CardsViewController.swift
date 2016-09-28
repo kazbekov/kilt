@@ -15,7 +15,7 @@ final class CardsViewController: UIViewController {
     private var viewModel = CardsViewModel()
     private lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: Icon.addCardIcon, style: UIBarButtonItemStyle.Plain,
-                               target: self, action: #selector(pushScanViewController))
+                        target: self, action: #selector(pushScanViewController))
     }()
     
     private lazy var negativeSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil).then {
@@ -51,14 +51,14 @@ final class CardsViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewDidLoad()
         
-        if viewModel.cards.count == 0 {
-            viewModel.noDataLabel.text             = "Нет карточек"
-            viewModel.noDataLabel.textColor        = UIColor.grayColor()
-            viewModel.noDataLabel.textAlignment    = .Center
-            tableView.backgroundView = viewModel.noDataLabel
-            tableView.separatorStyle = .None
-            
-        }
+//        if viewModel.cards.count == 0 {
+//            viewModel.noDataLabel.text             = "Нет карточек"
+//            viewModel.noDataLabel.textColor        = UIColor.grayColor()
+//            viewModel.noDataLabel.textAlignment    = .Center
+//            tableView.backgroundView = viewModel.noDataLabel
+//            tableView.separatorStyle = .None
+//            
+//        }
     }
     // MARK: Set Up
     

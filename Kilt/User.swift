@@ -40,7 +40,15 @@ struct User {
             completion(error: error)
         }
     }
-    
+
+    static func fetchCurrentUserName(userUID: String, completion: (String?) -> Void) {
+        if userUID == FIRAuth.auth()?.currentUser?.uid {
+            ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                completion(snapshot.value?["name"] as? String)
+            })
+        }
+    }
+
     static func addChat(key: String, completion: (error: NSError?) -> Void) {
         ref?.child("chats/\(key)").setValue(true) { error, ref in
             completion(error: error)
@@ -60,7 +68,7 @@ struct User {
             completion(snapshot.value?["name"] as? String)
         })
     }
-    
+
     static func fetchAddress(completion: (String?) -> Void) {
         ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             completion(snapshot.value?["address"] as? String)
