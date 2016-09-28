@@ -33,4 +33,5 @@ struct Icon {
     static let cardPlaceholderIcon = UIImage(named: "card-placeholder-icon")
     static let placeholderIcon = UIImage(named: "placeholder-icon")
     static let markerIcon = UIImage(named: "marker-icon")
+    static let requestIcon = UIImage(named: "request-icon")
 }

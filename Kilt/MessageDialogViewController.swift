@@ -185,10 +185,10 @@ class MessageDialogViewController: JSQMessagesViewController {
     }
     
     func setLogoImage(chat: Chat){
-        let nameCompany = chat.company?.name
-        
+        let nameCompany = chat.request?.companyName
+
         setTitle(nameCompany!, subtitle: "offline")
-        if let urlString = chat.company?.icon, url = NSURL(string: urlString) {
+        if let urlString = chat.request?.icon, url = NSURL(string: urlString) {
             print("url: \(url)")
             logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.placeholderIcon)
         }
@@ -284,7 +284,7 @@ class MessageDialogViewController: JSQMessagesViewController {
         chat!.ref?.child("/admins/").observeEventType(.ChildAdded) {(snapshot: FIRDataSnapshot!) in FIRDatabase.database().reference().child("users/\(snapshot.key)").observeEventType(.Value, withBlock: { snapshot in
             if message.senderId == snapshot.key
             {
-                cell.messageBubbleTopLabel.text = self.chat?.company?.name
+//                cell.messageBubbleTopLabel.text = self.chat?.company?.name
             } else {
                 cell.messageBubbleTopLabel.text = message.senderDisplayName
             }

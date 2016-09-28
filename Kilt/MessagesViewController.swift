@@ -1,4 +1,4 @@
-//
+    //
 //  MessagesViewController.swift
 //  Kilt
 //
@@ -45,19 +45,16 @@ class MessagesViewController: UIViewController {
         }
         setUpViews()
         setUpConstraints()
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidLoad()
-        //let noDataLabel: UILabel     = UILabel(frame: CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height))
         
         if viewModel.chats.count == 0 {
             viewModel.noDataLabel.text             = "Нет сообщений"
             viewModel.noDataLabel.textColor        = UIColor.grayColor()
             viewModel.noDataLabel.textAlignment    = .Center
             tableView.backgroundView = viewModel.noDataLabel
-            tableView.separatorStyle = .None
             
             viewModel.messageIconImageView.image = Icon.messagesIcon
             viewModel.messageIconImageView.contentMode = .ScaleAspectFit
@@ -69,18 +66,15 @@ class MessagesViewController: UIViewController {
         edgesForExtendedLayout = .None
         hidesBottomBarWhenPushed = true
         view.addSubview(tableView)
-        let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(pushAddChatViewController))
-        navigationItem.rightBarButtonItem = add
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(pushAddChatViewController))
     }
+
     func setUpConstraints() {
         constrain(tableView, view) {
             $0.edges == $1.edges
             $0.height == view.frame.height - 64
         }
         
-    }
-    func setUpTableView() {
-        view.addSubview(tableView)
     }
     
     func refresh(refreshControl: UIRefreshControl) {
@@ -91,23 +85,20 @@ class MessagesViewController: UIViewController {
     @objc private func pushAddChatViewController(){
         navigationController?.pushViewController(AddChatViewController(), animated: true)
     }
-    
 }
 extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return viewModel.chats.count
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         guard let userKey = FIRAuth.auth()?.currentUser?.uid else {
             return
         }
-        
         var username = FIRAuth.auth()?.currentUser?.displayName
         if username == nil {
             username = FIRAuth.auth()?.currentUser?.email
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let backItem = UIBarButtonItem()
         backItem.title = "Назад"
         navigationItem.backBarButtonItem = backItem
@@ -115,37 +106,34 @@ extension MessagesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! MessageTableViewCell
         destination.senderId = userKey
         destination.senderDisplayName = username
-        destination.titleText = cell.titleLabel.text!
+        destination.titleText = cell.titleLabel.text
         destination.chat = viewModel.chats[indexPath.row]
         destination.setLogoImage(viewModel.chats[indexPath.row])
         navigationController?.pushViewController(destination, animated: true)
-        
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCellWithIdentifier(messageCellIdentifier, forIndexPath: indexPath) as! MessageTableViewCell
-        if let urlString = viewModel.chats[indexPath.row].company?.icon, let url = NSURL(string: urlString)
+        if let urlString = viewModel.chats[indexPath.row].request?.icon, url = NSURL(string: urlString)
         {
             cell.logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.cardPlaceholderIcon,
-                                                  optionsInfo: nil, progressBlock: nil, completionHandler: nil)
-            
+                                                   optionsInfo: nil, progressBlock: nil, completionHandler: nil)
         }
-        //if indexPath.row < viewModel.chatMessages.count
         cell.lastMessageLabel.text = viewModel.chats[indexPath.row].lastMessage
+
         if viewModel.chats[indexPath.row].adminId == viewModel.chats[indexPath.row].senderId {
-            cell.senderNameLabel.text = viewModel.chats[indexPath.row].company?.name
-            
+            if let senderName = viewModel.chats[indexPath.row].senderName {
+                cell.senderNameLabel.text = "\(senderName):"
+            }
         } else {
-            cell.senderNameLabel.text = viewModel.chats[indexPath.row].senderName
-            
+            if let adminName = viewModel.chats[indexPath.row].adminName {
+                cell.senderNameLabel.text = "\(adminName):"
+            }
         }
-        cell.titleLabel.text = viewModel.chats[indexPath.row].company?.name
+        cell.titleLabel.text = viewModel.chats[indexPath.row].adminName
         cell.accessoryType = .DisclosureIndicator
         cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         cell.layoutMargins = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
-        
-        
-        
+
         return cell
     }
 }

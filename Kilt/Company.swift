@@ -59,6 +59,12 @@ final class Company {
             completion(error: error)
         }
     }
+
+    func saveAdmin(completion: (error: NSError?) -> Void) {
+        ref?.child("admin").setValue(admin) { error, ref in
+            completion(error: error)
+        }
+    }
     
     func saveIcon(completion: (error: NSError?) -> Void) {
         ref?.child("icon").setValue(icon) { error, ref in

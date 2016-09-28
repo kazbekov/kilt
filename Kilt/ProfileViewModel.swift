@@ -43,6 +43,9 @@ final class ProfileViewModel {
                     icon: Icon.mailIcon)
             ],
             [
+                ProfileCellItem(title: "Режим", subtitle: "Клиент", icon: Icon.requestIcon)
+            ],
+            [
                 ProfileCellItem(title: "Выйти", subtitle: nil,
                     icon: Icon.exitIcon, titleColor: .crimsonColor())
             ]
@@ -148,6 +151,10 @@ final class ProfileViewModel {
         request.saveEmail(email) { completion(errorMessage: $0?.localizedDescription) }
         request.saveNumber(number) { completion(errorMessage: $0?.localizedDescription) }
 
+        let company = Company(name: companyName, icon: nil, admin: userKey)
+        company.saveName() {completion(errorMessage:  $0?.localizedDescription)}
+        company.saveAdmin() {completion(errorMessage:  $0?.localizedDescription)}
+        
         guard let icon = icon, data = UIImageJPEGRepresentation(icon, 0.7) else {
             completion(errorMessage: nil)
             return
@@ -160,8 +167,8 @@ final class ProfileViewModel {
                 return
             }
             request.saveIcon((downloadURL?.absoluteString)!) { completion(errorMessage: $0?.localizedDescription) }
+//            company.saveIcon((downloadURL?.absoluteString)!) { completion(errorMessage: $0?.localizedDescription) }
         }
-
     }
 
     func saveUserWithName(name: String?, address: String?, icon: UIImage?, completion: (errorMessage: String?) -> Void) {

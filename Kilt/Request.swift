@@ -86,6 +86,12 @@ final class Request {
         }
     }
 
+    static func fetchRequest(key: String, childChanged: () -> Void, completion: (request: Request) -> Void) {
+        ref.child(key).observeSingleEventOfType(.Value) { snapshot in
+            completion(request: Request(snapshot: snapshot, childChanged: childChanged))
+        }
+    }
+
     static func fetchRequests(completion: (snapshot: FIRDataSnapshot) -> Void) {
         ref.observeEventType(.ChildAdded) { snapshot in
             completion(snapshot: snapshot)
