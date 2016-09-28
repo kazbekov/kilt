@@ -128,7 +128,6 @@ class MessageDialogViewController: JSQMessagesViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!,
                                      senderDisplayName: String!, date: NSDate!) {
-        print(senderId)
         chat?.fetchUserIds({ userIds in
             userIds.forEach{
                 if $0 != senderId{
