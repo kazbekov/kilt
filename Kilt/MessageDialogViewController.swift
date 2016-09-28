@@ -128,8 +128,8 @@ class MessageDialogViewController: JSQMessagesViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!,
                                      senderDisplayName: String!, date: NSDate!) {
-      
-      OneSignal.defaultClient().postNotification(["contents": ["en": "Test Message"], "app_id": "d626e413-2474-4ab4-8d54-f342350bc057", "include_player_ids:": ["310c472c-72ae-4261-a67d-6700326e7136"]])
+      (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
+      .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["7c1f7802-71ef-476e-9838-c175175c0f70"]])
       
         let timestamp = date.timeIntervalSince1970
         

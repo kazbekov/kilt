@@ -20,7 +20,7 @@ import Crashlytics
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+    var oneSignal: OneSignal?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -31,10 +31,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         setUpThirdParties(application, launchOptions: launchOptions)
         setUpTabBarAppearance()
         setUpNavigationBarAppearance()
+        setUpOneSignalNotification(launchOptions)
         coordinateAppFlow()
-        OneSignal(launchOptions: launchOptions, appId: "d626e413-2474-4ab4-8d54-f342350bc057")
-        OneSignal.defaultClient().registerForPushNotifications()
-      
         
         return true
     }
@@ -100,8 +98,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                      fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
-//        print("Message ID: \(userInfo["gcm.message_id"]!)")
-//        print(userInfo)
     }
 
     // [START refresh_token]
@@ -187,6 +183,14 @@ extension AppDelegate {
                                                          selector: #selector(self.tokenRefreshNotification),
                                                          name: kFIRInstanceIDTokenRefreshNotification,
                                                          object: nil)
+    }
+    
+    private func setUpOneSignalNotification(launchOptions: [NSObject: AnyObject]?){
+        oneSignal = OneSignal(launchOptions: launchOptions, appId: "d626e413-2474-4ab4-8d54-f342350bc057")
+        oneSignal?.registerForPushNotifications()
+        oneSignal?.IdsAvailable({ (pushId, token) in
+            User.savePushId(pushId) { _ in }
+        })
     }
     
 }

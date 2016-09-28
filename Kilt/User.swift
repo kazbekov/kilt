@@ -34,7 +34,13 @@ struct User {
             completion(error: error)
         }
     }
-    
+  
+    static func savePushId(pushId: String?, completion: (error: NSError?) -> Void) {
+        ref?.child("pushId").setValue(pushId) { error, ref in
+          completion(error: error)
+        }
+    }
+  
     static func addCard(key: String, completion: (error: NSError?) -> Void) {
         ref?.child("cards/\(key)").setValue(true) { error, ref in
             completion(error: error)
@@ -79,4 +85,13 @@ struct User {
             completion(snapshot: snapshot)
         }
     }
+    
+    static func fetchPushId(completion: (snapshot: FIRDataSnapshot) -> Void) {
+        ref?.child("pushId").observeEventType(.Value) {
+            snapshot in
+            completion(snapshot: snapshot)
+        }
+    }
+    
+    
 }
