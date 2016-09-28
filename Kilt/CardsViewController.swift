@@ -81,7 +81,10 @@ final class CardsViewController: UIViewController {
     @objc private func pushScanViewController() {
         navigationController?.pushViewController(ScanViewController(), animated: true)
     }
-    
+    func refresh(refreshControl: UIRefreshControl) {
+        // Do your job, when done:
+        refreshControl.endRefreshing()
+    }
 }
 
 // MARK: UITableViewDelegate
@@ -115,7 +118,6 @@ extension CardsViewController: UITableViewDataSource {
             var reversedArray = [Card]()
             for index in (viewModel.cards.count - 1).stride(through: 0, by: -1) {
                 reversedArray.append(viewModel.cards[index])
-                print(viewModel.cards[index].company?.name)
             }
             
             

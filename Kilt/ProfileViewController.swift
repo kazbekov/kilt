@@ -247,9 +247,9 @@ final class ProfileViewController: UIViewController {
         dispatch { self.presentViewController( self.unlinkFacebookAlertController, animated: true, completion: nil) }
     }
 
-    private func changeMode() {
-        dispatch { self.presentViewController( self.changeModeAlertController, animated: true, completion: nil) }
-    }
+//    private func changeMode() {
+//        dispatch { self.presentViewController( self.changeModeAlertController, animated: true, completion: nil) }
+//    }
     
     private func linkRequest() {
         if viewModel.isVerified {
