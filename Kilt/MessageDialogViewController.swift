@@ -132,9 +132,9 @@ class MessageDialogViewController: JSQMessagesViewController {
         chat?.fetchUserIds({ userIds in
             userIds.forEach{
                     User.fetchCurrentUserPushId($0, completion: { pushId in
-                        print(pushId)
+                        guard let pushId = pushId else{return}
                         (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
-                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId!)"]])
+                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId)"]])
                         
                     })
             }
@@ -143,10 +143,9 @@ class MessageDialogViewController: JSQMessagesViewController {
         chat?.fetchAdminIds({ adminIds in
             adminIds.forEach{
                     User.fetchCurrentUserPushId($0, completion: { pushId in
+                        guard let pushId = pushId else{return}
                         (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
-                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["310c472c-72ae-4261-a67d-6700326e7136"]])
-                        print(pushId)
-                        
+                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId)"]])
                     })
             }
         })
