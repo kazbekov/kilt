@@ -10,7 +10,8 @@ import UIKit
 import Sugar
 import GoogleMaps
 import Firebase
-import FirebaseAuth
+import FirebaseMessaging
+import FirebaseInstanceID
 import FBSDKCoreKit
 import Fabric
 import Crashlytics
@@ -19,14 +20,20 @@ import Crashlytics
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var oneSignal: OneSignal?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+      
+        setUpNotificationSettings(application)
         GMSServices.provideAPIKey("AIzaSyANMkNsU3NBYjg-d4WGZafLeJcvmj1hD1M")
         setUpThirdParties(application, launchOptions: launchOptions)
         setUpTabBarAppearance()
         setUpNavigationBarAppearance()
+        setUpOneSignalNotification(launchOptions)
         coordinateAppFlow()
+        
         return true
     }
 
@@ -36,6 +43,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
+        FIRMessaging.messaging().disconnect()
+        print("Disconnected from FCM")
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -47,10 +56,28 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
+        connectToFcm()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+        var tokenString = ""
+        
+        for i in 0..<deviceToken.length {
+            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+        }
+        
+        //Tricky line
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Unknown)
+        print("Device Token:", tokenString)
+    }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        print("\(#function)")
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
@@ -66,7 +93,37 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
+    
+    //MARK: Push-notification Firebase
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
+                     fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        
+    }
 
+    // [START refresh_token]
+    func tokenRefreshNotification(notification: NSNotification) {
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            print("InstanceID token: \(refreshedToken)")
+        }
+        
+        // Connect to FCM since connection may have failed when attempted before having a token.
+        connectToFcm()
+    }
+    // [END refresh_token]
+    
+    // [START connect_to_fcm]
+    func connectToFcm() {
+        FIRMessaging.messaging().connectWithCompletion { (error) in
+            if (error != nil) {
+                print("Unable to connect with FCM. \(error)")
+            } else {
+                print("Connected to FCM.")
+            }
+        }
+    }
+    // [END connect_to_fcm]
+    // End of pufh-notification
+    
 }
 
 extension AppDelegate {
@@ -113,6 +170,27 @@ extension AppDelegate {
             $0.barStyle = .Black
             $0.barTintColor = .appColor()
         }
+    }
+    
+    private func setUpNotificationSettings(application: UIApplication){
+        let notificationTypes : UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
+        let notificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+        application.registerForRemoteNotifications()
+        application.registerUserNotificationSettings(notificationSettings)
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(self.tokenRefreshNotification),
+                                                         name: kFIRInstanceIDTokenRefreshNotification,
+                                                         object: nil)
+    }
+    
+    private func setUpOneSignalNotification(launchOptions: [NSObject: AnyObject]?){
+        oneSignal = OneSignal(launchOptions: launchOptions, appId: "d626e413-2474-4ab4-8d54-f342350bc057")
+        oneSignal?.registerForPushNotifications()
+        oneSignal?.IdsAvailable({ (pushId, token) in
+            User.savePushId(pushId) { _ in }
+        })
     }
     
 }

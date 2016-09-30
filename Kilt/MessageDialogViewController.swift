@@ -14,6 +14,7 @@ import JSQMessagesViewController
 import Firebase
 import FirebaseDatabase
 
+
 class MessageDialogViewController: JSQMessagesViewController {
     
     // MARK: Properties
@@ -66,6 +67,7 @@ class MessageDialogViewController: JSQMessagesViewController {
         super.viewDidAppear(true)
         observeMessages()
         observeTyping()
+        
     }
     //MARK: - Actions
     
@@ -126,8 +128,30 @@ class MessageDialogViewController: JSQMessagesViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!,
                                      senderDisplayName: String!, date: NSDate!) {
-        let timestamp = date.timeIntervalSince1970
+        print(senderId)
+        chat?.fetchUserIds({ userIds in
+            userIds.forEach{
+                if $0 != senderId{
+                    User.fetchCurrentUserPushId($0, completion: {pushId in
+                        (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
+                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId!)"]])
+                    })
+                }
+            }
+        })
         
+        chat?.fetchAdminIds({ adminIds in
+            adminIds.forEach{
+                if $0 != senderId{
+                    User.fetchCurrentUserPushId($0, completion: {pushId in
+                        (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
+                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId!)"]])
+                    })
+                }
+            }
+        })
+        
+        let timestamp = date.timeIntervalSince1970
         let itemRef = messageRef.childByAutoId()
         
         let messageItem = [

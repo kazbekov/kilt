@@ -22,6 +22,9 @@ target 'Kilt' do
   pod 'Sugar', '1.0'
   pod 'SwipeBack', '~> 1.1'
   pod 'JSQMessagesViewController'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  pod 'OneSignal', '~> 1.13'
 
   target 'KiltTests' do
     inherit! :search_paths
