@@ -40,7 +40,7 @@ final class Chat {
                 completion(chat: self)
             }
         }
-        senderId = snapshot.value?.objectForKey("users/userUID") as? String
+        senderId = snapshot.key
         if let senderId = senderId {
             User.fetchCurrentUserName(senderId) { name in
                 self.senderName = name
@@ -85,6 +85,13 @@ final class Chat {
                 completion(chat: chat)
             }
         })
+    }
+
+    static func fetchChatRequest(chat: String, completion: (key: String?) -> Void) {
+        print(chat)
+        ref.child("\(chat)/request").observeSingleEventOfType(.Value) { (snapshot) in
+            completion(key: snapshot.value as? String)
+        }
     }
     
     static func fetchChats(childChanged: () -> Void, completion: (chat: Chat) -> Void) {
