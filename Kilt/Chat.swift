@@ -8,44 +8,68 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 final class Chat {
     static var ref = FIRDatabase.database().reference().child("chats")
     
-    
-    var company: Company?
+
+    var request: Request?
     var ref: FIRDatabaseReference?
     
     var lastMessage: String?
     var senderId: String?
     var senderName: String?
     var adminId: String?
+    var adminName: String?
     
-    init(company: Company) {
-        self.company = company
+    init(request: Request) {
+        self.request = request
         ref = FIRDatabase.database().reference().child("chats").childByAutoId()
     }
     
-    init(snapshot: FIRDataSnapshot, childChanged: () -> Void, completion: (chat: Chat) -> Void) {
-        // TODO: make childChanged closure as variable!!!
+    init(key: String, snapshot: FIRDataSnapshot, childChanged: () -> Void, completion: (chat: Chat) -> Void) {
         snapshot.ref.observeEventType(.Value) { snapshot in
             self.updateFromSnapshot(snapshot)
         }
-        if let companyKey = snapshot.value?.objectForKey("company") as? String {
-            Company.fetchCompany(companyKey, childChanged: childChanged) { company in
-                self.company = company
+        if let companyKey = snapshot.value?.objectForKey("request") as? String {
+            Request.fetchRequest(companyKey, childChanged: childChanged) { request in
+                self.request = request
+                self.adminId = request.uid
+                self.adminName = request.companyName
                 completion(chat: self)
             }
         }
+        
+//        senderId = snapshot.value?.objectForKey("users") as? String
+        if let senderId = senderId {
+            User.fetchCurrentUserName(senderId) { name in
+                self.senderName = name
+            }
+        }
+    }
     
+    func fetchUserIds(completion: ([String]) -> Void) {
+        ref?.child("users").observeSingleEventOfType(.Value, withBlock: { snapshot in
+            guard let dictionary = snapshot.value as? [String: Bool] else {return}
+            completion(Array(dictionary.keys))
+        })
+    }
     
-}
+    func fetchAdminIds(completion: ([String]) -> Void) {
+        ref?.child("admins").observeSingleEventOfType(.Value, withBlock: { snapshot in
+            guard let dictionary = snapshot.value as? [String: Bool] else {return}
+            completion(Array(dictionary.keys))
+        
+        })
+    }
+
     func updateFromSnapshot(snapshot: FIRDataSnapshot) {
         ref = snapshot.ref
     }
     
     func saveCompany(completion: (error: NSError?) -> Void) {
-        ref?.child("company").setValue(company?.ref?.key) { error, ref in
+        ref?.child("request").setValue(request?.ref?.key) { error, ref in
             completion(error: error)
         }
     }
@@ -73,7 +97,7 @@ final class Chat {
     
     static func fetchChat(key: String, childChanged: () -> Void, completion: (chat: Chat) -> Void) {
         ref.child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            let _ = Chat(snapshot: snapshot, childChanged: childChanged) { chat in
+            let _ = Chat(key: key, snapshot: snapshot, childChanged: childChanged) { chat in
                 completion(chat: chat)
             }
         })

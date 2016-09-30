@@ -14,6 +14,7 @@ import JSQMessagesViewController
 import Firebase
 import FirebaseDatabase
 
+
 class MessageDialogViewController: JSQMessagesViewController {
     
     // MARK: Properties
@@ -56,7 +57,6 @@ class MessageDialogViewController: JSQMessagesViewController {
         if senderDisplayName == nil {
             senderDisplayName = FIRAuth.auth()?.currentUser?.email
         }
-        
         setUpViews()
         setUpConstraints()
         setUpRightBarButton()
@@ -67,6 +67,7 @@ class MessageDialogViewController: JSQMessagesViewController {
         super.viewDidAppear(true)
         observeMessages()
         observeTyping()
+        
     }
     //MARK: - Actions
     
@@ -127,8 +128,30 @@ class MessageDialogViewController: JSQMessagesViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!,
                                      senderDisplayName: String!, date: NSDate!) {
-        let timestamp = date.timeIntervalSince1970
+        print(senderId)
+        chat?.fetchUserIds({ userIds in
+            userIds.forEach{
+                if $0 != senderId{
+                    User.fetchCurrentUserPushId($0, completion: {pushId in
+                        (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
+                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId!)"]])
+                    })
+                }
+            }
+        })
         
+        chat?.fetchAdminIds({ adminIds in
+            adminIds.forEach{
+                if $0 != senderId{
+                    User.fetchCurrentUserPushId($0, completion: {pushId in
+                        (UIApplication.sharedApplication().delegate as? AppDelegate)?.oneSignal?
+                            .postNotification(["contents": ["en": "\(text)"],"include_player_ids": ["\(pushId!)"]])
+                    })
+                }
+            }
+        })
+        
+        let timestamp = date.timeIntervalSince1970
         let itemRef = messageRef.childByAutoId()
         
         let messageItem = [
@@ -181,10 +204,10 @@ class MessageDialogViewController: JSQMessagesViewController {
     }
     
     func setLogoImage(chat: Chat){
-        let nameCompany = chat.company?.name
-        
+        let nameCompany = chat.request?.companyName
+
         setTitle(nameCompany!, subtitle: "offline")
-        if let urlString = chat.company?.icon, url = NSURL(string: urlString) {
+        if let urlString = chat.request?.icon, url = NSURL(string: urlString) {
             print("url: \(url)")
             logoImageView.kf_setImageWithURL(url, placeholderImage: Icon.placeholderIcon)
         }
@@ -249,12 +272,13 @@ class MessageDialogViewController: JSQMessagesViewController {
                                  numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
+    
     override func collectionView(collectionView: JSQMessagesCollectionView!,
                                  messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         let message = messages[indexPath.item]
         if message.senderId == senderId {
             return outgoingBubbleImageView
-        } else { // 3
+        } else {
             return incomingBubbleImageView
         }
     }
@@ -280,13 +304,13 @@ class MessageDialogViewController: JSQMessagesViewController {
         chat!.ref?.child("/admins/").observeEventType(.ChildAdded) {(snapshot: FIRDataSnapshot!) in FIRDatabase.database().reference().child("users/\(snapshot.key)").observeEventType(.Value, withBlock: { snapshot in
             if message.senderId == snapshot.key
             {
-                cell.messageBubbleTopLabel.text = self.chat?.company?.name
+                cell.messageBubbleTopLabel.text = self.chat?.adminName
             } else {
                 cell.messageBubbleTopLabel.text = message.senderDisplayName
             }
         })
         }
-                if message.senderId == senderId {
+        if message.senderId == senderId {
             cell.textView!.textColor = UIColor.whiteColor()
         } else {
            cell.textView!.textColor = UIColor.blackColor()

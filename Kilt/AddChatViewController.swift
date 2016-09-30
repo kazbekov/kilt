@@ -12,7 +12,6 @@ import Sugar
 
 class AddChatViewController: UIViewController {
 
-    private let viewModel = CompaniesViewModel()
     private let viewModelRequest = RequestsViewModel()
     private let viewModelChat = AddChatViewModel()
     private let companiesCellIdentifier = "companiesCellIdentifier"
@@ -32,11 +31,7 @@ class AddChatViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setUpContraints()
-        viewModel.fetchCompanies {
-            dispatch {
-                self.tableView.reloadData()
-            }
-        }
+
         viewModelRequest.fetchRequests {
             dispatch {
                 self.tableView.reloadData()
@@ -60,14 +55,13 @@ class AddChatViewController: UIViewController {
 
 extension AddChatViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewModelChat.createChat(viewModel.companies[indexPath.row]) { errorMessage in
+        viewModelChat.createChat(viewModelRequest.requests[indexPath.row]) { errorMessage in
                                     dispatch {
                                         if let errorMessage = errorMessage {
                                             Drop.down(errorMessage, state: .Error)
                                         }
                                     }
         }
-
        navigationController?.popViewControllerAnimated(true)
     }
 }
@@ -86,7 +80,6 @@ extension AddChatViewController: UITableViewDataSource {
                     optionsInfo: nil, progressBlock: nil, completionHandler: nil)
             }
             $0.setUpWithTitle(com.companyName)
-            print("name: \(com.companyName) all: \(viewModelRequest.requests.count)")
         }
     }
     

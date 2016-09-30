@@ -34,13 +34,27 @@ struct User {
             completion(error: error)
         }
     }
-    
+  
+    static func savePushId(pushId: String?, completion: (error: NSError?) -> Void) {
+        ref?.child("pushId").setValue(pushId) { error, ref in
+          completion(error: error)
+        }
+    }
+  
     static func addCard(key: String, completion: (error: NSError?) -> Void) {
         ref?.child("cards/\(key)").setValue(true) { error, ref in
             completion(error: error)
         }
     }
-    
+
+    static func fetchCurrentUserName(userUID: String, completion: (String?) -> Void) {
+        if userUID == FIRAuth.auth()?.currentUser?.uid {
+            ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                completion(snapshot.value?["name"] as? String)
+            })
+        }
+    }
+
     static func addChat(key: String, completion: (error: NSError?) -> Void) {
         ref?.child("chats/\(key)").setValue(true) { error, ref in
             completion(error: error)
@@ -60,7 +74,7 @@ struct User {
             completion(snapshot.value?["name"] as? String)
         })
     }
-    
+
     static func fetchAddress(completion: (String?) -> Void) {
         ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             completion(snapshot.value?["address"] as? String)
@@ -86,4 +100,13 @@ struct User {
             completion(snapshot: snapshot)
         }
     }
+    
+    static func fetchCurrentUserPushId(userUID: String, completion: (String?) -> Void) {
+        if userUID == FIRAuth.auth()?.currentUser?.uid {
+            ref?.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                completion(snapshot.value?["pushId"] as? String)
+            })
+        }
+    }
+    
 }
