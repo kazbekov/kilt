@@ -78,9 +78,6 @@ class MessagesViewController: UIViewController {
     }
     
     func refresh(refreshControl: UIRefreshControl) {
-//        viewModel.fetchChats {
-//            dispatch { self.tableView.reloadData() }
-//        }
         refreshControl.endRefreshing()
     }
     
